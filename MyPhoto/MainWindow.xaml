@@ -71,6 +71,7 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
+        
         <Grid Grid.Column="0"
               Grid.Row="0"
               HorizontalAlignment="Stretch"
@@ -85,7 +86,7 @@
                           Height="32"
                           HorizontalAlignment="Left"
                           VerticalAlignment="Top"
-                          FontSize="18"
+                          FontSize="24"
                           FontFamily="Segoe MDL2 Assets"
                           Background="{x:Null}"
                           FocusVisualStyle="{x:Null}"
@@ -106,17 +107,57 @@
                 </ToggleButton.Style>
             </ToggleButton>
         </Grid>
+        
         <Image x:Name="image"
                Grid.Column="1"
                Grid.Row="0"
                HorizontalAlignment="Center"
                VerticalAlignment="Center"/>
+
+        <StackPanel x:Name="menutransform"
+                    Orientation="Horizontal"
+                    Grid.Column="1"
+                    Grid.Row="0"
+                    Background="#7F000000"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Top">
+            <Button Content="&#xE1A4;"
+                    FontFamily="Segoe MDL2 Assets"
+                    VerticalContentAlignment="Center"
+                    HorizontalContentAlignment="Center"
+                    FontSize="24"
+                    Width="32"
+                    Height="32"/>
+            <Button Content="&#xE12E;"
+                    FontFamily="Segoe MDL2 Assets"
+                    VerticalContentAlignment="Center"
+                    HorizontalContentAlignment="Center"
+                    FontSize="24"
+                    Width="32"
+                    Height="32"/>
+            <Button Content="&#xE1A3;"
+                    FontFamily="Segoe MDL2 Assets"
+                    VerticalContentAlignment="Center"
+                    HorizontalContentAlignment="Center"
+                    FontSize="24"
+                    Width="32"
+                    Height="32"/>
+            <Button Content="&#xE14A;"
+                    FontFamily="Segoe MDL2 Assets"
+                    VerticalContentAlignment="Center"
+                    HorizontalContentAlignment="Center"
+                    FontSize="24"
+                    Width="32"
+                    Height="32"/>
+        </StackPanel>
+        
         <Grid x:Name="statusbar"
               Grid.Column="0"
               Grid.ColumnSpan="3"
               Grid.Row="1"
               Height="24">
         </Grid>
+        
         <Grid x:Name="menu" 
               Grid.Column="0"
               Grid.ColumnSpan="3"
