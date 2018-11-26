@@ -106,10 +106,23 @@
                 </ToggleButton.Style>
             </ToggleButton>
         </Grid>
+        <Image x:Name="image"
+               Grid.Column="1"
+               Grid.Row="0"
+               HorizontalAlignment="Center"
+               VerticalAlignment="Center"/>
+        <Grid x:Name="statusbar"
+              Grid.Column="0"
+              Grid.ColumnSpan="3"
+              Grid.Row="1"
+              Height="24">
+        </Grid>
         <Grid x:Name="menu" 
               Grid.Column="0"
+              Grid.ColumnSpan="3"
               Grid.Row="0"
               Grid.RowSpan="2"
+              Panel.ZIndex="100"
               ClipToBounds="False"
               Background="#FF246DAE"
               Margin="-200 32 0 0"
@@ -138,17 +151,6 @@
                     </Style.Triggers>
                 </Style>
             </Grid.Style>
-        </Grid>
-        <Image x:Name="image"
-               Grid.Column="1"
-               Grid.Row="0"
-               HorizontalAlignment="Center"
-               VerticalAlignment="Center"/>
-        <Grid x:Name="statusbar"
-              Grid.Column="0"
-              Grid.ColumnSpan="3"
-              Grid.Row="1"
-              Height="24">
         </Grid>
     </Grid>
 </Window>
