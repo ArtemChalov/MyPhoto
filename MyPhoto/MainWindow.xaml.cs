@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -26,6 +27,30 @@ namespace MyPhoto
         {
             InitializeComponent();
             this.DataContext = this;
+        }
+
+        public static WriteableBitmap CreateFromFile(string filePath)
+        {
+            BitmapImage bmpImage = new BitmapImage();
+            WriteableBitmap wBitmap = null;
+            try {
+                using (var fs = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read)) {
+                    bmpImage.BeginInit();
+                    bmpImage.CacheOption = BitmapCacheOption.OnLoad;
+                    bmpImage.StreamSource = fs;
+                    bmpImage.EndInit();
+                }
+
+                wBitmap = new WriteableBitmap(bmpImage);
+            }
+            catch {
+                MessageBox.Show("Файл имеет не верный формат\nили поврежден.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            finally {
+                bmpImage.StreamSource = null;
+                bmpImage = null;
+            }
+            return wBitmap;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
