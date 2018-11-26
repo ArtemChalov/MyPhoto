@@ -27,6 +27,10 @@ namespace MyPhoto
         {
             InitializeComponent();
             this.DataContext = this;
+            string baseDir = System.IO.Path.GetFullPath(System.Reflection.Assembly.GetExecutingAssembly().Location);
+            DirectoryInfo directory = (new DirectoryInfo(baseDir)).Parent.Parent.Parent;
+            string imgdir = System.IO.Path.GetPathRoot(System.IO.Path.GetPathRoot(baseDir));
+            image.Source = CreateFromFile(directory.FullName + "\\Test_image.jpg");
         }
 
         public static WriteableBitmap CreateFromFile(string filePath)
