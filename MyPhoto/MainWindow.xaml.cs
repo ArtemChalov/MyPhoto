@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MVVM;
+using MyPhoto.Utilities;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
@@ -23,6 +25,9 @@ namespace MyPhoto
     /// </summary>
     public partial class MainWindow: Window, INotifyPropertyChanged
     {
+        private ControlTransformer _ImageViewTransformer;
+        private ICommand _ViewTransformCmd;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -31,7 +36,24 @@ namespace MyPhoto
             DirectoryInfo directory = (new DirectoryInfo(baseDir)).Parent.Parent.Parent;
             string imgdir = System.IO.Path.GetPathRoot(System.IO.Path.GetPathRoot(baseDir));
             image.Source = CreateFromFile(directory.FullName + "\\Test_image.jpg");
+            if (image.Source != null)
+                _ImageViewTransformer = 
+                    new ControlTransformer(image, (image.Source as WriteableBitmap).PixelWidth, (image.Source as WriteableBitmap).PixelHeight);
         }
+
+        #region Commands
+
+        public ICommand ViewTransformCmd
+        {
+            get
+            {
+                return _ViewTransformCmd ??
+                (_ViewTransformCmd = new DelegateCommand((obj) =>
+                _ImageViewTransformer.ExecuteTrasforWith(obj as string), (obj) => image.Source != null));
+            }
+        }
+
+        #endregion
 
         public static WriteableBitmap CreateFromFile(string filePath)
         {

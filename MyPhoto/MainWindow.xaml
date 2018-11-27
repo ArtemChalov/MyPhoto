@@ -107,12 +107,17 @@
                 </ToggleButton.Style>
             </ToggleButton>
         </Grid>
-        
-        <Image x:Name="image"
-               Grid.Column="1"
-               Grid.Row="0"
-               HorizontalAlignment="Center"
-               VerticalAlignment="Center"/>
+
+        <Border Grid.Column="1"
+                Grid.Row="0"
+                Background="Transparent"
+                Padding="2"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch">
+            <Image x:Name="image" 
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"/>
+        </Border>
 
         <StackPanel x:Name="menutransform"
                     Orientation="Horizontal"
@@ -128,7 +133,8 @@
                     Margin="5 5 0 5"
                     FontSize="24"
                     Width="32"
-                    Height="32"/>
+                    Height="32"
+                    Command="{Binding ViewTransformCmd}" CommandParameter="Zoom-"/>
             <Button Content="&#xE12E;"
                     FontFamily="Segoe MDL2 Assets"
                     VerticalContentAlignment="Center"
@@ -136,7 +142,8 @@
                     Margin="5"
                     FontSize="24"
                     Width="32"
-                    Height="32"/>
+                    Height="32"
+                    Command="{Binding ViewTransformCmd}" CommandParameter="Zoom+"/>
             <Button Content="&#xE1A3;"
                     FontFamily="Segoe MDL2 Assets"
                     VerticalContentAlignment="Center"
@@ -144,7 +151,8 @@
                     Margin="5"
                     FontSize="24"
                     Width="32"
-                    Height="32"/>
+                    Height="32"
+                    Command="{Binding ViewTransformCmd}" CommandParameter="OriginalSize"/>
             <Button Content="&#xE91B;"
                     FontFamily="Segoe MDL2 Assets"
                     VerticalContentAlignment="Center"
@@ -152,7 +160,8 @@
                     Margin="5"
                     FontSize="24"
                     Width="32"
-                    Height="32"/>
+                    Height="32"
+                    Command="{Binding ViewTransformCmd}" CommandParameter="FitToParent"/>
             <Button Content="&#xE14A;"
                     FontFamily="Segoe MDL2 Assets"
                     VerticalContentAlignment="Center"
@@ -160,7 +169,8 @@
                     Margin="5"
                     FontSize="24"
                     Width="32"
-                    Height="32"/>
+                    Height="32"
+                    Command="{Binding ViewTransformCmd}" CommandParameter="Rotate"/>
         </StackPanel>
         
         <Grid x:Name="statusbar"

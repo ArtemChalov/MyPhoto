@@ -54,6 +54,9 @@
     <ApplicationDefinition Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
     </ApplicationDefinition>
+    <Compile Include="MVVM\BaseViewModel.cs" />
+    <Compile Include="MVVM\DelegateCommand.cs" />
+    <Compile Include="Utilities\ControlTransformer.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
