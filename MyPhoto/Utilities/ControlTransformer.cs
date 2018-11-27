@@ -9,8 +9,7 @@ namespace MyPhoto.Utilities
     /// <summary>
     /// The class that can transform control inherited from FrameworkElement passed in constructor
     /// with method is ExecuteTrasforWith(string transmethodname);
-    /// The full supported method's list available with method GetMethods,
-    /// and can be extended with method is AddNewTransormation().
+    /// The full supported method's list available with method GetMethods.
     /// </summary>
     class ControlTransformer
     {
@@ -38,27 +37,6 @@ namespace MyPhoto.Utilities
                 { "FitToParent", FitToParent },
                 { "Rotate", Rotate }
             };
-        }
-
-        /// <summary>
-        /// Add new transformation method
-        /// </summary>
-        /// <param name="transmethodname">Transformation method name.</param>
-        /// <param name="method">Executable method.</param>
-        /// <returns>Returns true if method was added successful.</returns>
-        public bool AddNewTransormation(string transmethodname, Action method)
-        {
-            if (_TransformationCollection.ContainsKey(transmethodname)) return false;
-            else {
-                try {
-                    _TransformationCollection.Add(transmethodname, method);
-                }
-                catch (Exception e) {
-                    throw e;
-                }
-            }
-
-            return false;
         }
 
         /// <summary>
