@@ -140,7 +140,7 @@ namespace MyPhoto
 
         private void Menubtn_Click(object sender, RoutedEventArgs e)
         {
-
+            if (!IsMenuOpened) IsMenuOpened = true;
         }
     }
 }

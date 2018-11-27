@@ -189,7 +189,7 @@
             <Grid.Style>
                 <Style>
                     <Style.Triggers>
-                        <DataTrigger Binding="{Binding ElementName=menubtn, Path=IsChecked}" Value="True">
+                        <DataTrigger Binding="{Binding Path=IsMenuOpened}" Value="True">
                             <DataTrigger.EnterActions>
                                 <BeginStoryboard>
                                     <Storyboard>
