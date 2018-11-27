@@ -11,16 +11,16 @@
         Height="450" Width="800"
         SizeChanged="Window_SizeChanged">
     <Window.Resources>
-        <ThicknessAnimation x:Key="close"  To="-200 32 0 0" Duration="0:0:0.1" Storyboard.TargetProperty="Margin"/>
-        <ThicknessAnimation x:Key="open"  To="0 32 0 0" Duration="0:0:0.1" Storyboard.TargetProperty="Margin"/>
+        <ThicknessAnimation x:Key="close"  To="-200 0 0 0" Duration="0:0:0.1" Storyboard.TargetProperty="Margin"/>
+        <ThicknessAnimation x:Key="open"  To="0 0 0 0" Duration="0:0:0.1" Storyboard.TargetProperty="Margin"/>
         <Style TargetType="{x:Type Button}">
                 <Setter Property="Background" Value="Transparent"/>
                 <Setter Property="BorderBrush" Value="Transparent"/>
                 <Setter Property="Foreground" Value="WhiteSmoke"/>
-                <Setter Property="BorderThickness" Value="1"/>
-                <Setter Property="FontSize" Value="16" />
-                <Setter Property="FontFamily" Value="./#Segoe UI" />
-                <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="FontSize" Value="24" />
+            <Setter Property="FontFamily" Value="Segoe MDL2 Assets"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
                 <Setter Property="VerticalContentAlignment" Value="Center"/>
                 <Setter Property="Template">
                     <Setter.Value>
@@ -125,43 +125,34 @@
                     VerticalContentAlignment="Center"
                     HorizontalContentAlignment="Center"
                     Margin="5 5 0 5"
-                    FontSize="24"
                     Width="32"
                     Height="32"
                     Command="{Binding ViewTransformCmd}" CommandParameter="Zoom-"/>
             <Button Content="&#xE12E;"
-                    FontFamily="Segoe MDL2 Assets"
                     VerticalContentAlignment="Center"
                     HorizontalContentAlignment="Center"
                     Margin="5"
-                    FontSize="24"
                     Width="32"
                     Height="32"
                     Command="{Binding ViewTransformCmd}" CommandParameter="Zoom+"/>
             <Button Content="&#xE1A3;"
-                    FontFamily="Segoe MDL2 Assets"
                     VerticalContentAlignment="Center"
                     HorizontalContentAlignment="Center"
                     Margin="5"
-                    FontSize="24"
                     Width="32"
                     Height="32"
                     Command="{Binding ViewTransformCmd}" CommandParameter="OriginalSize"/>
             <Button Content="&#xE91B;"
-                    FontFamily="Segoe MDL2 Assets"
                     VerticalContentAlignment="Center"
                     HorizontalContentAlignment="Center"
                     Margin="5"
-                    FontSize="24"
                     Width="32"
                     Height="32"
                     Command="{Binding ViewTransformCmd}" CommandParameter="FitToParent"/>
             <Button Content="&#xE14A;"
-                    FontFamily="Segoe MDL2 Assets"
                     VerticalContentAlignment="Center"
                     HorizontalContentAlignment="Center"
                     Margin="5"
-                    FontSize="24"
                     Width="32"
                     Height="32"
                     Command="{Binding ViewTransformCmd}" CommandParameter="Rotate"/>
@@ -174,19 +165,20 @@
               Height="24">
         </Grid>
         
-        <Grid x:Name="menu" 
+        <Border x:Name="menu" 
               Grid.Column="0"
               Grid.ColumnSpan="3"
               Grid.Row="0"
+                CornerRadius="0 20 0 0"
               Grid.RowSpan="2"
               Panel.ZIndex="100"
               ClipToBounds="False"
-              Background="#FF246DAE"
-              Margin="-200 32 0 0"
+              Background="#FF3087D4"
+              Margin="-200 0 0 0"
               Width="200"
               HorizontalAlignment="Left"
               VerticalAlignment="Stretch">
-            <Grid.Style>
+            <Border.Style>
                 <Style>
                     <Style.Triggers>
                         <DataTrigger Binding="{Binding Path=IsMenuOpened}" Value="True">
@@ -207,7 +199,17 @@
                         </DataTrigger>
                     </Style.Triggers>
                 </Style>
-            </Grid.Style>
-        </Grid>
+            </Border.Style>
+            <StackPanel Orientation="Vertical">
+                <Button x:Name="closemenubtn" Content="&#xE0A6;" 
+                        VerticalContentAlignment="Center"
+                        HorizontalContentAlignment="Center"
+                        Margin="5 3 3 5"
+                        Width="32"
+                        Height="32"
+                        HorizontalAlignment="Right"
+                        Click="Closemenubtn_Click"/>
+            </StackPanel>
+        </Border>
     </Grid>
 </Window>

@@ -95,7 +95,7 @@ namespace MyPhoto
 
         #endregion
 
-        #region Image move events
+        #region Events
 
         private void Image_MouseDown(object sender, MouseButtonEventArgs e)
         {
@@ -128,8 +128,6 @@ namespace MyPhoto
             Mouse.OverrideCursor = Cursors.Arrow;
         }
 
-        #endregion
-
         private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             if (image.Width != double.NaN)
@@ -142,5 +140,12 @@ namespace MyPhoto
         {
             if (!IsMenuOpened) IsMenuOpened = true;
         }
+
+        private void Closemenubtn_Click(object sender, RoutedEventArgs e)
+        {
+            if (IsMenuOpened) IsMenuOpened = false;
+        }
+
+        #endregion
     }
 }
