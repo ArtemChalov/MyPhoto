@@ -1,22 +1,12 @@
 ﻿using MVVM;
 using MyPhoto.Utilities;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+
 
 namespace MyPhoto
 {
@@ -25,6 +15,8 @@ namespace MyPhoto
     /// </summary>
     public partial class MainWindow: Window, INotifyPropertyChanged
     {
+        private Point originalPoint;
+        private Thickness originalMargin;
         private ControlTransformer _ImageViewTransformer;
         private ICommand _ViewTransformCmd;
 
@@ -79,11 +71,58 @@ namespace MyPhoto
             return wBitmap;
         }
 
+        #region PropertyChanged interface
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         public void OnPropertyChanged([CallerMemberName]string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        #endregion
+
+        #region Image move events
+
+        private void Image_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.MiddleButton == MouseButtonState.Pressed) {
+                image.CaptureMouse();
+                image.Width = image.ActualWidth;
+                image.Height = image.ActualHeight;
+                originalPoint = e.GetPosition(image.Parent as IInputElement);
+                originalMargin = image.Margin;
+                Mouse.OverrideCursor = Cursors.ScrollAll;
+            }
+        }
+
+        private void Image_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (e.MiddleButton == MouseButtonState.Pressed) {
+                Point newPoint = e.GetPosition(image.Parent as IInputElement);
+                Thickness newMargin = new Thickness();
+                newMargin.Left = originalMargin.Left + newPoint.X - originalPoint.X; ;
+                newMargin.Top = originalMargin.Top + newPoint.Y - originalPoint.Y;
+                newMargin.Right = -newMargin.Left;
+                newMargin.Bottom = -newMargin.Top;
+                image.Margin = newMargin;
+            }
+        }
+
+        private void Image_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            image.ReleaseMouseCapture();
+            Mouse.OverrideCursor = Cursors.Arrow;
+        }
+
+        #endregion
+
+        private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            if (image.Width != double.NaN)
+                image.Width = double.NaN;
+            if (image.Height != double.NaN)
+                image.Height = double.NaN;
         }
     }
 }

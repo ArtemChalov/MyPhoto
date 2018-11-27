@@ -8,7 +8,8 @@
         WindowState="Normal"
         Title="MyPhoto"
         Background="Black"
-        Height="450" Width="800">
+        Height="450" Width="800"
+        SizeChanged="Window_SizeChanged">
     <Window.Resources>
         <ThicknessAnimation x:Key="close"  To="-200 32 0 0" Duration="0:0:0.1" Storyboard.TargetProperty="Margin"/>
         <ThicknessAnimation x:Key="open"  To="0 32 0 0" Duration="0:0:0.1" Storyboard.TargetProperty="Margin"/>
@@ -116,7 +117,10 @@
                 VerticalAlignment="Stretch">
             <Image x:Name="image" 
                    HorizontalAlignment="Center"
-                   VerticalAlignment="Center"/>
+                   VerticalAlignment="Center"
+                   MouseDown="Image_MouseDown"
+                   MouseMove="Image_MouseMove"
+                   MouseUp="Image_MouseUp"/>
         </Border>
 
         <StackPanel x:Name="menutransform"

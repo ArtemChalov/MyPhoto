@@ -80,15 +80,37 @@ namespace MyPhoto.Utilities
 
         private void ZoomAdd()
         {
-            _imagecontrol.Width = _imagecontrol.Width * 1.1;
-            _imagecontrol.Height = _imagecontrol.Height * 1.1;
+            if (_imagecontrol.Width > 0)
+                _imagecontrol.Width = _imagecontrol.Width * 1.1;
+            else {
+                _imagecontrol.Width = _imagecontrol.ActualWidth;
+                _imagecontrol.Width = _imagecontrol.Width * 1.1;
+            }
+            if (_imagecontrol.Height > 0)
+                _imagecontrol.Height = _imagecontrol.Height * 1.1;
+            else {
+                _imagecontrol.Height = _imagecontrol.ActualHeight;
+                _imagecontrol.Height = _imagecontrol.Width * 1.1;
+            }
+
             _IsCenterFitted = false;
         }
 
         private void ZoomSub()
         {
-            _imagecontrol.Width = _imagecontrol.Width / 1.1;
-            _imagecontrol.Height = _imagecontrol.Height / 1.1;
+            if (_imagecontrol.Width > 0)
+                _imagecontrol.Width = _imagecontrol.Width / 1.1;
+            else {
+                _imagecontrol.Width = _imagecontrol.ActualWidth;
+                _imagecontrol.Width = _imagecontrol.Width / 1.1;
+            }
+            if (_imagecontrol.Height > 0)
+                _imagecontrol.Height = _imagecontrol.Height / 1.1;
+            else {
+                _imagecontrol.Height = _imagecontrol.ActualHeight;
+                _imagecontrol.Height = _imagecontrol.Width / 1.1;
+            }
+           
             _IsCenterFitted = false;
         }
 
