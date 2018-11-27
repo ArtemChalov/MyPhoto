@@ -33,6 +33,19 @@ namespace MyPhoto
                     new ControlTransformer(image, (image.Source as WriteableBitmap).PixelWidth, (image.Source as WriteableBitmap).PixelHeight);
         }
 
+        #region Properties
+
+        private bool _IsMenuOpened;
+
+        public bool IsMenuOpened
+        {
+            get { return _IsMenuOpened; }
+            set { _IsMenuOpened = value; OnPropertyChanged(); }
+        }
+
+
+        #endregion
+
         #region Commands
 
         public ICommand ViewTransformCmd
@@ -123,6 +136,11 @@ namespace MyPhoto
                 image.Width = double.NaN;
             if (image.Height != double.NaN)
                 image.Height = double.NaN;
+        }
+
+        private void Menubtn_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

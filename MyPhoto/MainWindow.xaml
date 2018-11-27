@@ -81,32 +81,22 @@
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <ToggleButton x:Name="menubtn"
-                          Grid.Row="0"
-                          Width="32"
-                          Height="32"
-                          HorizontalAlignment="Left"
-                          VerticalAlignment="Top"
-                          FontSize="24"
-                          FontFamily="Segoe MDL2 Assets"
-                          Background="{x:Null}"
-                          FocusVisualStyle="{x:Null}"
-                          HorizontalContentAlignment="Center"
-                          VerticalContentAlignment="Center"
-                          Foreground="WhiteSmoke">
-                <ToggleButton.Style>
-                    <Style>
-                        <Style.Triggers>
-                            <Trigger Property="ToggleButton.IsChecked" Value="True">
-                                <Setter Property="ToggleButton.Content" Value="&#xE115;"/>
-                            </Trigger>
-                            <Trigger Property="ToggleButton.IsChecked" Value="False">
-                                <Setter Property="ToggleButton.Content" Value="&#xE700;"/>
-                            </Trigger>
-                        </Style.Triggers>
-                    </Style>
-                </ToggleButton.Style>
-            </ToggleButton>
+            <Button x:Name="menubtn"
+                    Grid.Row="0"
+                    Width="32"
+                    Height="32"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    FontSize="24"
+                    FontFamily="Segoe MDL2 Assets"
+                    Background="{x:Null}"
+                    FocusVisualStyle="{x:Null}"
+                    HorizontalContentAlignment="Center"
+                    VerticalContentAlignment="Center"
+                    Foreground="WhiteSmoke" 
+                    Content="&#xE700;"
+                    Click="Menubtn_Click">
+            </Button>
         </Grid>
 
         <Border Grid.Column="1"
