@@ -125,6 +125,7 @@
                     FontFamily="Segoe MDL2 Assets"
                     VerticalContentAlignment="Center"
                     HorizontalContentAlignment="Center"
+                    Margin="5 5 0 5"
                     FontSize="24"
                     Width="32"
                     Height="32"/>
@@ -132,6 +133,7 @@
                     FontFamily="Segoe MDL2 Assets"
                     VerticalContentAlignment="Center"
                     HorizontalContentAlignment="Center"
+                    Margin="5"
                     FontSize="24"
                     Width="32"
                     Height="32"/>
@@ -139,6 +141,15 @@
                     FontFamily="Segoe MDL2 Assets"
                     VerticalContentAlignment="Center"
                     HorizontalContentAlignment="Center"
+                    Margin="5"
+                    FontSize="24"
+                    Width="32"
+                    Height="32"/>
+            <Button Content="&#xE91B;"
+                    FontFamily="Segoe MDL2 Assets"
+                    VerticalContentAlignment="Center"
+                    HorizontalContentAlignment="Center"
+                    Margin="5"
                     FontSize="24"
                     Width="32"
                     Height="32"/>
@@ -146,6 +157,7 @@
                     FontFamily="Segoe MDL2 Assets"
                     VerticalContentAlignment="Center"
                     HorizontalContentAlignment="Center"
+                    Margin="5"
                     FontSize="24"
                     Width="32"
                     Height="32"/>
