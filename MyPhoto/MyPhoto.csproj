@@ -99,5 +99,8 @@
   <ItemGroup>
     <Resource Include="Test_image.jpg" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Types\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
