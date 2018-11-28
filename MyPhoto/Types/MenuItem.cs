@@ -11,6 +11,12 @@ namespace MyPhoto.Types
         private object _Content;
         private string _Description;
 
+        public MenuItem(object content, string description)
+        {
+            _Content = content;
+            _Description = description;
+        }
+
         public object Content
         {
             get { return Content; }
