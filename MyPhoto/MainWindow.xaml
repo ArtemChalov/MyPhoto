@@ -209,6 +209,12 @@
                         Height="32"
                         HorizontalAlignment="Right"
                         Click="Closemenubtn_Click"/>
+                <ListBox x:Name="menulist" Background="Transparent"
+                         Foreground="WhiteSmoke"
+                         FocusVisualStyle="{x:Null}">
+                    <Button />
+                    <TextBlock />
+                </ListBox>
             </StackPanel>
         </Border>
     </Grid>

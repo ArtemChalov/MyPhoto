@@ -43,6 +43,15 @@ namespace MyPhoto
             set { _IsMenuOpened = value; OnPropertyChanged(); }
         }
 
+        private int _MenuList;
+
+        public int MenuList
+        {
+            get { return _MenuList; }
+            set { _MenuList = value; }
+        }
+
+
 
         #endregion
 
