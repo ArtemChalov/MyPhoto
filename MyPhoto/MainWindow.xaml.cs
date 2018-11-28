@@ -38,15 +38,16 @@ namespace MyPhoto
 
         private void MenuInit()
         {
+            MenuItemFactory itemFactory = new MenuItemFactory();
             MenuList = new StackPanel()
             {
-                Orientation = Orientation.Vertical
+                Orientation = Orientation.Vertical,
+                HorizontalAlignment = HorizontalAlignment.Stretch
             };
-            //MenuList.Children.Add(BarMenuItem.CreateMenuButton("\uED25", "Открыть", OpenFile));
-            //MenuList.Children.Add(BarMenuItem.CreateMenuButton("\uE105", "Сохранить", SaveFile));
-            //MenuList.Children.Add(BarMenuItem.CreateMenuButton("\uEA35", "Сохранить как", SaveAsFile));
-
-            //OnPropertyChanged("MenuList");
+            MenuList.Children.Add(itemFactory.CreateMenuItem("\uED25", "Открыть", OpenFile));
+            MenuList.Children.Add(itemFactory.CreateMenuItem("\uE105", "Сохранить", SaveFile));
+            MenuList.Children.Add(itemFactory.CreateMenuItem("\uEA35", "Сохранить как", SaveAsFile));
+            itemFactory = null;
         }
 
         private void SaveAsFile()
