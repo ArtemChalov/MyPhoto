@@ -56,7 +56,6 @@
     </ApplicationDefinition>
     <Compile Include="MVVM\BaseViewModel.cs" />
     <Compile Include="MVVM\DelegateCommand.cs" />
-    <Compile Include="Types\MenuItem.cs" />
     <Compile Include="Utilities\ControlTransformer.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -100,6 +99,8 @@
   <ItemGroup>
     <Resource Include="Test_image.jpg" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Types\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

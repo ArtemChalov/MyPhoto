@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.IO;
 using System.Runtime.CompilerServices;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
 
@@ -19,11 +20,13 @@ namespace MyPhoto
         private Thickness originalMargin;
         private ControlTransformer _ImageViewTransformer;
         private ICommand _ViewTransformCmd;
+        private StackPanel _MenuList;
 
         public MainWindow()
         {
             InitializeComponent();
             this.DataContext = this;
+            MenuInit();
             string baseDir = System.IO.Path.GetFullPath(System.Reflection.Assembly.GetExecutingAssembly().Location);
             DirectoryInfo directory = (new DirectoryInfo(baseDir)).Parent.Parent.Parent;
             string imgdir = System.IO.Path.GetPathRoot(System.IO.Path.GetPathRoot(baseDir));
@@ -31,6 +34,34 @@ namespace MyPhoto
             if (image.Source != null)
                 _ImageViewTransformer = 
                     new ControlTransformer(image, (image.Source as WriteableBitmap).PixelWidth, (image.Source as WriteableBitmap).PixelHeight);
+        }
+
+        private void MenuInit()
+        {
+            MenuList = new StackPanel()
+            {
+                Orientation = Orientation.Vertical
+            };
+            //MenuList.Children.Add(BarMenuItem.CreateMenuButton("\uED25", "Открыть", OpenFile));
+            //MenuList.Children.Add(BarMenuItem.CreateMenuButton("\uE105", "Сохранить", SaveFile));
+            //MenuList.Children.Add(BarMenuItem.CreateMenuButton("\uEA35", "Сохранить как", SaveAsFile));
+
+            //OnPropertyChanged("MenuList");
+        }
+
+        private void SaveAsFile()
+        {
+            MessageBox.Show("Сохранить как");
+        }
+
+        private void SaveFile()
+        {
+            MessageBox.Show("Сохранить");
+        }
+
+        private void OpenFile()
+        {
+            MessageBox.Show("Открыть");
         }
 
         #region Properties
@@ -43,15 +74,11 @@ namespace MyPhoto
             set { _IsMenuOpened = value; OnPropertyChanged(); }
         }
 
-        private int _MenuList;
-
-        public int MenuList
+        public StackPanel MenuList
         {
             get { return _MenuList; }
             set { _MenuList = value; }
         }
-
-
 
         #endregion
 
