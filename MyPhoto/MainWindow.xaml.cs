@@ -1,5 +1,6 @@
 ﻿using MVVM;
 using MyPhoto.Utilities;
+using System;
 using System.ComponentModel;
 using System.IO;
 using System.Runtime.CompilerServices;
@@ -28,12 +29,15 @@ namespace MyPhoto
             InitializeComponent();
             this.DataContext = this;
             MenuInit();
-            string baseDir = System.IO.Path.GetFullPath(System.Reflection.Assembly.GetExecutingAssembly().Location);
-            DirectoryInfo directory = (new DirectoryInfo(baseDir)).Parent.Parent.Parent;
-            string imgdir = System.IO.Path.GetPathRoot(System.IO.Path.GetPathRoot(baseDir));
-            image.Source = CreateFromFile(directory.FullName + "\\Test_image.jpg");
+            TransformerInit();
+        }
+
+        #region Init methods
+
+        private void TransformerInit()
+        {
             if (image.Source != null)
-                _ImageViewTransformer = 
+                _ImageViewTransformer =
                     new ControlTransformer(image, (image.Source as WriteableBitmap).PixelWidth, (image.Source as WriteableBitmap).PixelHeight);
         }
 
@@ -51,20 +55,32 @@ namespace MyPhoto
             itemFactory = null;
         }
 
+        #endregion
+
+        #region Private methods
+
         private void SaveAsFile()
         {
+            // Close menu panel
+            IsMenuOpened = false;
             MessageBox.Show("Сохранить как");
         }
 
         private void SaveFile()
         {
+            // Close menu panel
+            IsMenuOpened = false;
             MessageBox.Show("Сохранить");
         }
 
         private void OpenFile()
         {
+            // Close menu panel
+            IsMenuOpened = false;
             FilePath = (new FileWorker().OpenFileWithDialog());
         }
+
+        #endregion
 
         #region Properties
 
@@ -84,6 +100,7 @@ namespace MyPhoto
                 _FilePath = value;
                 if (value != null)
                 {
+                    // Show an image by path
                     image.Source = (new WriteableBitmapFactory().CreateFromFile(value));
                 }
             }
