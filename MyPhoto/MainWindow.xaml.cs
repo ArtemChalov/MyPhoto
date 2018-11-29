@@ -94,6 +94,7 @@ namespace MyPhoto
         {
             if (_Image.Source != null)
             {
+                _ImageViewTransformer = null;
                 _ImageViewTransformer =
                     new ImgPreviewTransformer(_Image, (_Image.Source as WriteableBitmap).PixelWidth, (_Image.Source as WriteableBitmap).PixelHeight);
                 //_ImageViewTransformer.ExecuteTrasforWith(Properties.Settings.Default.DefaultPreview);

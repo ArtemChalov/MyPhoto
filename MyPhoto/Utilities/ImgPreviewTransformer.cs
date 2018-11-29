@@ -23,7 +23,6 @@ namespace MyPhoto.Utilities
         private ScrollViewer _Scroll;
         private Dictionary<string, Action> _TransformationCollection;
 
-
         private double _Original_H_Offset = 1;
         private double _Original_V_Offset = 1;
         private Point _OriginalPoint;
@@ -38,10 +37,11 @@ namespace MyPhoto.Utilities
         {
             if (element.Parent is ScrollViewer parent)
             {
-                element.MouseDown += Element_MouseDown; ;
-                element.MouseUp += Element_MouseUp;
-                element.MouseMove += Element_MouseMove;
                 _control = element;
+                _control.MouseDown += Element_MouseDown; ;
+                _control.MouseUp += Element_MouseUp;
+                _control.MouseMove += Element_MouseMove;
+                _control.MouseWheel += _control_MouseWheel;
                 _Scroll = parent;
                 _Width = width;
                 _Height = height;
@@ -52,6 +52,18 @@ namespace MyPhoto.Utilities
                     { "FitToParent", FitToParent },
                     { "Rotate", Rotate }
                 };
+            }
+        }
+
+        private void _control_MouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            if (Keyboard.Modifiers == ModifierKeys.Control)
+            {
+                e.Handled = true;
+                if(e.Delta > 0)
+                    ZoomAdd();
+                else
+                    ZoomSub();
             }
         }
 
