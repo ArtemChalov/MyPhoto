@@ -17,8 +17,6 @@ namespace MyPhoto
     /// </summary>
     public partial class MainWindow: Window, INotifyPropertyChanged
     {
-        private Point originalPoint;
-        private Thickness originalMargin;
         private ScrollViewer _ScrollViewer;
         private ImgPreviewTransformer _ImageViewTransformer;
         private ICommand _ViewTransformCmd;
@@ -148,7 +146,7 @@ namespace MyPhoto
             {
                 return _ViewTransformCmd ??
                 (_ViewTransformCmd = new DelegateCommand((obj) =>
-                _ImageViewTransformer.ExecuteTrasforWith(obj as string), (obj) => _Image.Source != null));
+                _ImageViewTransformer.ExecuteTransformWith(obj as string), (obj) => _Image.Source != null));
             }
         }
 
@@ -166,38 +164,6 @@ namespace MyPhoto
         #endregion
 
         #region Events
-
-        //private void Image_MouseDown(object sender, MouseButtonEventArgs e)
-        //{
-        //    if (e.MiddleButton == MouseButtonState.Pressed)
-        //    {
-        //        image.CaptureMouse();
-        //        image.Width = image.ActualWidth;
-        //        image.Height = image.ActualHeight;
-        //        originalPoint = e.GetPosition(image.Parent as IInputElement);
-        //        originalMargin = image.Margin;
-        //        Mouse.OverrideCursor = Cursors.ScrollAll;
-        //    }
-        //}
-
-        //private void Image_MouseMove(object sender, MouseEventArgs e)
-        //{
-        //    if (e.MiddleButton == MouseButtonState.Pressed) {
-        //        Point newPoint = e.GetPosition(image.Parent as IInputElement);
-        //        Thickness newMargin = new Thickness();
-        //        newMargin.Left = originalMargin.Left + newPoint.X - originalPoint.X; ;
-        //        newMargin.Top = originalMargin.Top + newPoint.Y - originalPoint.Y;
-        //        newMargin.Right = -newMargin.Left;
-        //        newMargin.Bottom = -newMargin.Top;
-        //        image.Margin = newMargin;
-        //    }
-        //}
-
-        //private void Image_MouseUp(object sender, MouseButtonEventArgs e)
-        //{
-        //    image.ReleaseMouseCapture();
-        //    Mouse.OverrideCursor = Cursors.Arrow;
-        //}
 
         private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
         {

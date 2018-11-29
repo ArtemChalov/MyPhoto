@@ -2,73 +2,119 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
 
 namespace MyPhoto.Utilities
 {
     /// <summary>
-    /// The class that can transform control inherited from FrameworkElement passed in constructor
-    /// with method is ExecuteTrasforWith(string transmethodname);
+    /// The class that can transform control preview if it's putted into ScrollViewver
+    /// with method is ExecuteTrasforWith(string transmethodname).
     /// The full supported method's list available with method GetMethods.
+    /// Also this one class make control movable with pressed mouse weel.
     /// </summary>
     class ImgPreviewTransformer
     {
-        private FrameworkElement _imagecontrol;
+        private FrameworkElement _control;
         private readonly double _Width;
         private readonly double _Height;
         private bool _IsCenterFitted = true;
+        private ScrollViewer _Scroll;
         private Dictionary<string, Action> _TransformationCollection;
 
+
+        private double _Original_H_Offset = 1;
+        private double _Original_V_Offset = 1;
+        private Point _OriginalPoint;
+
         /// <summary>
-        /// Create a new instance of the ControlTransformer class.
+        /// Create a new instance of the ImgPreviewTransformer class.
         /// </summary>
-        /// <param name="element">The control inherited from FrameworkElement to transform with specified method.</param>
-        /// <param name="width">Original width of the control (to an Image is PixelWidth).</param>
-        /// <param name="height">Original height of the control (to an Image is PixelHeight)</param>
+        /// <param name="element">The control is derived from FrameworkElement.</param>
+        /// <param name="width">Original width of the element in pixels.</param>
+        /// <param name="height">Original height of the element in pixels)</param>
         public ImgPreviewTransformer(FrameworkElement element, double width, double height)
         {
-            _imagecontrol = element;
-            _Width = width;
-            _Height = height;
-            _TransformationCollection = new Dictionary<string, Action>{
-                { "Zoom+", ZoomAdd },
-                { "Zoom-", ZoomSub },
-                { "OriginalSize", OriginalSize },
-                { "FitToParent", FitToParent },
-                { "Rotate", Rotate }
-            };
+            if (element.Parent is ScrollViewer parent)
+            {
+                element.MouseDown += Element_MouseDown; ;
+                element.MouseUp += Element_MouseUp;
+                element.MouseMove += Element_MouseMove;
+                _control = element;
+                _Scroll = parent;
+                _Width = width;
+                _Height = height;
+                _TransformationCollection = new Dictionary<string, Action>{
+                    { "Zoom+", ZoomAdd },
+                    { "Zoom-", ZoomSub },
+                    { "OriginalSize", OriginalSize },
+                    { "FitToParent", FitToParent },
+                    { "Rotate", Rotate }
+                };
+            }
+        }
+
+        private void Element_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            _control.ReleaseMouseCapture();
+            Mouse.OverrideCursor = Cursors.Arrow;
+        }
+
+        private void Element_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.MiddleButton == MouseButtonState.Pressed)
+            {
+                _control.CaptureMouse();
+                _OriginalPoint = e.GetPosition(_Scroll);
+                _Original_V_Offset = _Scroll.VerticalOffset;
+                _Original_H_Offset = _Scroll.HorizontalOffset;
+                Mouse.OverrideCursor = Cursors.ScrollAll;
+            }
+        }
+
+        private void Element_MouseMove(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            if (e.MiddleButton == MouseButtonState.Pressed && _control.IsMouseCaptured)
+            {
+                var new_V_Offset = _Original_V_Offset + (_OriginalPoint.Y - e.GetPosition(_Scroll).Y);
+                var new_H_Offset = _Original_H_Offset + (_OriginalPoint.X - e.GetPosition(_Scroll).X);
+                _Scroll.ScrollToVerticalOffset(new_V_Offset);
+                _Scroll.ScrollToHorizontalOffset(new_H_Offset);
+            }
         }
 
         /// <summary>
         /// Get list of the available transformation method's names.
         /// </summary>
         /// <returns>List of the available transformation method's names.</returns>
-        public List<string> GetMethods() => _TransformationCollection.Select(dict => dict.Key).ToList();
+        public List<string> GetMethods() => _TransformationCollection?.Select(dict => dict.Key).ToList();
 
         /// <summary>
-        /// Apply a transformation with specified method to a corresponding control.
+        /// Apply a transformation with specified method's name.
         /// </summary>
-        /// <param name="transmethodname">Predefined in this class method name.</param>
-        public void ExecuteTrasforWith(string transmethodname)
+        /// <param name="transmethodname">Predefined in this class method's name.</param>
+        public void ExecuteTransformWith(string transmethodname)
         {
             if (String.IsNullOrEmpty(transmethodname)) return;
-            if (_TransformationCollection.ContainsKey(transmethodname))
-                _TransformationCollection[transmethodname]();
+
+            if (_TransformationCollection?.ContainsKey(transmethodname) ?? false)
+                _TransformationCollection?[transmethodname]();
         }
 
         private void ZoomAdd()
         {
-            if (_imagecontrol.Width > 0)
-                _imagecontrol.Width = _imagecontrol.Width * 1.1;
+            if (_control.Width > 0)
+                _control.Width = _control.Width * 1.1;
             else {
-                _imagecontrol.Width = _imagecontrol.ActualWidth;
-                _imagecontrol.Width = _imagecontrol.Width * 1.1;
+                _control.Width = _control.ActualWidth;
+                _control.Width = _control.Width * 1.1;
             }
-            if (_imagecontrol.Height > 0)
-                _imagecontrol.Height = _imagecontrol.Height * 1.1;
+            if (_control.Height > 0)
+                _control.Height = _control.Height * 1.1;
             else {
-                _imagecontrol.Height = _imagecontrol.ActualHeight;
-                _imagecontrol.Height = _imagecontrol.Width * 1.1;
+                _control.Height = _control.ActualHeight;
+                _control.Height = _control.Width * 1.1;
             }
 
             _IsCenterFitted = false;
@@ -76,17 +122,17 @@ namespace MyPhoto.Utilities
 
         private void ZoomSub()
         {
-            if (_imagecontrol.Width > 0)
-                _imagecontrol.Width = _imagecontrol.Width / 1.1;
+            if (_control.Width > 0)
+                _control.Width = _control.Width / 1.1;
             else {
-                _imagecontrol.Width = _imagecontrol.ActualWidth;
-                _imagecontrol.Width = _imagecontrol.Width / 1.1;
+                _control.Width = _control.ActualWidth;
+                _control.Width = _control.Width / 1.1;
             }
-            if (_imagecontrol.Height > 0)
-                _imagecontrol.Height = _imagecontrol.Height / 1.1;
+            if (_control.Height > 0)
+                _control.Height = _control.Height / 1.1;
             else {
-                _imagecontrol.Height = _imagecontrol.ActualHeight;
-                _imagecontrol.Height = _imagecontrol.Width / 1.1;
+                _control.Height = _control.ActualHeight;
+                _control.Height = _control.Width / 1.1;
             }
            
             _IsCenterFitted = false;
@@ -94,22 +140,22 @@ namespace MyPhoto.Utilities
 
         private void OriginalSize()
         {
-            _imagecontrol.Width = _Width;
-            _imagecontrol.Height = _Height;
+            _control.Width = _Width;
+            _control.Height = _Height;
             _IsCenterFitted = false;
         }
 
         private void FitToParent()
         {
-            if (_imagecontrol.Parent is FrameworkElement parent) {
-                var transform = _imagecontrol.LayoutTransform as RotateTransform;
+            if (_control.Parent is FrameworkElement parent) {
+                var transform = _control.LayoutTransform as RotateTransform;
                 var curAngle = transform?.Angle;
-                Thickness thickness = _imagecontrol.Margin;
+                Thickness thickness = _control.Margin;
                 thickness.Left = 0;
                 thickness.Top = 0;
                 thickness.Right = 0;
                 thickness.Bottom = 0;
-                _imagecontrol.Margin = thickness;
+                _control.Margin = thickness;
                 if ((curAngle / 90) % 2 > 0)
                     FitRotated(parent);
                 else
@@ -130,8 +176,8 @@ namespace MyPhoto.Utilities
                 width = height * aspectRatio;
             }
 
-            _imagecontrol.Width = width;
-            _imagecontrol.Height = height;
+            _control.Width = width;
+            _control.Height = height;
         }
 
         private void FitRotated(FrameworkElement parent)
@@ -146,22 +192,22 @@ namespace MyPhoto.Utilities
                 width = height * aspectRatio;
             }
 
-            _imagecontrol.Width = width;
-            _imagecontrol.Height = height;
+            _control.Width = width;
+            _control.Height = height;
         }
 
         private void Rotate()
         {
-            var transform = _imagecontrol.LayoutTransform as RotateTransform;
+            var transform = _control.LayoutTransform as RotateTransform;
             var curAngle = transform?.Angle ?? 0;
 
             //Swipe Width and Height
-            var tempSize = _imagecontrol.Width;
-            _imagecontrol.Width = _imagecontrol.Height;
-            _imagecontrol.Height = tempSize;
+            var tempSize = _control.Width;
+            _control.Width = _control.Height;
+            _control.Height = tempSize;
 
             // Rotate around center of rectangle
-            _imagecontrol.LayoutTransform = new RotateTransform(curAngle + 90, 0.5, 0.5);
+            _control.LayoutTransform = new RotateTransform(curAngle + 90, 0.5, 0.5);
 
             if (_IsCenterFitted)
                 FitToParent();
