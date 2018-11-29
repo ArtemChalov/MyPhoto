@@ -19,19 +19,34 @@ namespace MyPhoto
     {
         private Point originalPoint;
         private Thickness originalMargin;
+        private ScrollViewer _ScrollViewer;
         private ControlTransformer _ImageViewTransformer;
         private ICommand _ViewTransformCmd;
         private bool _IsMenuOpened;
         private string _FilePath;
+        private Image _Image;
 
         public MainWindow()
         {
             InitializeComponent();
             this.DataContext = this;
+            ImagePresenterInit();
             MenuInit();
         }
 
         #region Init methods
+
+        private void ImagePresenterInit()
+        {
+            _Image = new Image();
+            ImgViewer = new ScrollViewer
+            {
+                Padding = new Thickness(2),
+                VerticalScrollBarVisibility = ScrollBarVisibility.Auto,
+                HorizontalScrollBarVisibility = ScrollBarVisibility.Auto,
+                Content = _Image
+            };
+        }
 
         private void MenuInit()
         {
@@ -44,9 +59,9 @@ namespace MyPhoto
             };
             ICommand opencmd = new DelegateCommand((obj) => OpenFile());
             MenuList.Children.Add(itemFactory.CreateMenuItem("\uED25", "Открыть", opencmd));
-            ICommand savecmd = new DelegateCommand((obj) => SaveFile(), (obj) => image.Source != null);
+            ICommand savecmd = new DelegateCommand((obj) => SaveFile(), (obj) => _Image.Source != null);
             MenuList.Children.Add(itemFactory.CreateMenuItem("\uE105", "Сохранить", savecmd));
-            ICommand saveascmd = new DelegateCommand((obj) => SaveAsFile(), (obj) => image.Source != null);
+            ICommand saveascmd = new DelegateCommand((obj) => SaveAsFile(), (obj) => _Image.Source != null);
             MenuList.Children.Add(itemFactory.CreateMenuItem("\uEA35", "Сохранить как", saveascmd));
 
             itemFactory = null;
@@ -79,10 +94,10 @@ namespace MyPhoto
 
         private void TransformerInit()
         {
-            if (image.Source != null)
+            if (_Image.Source != null)
             {
                 _ImageViewTransformer =
-                    new ControlTransformer(image, (image.Source as WriteableBitmap).PixelWidth, (image.Source as WriteableBitmap).PixelHeight);
+                    new ControlTransformer(_Image, (_Image.Source as WriteableBitmap).PixelWidth, (_Image.Source as WriteableBitmap).PixelHeight);
                 //_ImageViewTransformer.ExecuteTrasforWith(Properties.Settings.Default.DefaultPreview);
             }
         }
@@ -90,6 +105,12 @@ namespace MyPhoto
         #endregion
 
         #region Properties
+
+        public ScrollViewer ImgViewer
+        {
+            get { return _ScrollViewer; }
+            set { _ScrollViewer = value; OnPropertyChanged(); }
+        }
 
         public bool IsMenuOpened
         {
@@ -107,12 +128,10 @@ namespace MyPhoto
                 _FilePath = value;
                 if (value != null)
                 {
-                    image.Source = null;
+                    _Image.Source = null;
                     WriteableBitmapFactory factory = new WriteableBitmapFactory();
-                    image.HorizontalAlignment = HorizontalAlignment.Center;
-                    image.VerticalAlignment = VerticalAlignment.Center;
-                    // Show an image by path
-                    image.Source = factory.CreateFromFile(value);
+                    // Create and show an image
+                    _Image.Source = factory.CreateFromFile(value);
                     factory = null;
                     TransformerInit();
                 }
@@ -129,7 +148,7 @@ namespace MyPhoto
             {
                 return _ViewTransformCmd ??
                 (_ViewTransformCmd = new DelegateCommand((obj) =>
-                _ImageViewTransformer.ExecuteTrasforWith(obj as string), (obj) => image.Source != null));
+                _ImageViewTransformer.ExecuteTrasforWith(obj as string), (obj) => _Image.Source != null));
             }
         }
 
@@ -148,43 +167,43 @@ namespace MyPhoto
 
         #region Events
 
-        private void Image_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            if (e.MiddleButton == MouseButtonState.Pressed) {
-                image.CaptureMouse();
-                image.Width = image.ActualWidth;
-                image.Height = image.ActualHeight;
-                originalPoint = e.GetPosition(image.Parent as IInputElement);
-                originalMargin = image.Margin;
-                Mouse.OverrideCursor = Cursors.ScrollAll;
-            }
-        }
+        //private void Image_MouseDown(object sender, MouseButtonEventArgs e)
+        //{
+        //    if (e.MiddleButton == MouseButtonState.Pressed) {
+        //        image.CaptureMouse();
+        //        image.Width = image.ActualWidth;
+        //        image.Height = image.ActualHeight;
+        //        originalPoint = e.GetPosition(image.Parent as IInputElement);
+        //        originalMargin = image.Margin;
+        //        Mouse.OverrideCursor = Cursors.ScrollAll;
+        //    }
+        //}
 
-        private void Image_MouseMove(object sender, MouseEventArgs e)
-        {
-            if (e.MiddleButton == MouseButtonState.Pressed) {
-                Point newPoint = e.GetPosition(image.Parent as IInputElement);
-                Thickness newMargin = new Thickness();
-                newMargin.Left = originalMargin.Left + newPoint.X - originalPoint.X; ;
-                newMargin.Top = originalMargin.Top + newPoint.Y - originalPoint.Y;
-                newMargin.Right = -newMargin.Left;
-                newMargin.Bottom = -newMargin.Top;
-                image.Margin = newMargin;
-            }
-        }
+        //private void Image_MouseMove(object sender, MouseEventArgs e)
+        //{
+        //    if (e.MiddleButton == MouseButtonState.Pressed) {
+        //        Point newPoint = e.GetPosition(image.Parent as IInputElement);
+        //        Thickness newMargin = new Thickness();
+        //        newMargin.Left = originalMargin.Left + newPoint.X - originalPoint.X; ;
+        //        newMargin.Top = originalMargin.Top + newPoint.Y - originalPoint.Y;
+        //        newMargin.Right = -newMargin.Left;
+        //        newMargin.Bottom = -newMargin.Top;
+        //        image.Margin = newMargin;
+        //    }
+        //}
 
-        private void Image_MouseUp(object sender, MouseButtonEventArgs e)
-        {
-            image.ReleaseMouseCapture();
-            Mouse.OverrideCursor = Cursors.Arrow;
-        }
+        //private void Image_MouseUp(object sender, MouseButtonEventArgs e)
+        //{
+        //    image.ReleaseMouseCapture();
+        //    Mouse.OverrideCursor = Cursors.Arrow;
+        //}
 
         private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            if (image.Width != double.NaN)
-                image.Width = double.NaN;
-            if (image.Height != double.NaN)
-                image.Height = double.NaN;
+            if (_Image.Width != double.NaN)
+                _Image.Width = double.NaN;
+            if (_Image.Height != double.NaN)
+                _Image.Height = double.NaN;
         }
 
         private void Menubtn_Click(object sender, RoutedEventArgs e)

@@ -72,7 +72,7 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
-        
+
         <Grid Grid.Column="0"
               Grid.Row="0"
               HorizontalAlignment="Stretch"
@@ -99,20 +99,11 @@
             </Button>
         </Grid>
 
-        <Border Grid.Column="1"
-                Grid.Row="0"
-                Background="Transparent"
-                Padding="2"
-                HorizontalAlignment="Stretch"
-                VerticalAlignment="Stretch">
-            <Image x:Name="image" 
-                   HorizontalAlignment="Center"
-                   VerticalAlignment="Center"
-                   MouseDown="Image_MouseDown"
-                   MouseMove="Image_MouseMove"
-                   MouseUp="Image_MouseUp"/>
-        </Border>
-
+        <ContentControl x:Name="imgconteiner" 
+                        Grid.Column="1"
+                        Grid.Row="0"
+                        Content="{Binding ImgViewer}"/>
+        
         <StackPanel x:Name="menutransform"
                     Orientation="Horizontal"
                     Grid.Column="1"
