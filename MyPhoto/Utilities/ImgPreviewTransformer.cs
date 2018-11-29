@@ -11,7 +11,7 @@ namespace MyPhoto.Utilities
     /// with method is ExecuteTrasforWith(string transmethodname);
     /// The full supported method's list available with method GetMethods.
     /// </summary>
-    class ControlTransformer
+    class ImgPreviewTransformer
     {
         private FrameworkElement _imagecontrol;
         private readonly double _Width;
@@ -25,7 +25,7 @@ namespace MyPhoto.Utilities
         /// <param name="element">The control inherited from FrameworkElement to transform with specified method.</param>
         /// <param name="width">Original width of the control (to an Image is PixelWidth).</param>
         /// <param name="height">Original height of the control (to an Image is PixelHeight)</param>
-        public ControlTransformer(FrameworkElement element, double width, double height)
+        public ImgPreviewTransformer(FrameworkElement element, double width, double height)
         {
             _imagecontrol = element;
             _Width = width;

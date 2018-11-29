@@ -20,7 +20,7 @@ namespace MyPhoto
         private Point originalPoint;
         private Thickness originalMargin;
         private ScrollViewer _ScrollViewer;
-        private ControlTransformer _ImageViewTransformer;
+        private ImgPreviewTransformer _ImageViewTransformer;
         private ICommand _ViewTransformCmd;
         private bool _IsMenuOpened;
         private string _FilePath;
@@ -92,12 +92,12 @@ namespace MyPhoto
             FilePath = (new FileWorker().OpenFileWithDialog());
         }
 
-        private void TransformerInit()
+        private void ImgPreviewTransformerInit()
         {
             if (_Image.Source != null)
             {
                 _ImageViewTransformer =
-                    new ControlTransformer(_Image, (_Image.Source as WriteableBitmap).PixelWidth, (_Image.Source as WriteableBitmap).PixelHeight);
+                    new ImgPreviewTransformer(_Image, (_Image.Source as WriteableBitmap).PixelWidth, (_Image.Source as WriteableBitmap).PixelHeight);
                 //_ImageViewTransformer.ExecuteTrasforWith(Properties.Settings.Default.DefaultPreview);
             }
         }
@@ -133,7 +133,7 @@ namespace MyPhoto
                     // Create and show an image
                     _Image.Source = factory.CreateFromFile(value);
                     factory = null;
-                    TransformerInit();
+                    ImgPreviewTransformerInit();
                 }
             }
         }
@@ -169,7 +169,8 @@ namespace MyPhoto
 
         //private void Image_MouseDown(object sender, MouseButtonEventArgs e)
         //{
-        //    if (e.MiddleButton == MouseButtonState.Pressed) {
+        //    if (e.MiddleButton == MouseButtonState.Pressed)
+        //    {
         //        image.CaptureMouse();
         //        image.Width = image.ActualWidth;
         //        image.Height = image.ActualHeight;
