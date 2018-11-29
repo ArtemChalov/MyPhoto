@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace MyPhoto.Utilities
 {
     class MenuItemFactory
     {
-        public Button CreateMenuItem(object icon, string header, Action action)
+        public Button CreateMenuItem(object icon, string header, ICommand command)
         {
             DockPanel dock = new DockPanel()
             {
@@ -39,7 +40,7 @@ namespace MyPhoto.Utilities
                 Padding = new System.Windows.Thickness(5)
             };
 
-            button.Click += (sender, e) => { action(); };
+            button.Command = command;
 
             return button;
         }

@@ -44,14 +44,19 @@ namespace MyPhoto
         private void MenuInit()
         {
             MenuItemFactory itemFactory = new MenuItemFactory();
+
             MenuList = new StackPanel()
             {
                 Orientation = Orientation.Vertical,
                 HorizontalAlignment = HorizontalAlignment.Stretch
             };
-            MenuList.Children.Add(itemFactory.CreateMenuItem("\uED25", "Открыть", OpenFile));
-            MenuList.Children.Add(itemFactory.CreateMenuItem("\uE105", "Сохранить", SaveFile));
-            MenuList.Children.Add(itemFactory.CreateMenuItem("\uEA35", "Сохранить как", SaveAsFile));
+            ICommand opencmd = new DelegateCommand((obj) => OpenFile());
+            MenuList.Children.Add(itemFactory.CreateMenuItem("\uED25", "Открыть", opencmd));
+            ICommand savecmd = new DelegateCommand((obj) => SaveFile(), (obj) => image.Source != null);
+            MenuList.Children.Add(itemFactory.CreateMenuItem("\uE105", "Сохранить", savecmd));
+            ICommand saveascmd = new DelegateCommand((obj) => SaveAsFile(), (obj) => image.Source != null);
+            MenuList.Children.Add(itemFactory.CreateMenuItem("\uEA35", "Сохранить как", saveascmd));
+
             itemFactory = null;
         }
 
@@ -121,30 +126,6 @@ namespace MyPhoto
         }
 
         #endregion
-
-        public static WriteableBitmap CreateFromFile(string filePath)
-        {
-            BitmapImage bmpImage = new BitmapImage();
-            WriteableBitmap wBitmap = null;
-            try {
-                using (var fs = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read)) {
-                    bmpImage.BeginInit();
-                    bmpImage.CacheOption = BitmapCacheOption.OnLoad;
-                    bmpImage.StreamSource = fs;
-                    bmpImage.EndInit();
-                }
-
-                wBitmap = new WriteableBitmap(bmpImage);
-            }
-            catch {
-                MessageBox.Show("Файл имеет не верный формат\nили поврежден.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-            finally {
-                bmpImage.StreamSource = null;
-                bmpImage = null;
-            }
-            return wBitmap;
-        }
 
         #region PropertyChanged interface
 
