@@ -117,17 +117,24 @@ namespace MyPhoto.Utilities
         private void ZoomAdd()
         {
             if (_control.Width > 0)
+            {
                 _control.Width = _control.Width * 1.1;
-            else {
+            }
+            else
+            {
                 _control.Width = _control.ActualWidth;
                 _control.Width = _control.Width * 1.1;
             }
             if (_control.Height > 0)
                 _control.Height = _control.Height * 1.1;
-            else {
+            else
+            {
                 _control.Height = _control.ActualHeight;
                 _control.Height = _control.Width * 1.1;
             }
+
+            _Scroll.ScrollToHorizontalOffset(_Scroll.HorizontalOffset + (_Scroll.ScrollableWidth * 0.1));
+            _Scroll.ScrollToVerticalOffset(_Scroll.VerticalOffset + (_Scroll.ScrollableHeight * 0.1));
 
             _IsCenterFitted = false;
         }
@@ -146,7 +153,10 @@ namespace MyPhoto.Utilities
                 _control.Height = _control.ActualHeight;
                 _control.Height = _control.Width / 1.1;
             }
-           
+
+            _Scroll.ScrollToHorizontalOffset(_Scroll.HorizontalOffset - (_Scroll.ScrollableWidth * 0.1));
+            _Scroll.ScrollToVerticalOffset(_Scroll.VerticalOffset - (_Scroll.ScrollableHeight * 0.1));
+
             _IsCenterFitted = false;
         }
 

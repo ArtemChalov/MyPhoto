@@ -172,6 +172,7 @@ namespace MyPhoto
                 _Image.Width = double.NaN;
             if (_Image.Height != double.NaN)
                 _Image.Height = double.NaN;
+            _ImageViewTransformer?.ExecuteTransformWith("FitToParent");
         }
 
         private void Menubtn_Click(object sender, RoutedEventArgs e)
