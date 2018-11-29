@@ -37,7 +37,7 @@ namespace MyPhoto.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("OriginalSize")]
+        [global::System.Configuration.DefaultSettingValueAttribute("FitToParent")]
         public string DefaultPreview {
             get {
                 return ((string)(this["DefaultPreview"]));

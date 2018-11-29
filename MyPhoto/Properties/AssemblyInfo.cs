@@ -8,12 +8,12 @@ using System.Windows;
 // набора атрибутов. Измените значения этих атрибутов, чтобы изменить сведения,
 // связанные со сборкой.
 [assembly: AssemblyTitle("MyPhoto")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("PhotoViewer")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("ProDescSoft")]
 [assembly: AssemblyProduct("MyPhoto")]
-[assembly: AssemblyCopyright("Copyright ©  2018")]
-[assembly: AssemblyTrademark("")]
+[assembly: AssemblyCopyright("Copyright ©  ProDescSoft  Artem Chalov 2018. All rights reserved.")]
+[assembly: AssemblyTrademark("ProDescSoft")]
 [assembly: AssemblyCulture("")]
 
 // Установка значения False для параметра ComVisible делает типы в этой сборке невидимыми

@@ -6,7 +6,7 @@
       <Value Profile="(Default)">C:\</Value>
     </Setting>
     <Setting Name="DefaultPreview" Type="System.String" Scope="User">
-      <Value Profile="(Default)">OriginalSize</Value>
+      <Value Profile="(Default)">FitToParent</Value>
     </Setting>
   </Settings>
 </SettingsFile>

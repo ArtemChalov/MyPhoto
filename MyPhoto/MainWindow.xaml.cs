@@ -97,7 +97,8 @@ namespace MyPhoto
                 _ImageViewTransformer = null;
                 _ImageViewTransformer =
                     new ImgPreviewTransformer(_Image, (_Image.Source as WriteableBitmap).PixelWidth, (_Image.Source as WriteableBitmap).PixelHeight);
-                //_ImageViewTransformer.ExecuteTrasforWith(Properties.Settings.Default.DefaultPreview);
+                if (!String.IsNullOrEmpty(Properties.Settings.Default.DefaultPreview))
+                    _ImageViewTransformer.ExecuteTransformWith(Properties.Settings.Default.DefaultPreview);
             }
         }
 
