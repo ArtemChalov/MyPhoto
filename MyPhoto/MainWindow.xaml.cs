@@ -7,7 +7,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
-
+using WriteableBitmapEx;
 
 namespace MyPhoto
 {
@@ -20,7 +20,8 @@ namespace MyPhoto
         private Thickness originalMargin;
         private ControlTransformer _ImageViewTransformer;
         private ICommand _ViewTransformCmd;
-        private StackPanel _MenuList;
+        private bool _IsMenuOpened;
+        private string _FilePath;
 
         public MainWindow()
         {
@@ -62,12 +63,10 @@ namespace MyPhoto
 
         private void OpenFile()
         {
-            MessageBox.Show("Открыть");
+            FilePath = (new FileWorker().OpenFileWithDialog());
         }
 
         #region Properties
-
-        private bool _IsMenuOpened;
 
         public bool IsMenuOpened
         {
@@ -75,10 +74,19 @@ namespace MyPhoto
             set { _IsMenuOpened = value; OnPropertyChanged(); }
         }
 
-        public StackPanel MenuList
+        public StackPanel MenuList { get; set; }
+
+        public string FilePath
         {
-            get { return _MenuList; }
-            set { _MenuList = value; }
+            get { return _FilePath; }
+            set
+            {
+                _FilePath = value;
+                if (value != null)
+                {
+                    image.Source = (new WriteableBitmapFactory().CreateFromFile(value));
+                }
+            }
         }
 
         #endregion
