@@ -34,5 +34,17 @@ namespace MyPhoto.Properties {
                 this["DefaultOpenPath"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("OriginalSize")]
+        public string DefaultPreview {
+            get {
+                return ((string)(this["DefaultPreview"]));
+            }
+            set {
+                this["DefaultPreview"] = value;
+            }
+        }
     }
 }

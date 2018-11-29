@@ -29,17 +29,9 @@ namespace MyPhoto
             InitializeComponent();
             this.DataContext = this;
             MenuInit();
-            TransformerInit();
         }
 
         #region Init methods
-
-        private void TransformerInit()
-        {
-            if (image.Source != null)
-                _ImageViewTransformer =
-                    new ControlTransformer(image, (image.Source as WriteableBitmap).PixelWidth, (image.Source as WriteableBitmap).PixelHeight);
-        }
 
         private void MenuInit()
         {
@@ -85,6 +77,16 @@ namespace MyPhoto
             FilePath = (new FileWorker().OpenFileWithDialog());
         }
 
+        private void TransformerInit()
+        {
+            if (image.Source != null)
+            {
+                _ImageViewTransformer =
+                    new ControlTransformer(image, (image.Source as WriteableBitmap).PixelWidth, (image.Source as WriteableBitmap).PixelHeight);
+                //_ImageViewTransformer.ExecuteTrasforWith(Properties.Settings.Default.DefaultPreview);
+            }
+        }
+
         #endregion
 
         #region Properties
@@ -105,8 +107,14 @@ namespace MyPhoto
                 _FilePath = value;
                 if (value != null)
                 {
+                    image.Source = null;
+                    WriteableBitmapFactory factory = new WriteableBitmapFactory();
+                    image.HorizontalAlignment = HorizontalAlignment.Center;
+                    image.VerticalAlignment = VerticalAlignment.Center;
                     // Show an image by path
-                    image.Source = (new WriteableBitmapFactory().CreateFromFile(value));
+                    image.Source = factory.CreateFromFile(value);
+                    factory = null;
+                    TransformerInit();
                 }
             }
         }
