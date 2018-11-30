@@ -1,10 +1,7 @@
-﻿using Dialogs.Windows;
-using Microsoft.Win32;
-using MVVM;
+﻿using MVVM;
 using MyPhoto.Utilities;
 using System;
 using System.ComponentModel;
-using System.IO;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
@@ -50,17 +47,34 @@ namespace MyPhoto
         private void MenuInit()
         {
             MenuItemFactory itemFactory = new MenuItemFactory();
+            FileWorker fileWorker = new FileWorker();
 
             MenuList = new StackPanel()
             {
                 Orientation = Orientation.Vertical,
                 HorizontalAlignment = HorizontalAlignment.Stretch
             };
-            ICommand opencmd = new DelegateCommand((obj) => OpenFile());
+
+            ICommand opencmd = new DelegateCommand((obj) =>
+            {
+                IsMenuOpened = false;
+                FilePath = fileWorker.OpenFileWithDialog();
+            });
             MenuList.Children.Add(itemFactory.CreateMenuItem("\uED25", "Открыть", opencmd));
-            ICommand savecmd = new DelegateCommand((obj) => SaveFile(), (obj) => _Image.Source != null);
+
+            ICommand savecmd = new DelegateCommand((obj) =>
+            {
+                IsMenuOpened = false;
+                fileWorker.SaveFile(_Image, FilePath);
+                UpdateImage(FilePath);
+            }, (obj) => _Image.Source != null);
             MenuList.Children.Add(itemFactory.CreateMenuItem("\uE105", "Сохранить", savecmd));
-            ICommand saveascmd = new DelegateCommand((obj) => SaveAsFile(), (obj) => _Image.Source != null);
+
+            ICommand saveascmd = new DelegateCommand((obj) =>
+            {
+                IsMenuOpened = false;
+                FilePath = fileWorker.SaveFileWithDialog(_Image, FilePath);
+            }, (obj) => _Image.Source != null);
             MenuList.Children.Add(itemFactory.CreateMenuItem("\uEA35", "Сохранить как", saveascmd));
 
             itemFactory = null;
@@ -88,62 +102,6 @@ namespace MyPhoto
         #endregion
 
         #region Private methods
-
-        private void SaveAsFile()
-        {
-            // Close menu panel
-            IsMenuOpened = false;
-
-            SaveFileDialog saveFileDialog = new SaveFileDialog() { FileName = "*", DefaultExt = "jpg", ValidateNames = true };
-            saveFileDialog.Filter = "All Files |*.*|JPEG Image |*.jpg;*.jpeg|Png Image |*.png|Bitmap Image |*.bmp|Gif Image |*.gif|Tiff Image |*.tiff|Wmf Image |*.wmf";
-            saveFileDialog.DefaultExt = "jpg";
-
-            var res = saveFileDialog.ShowDialog();
-
-            if (res != null && res == true)
-            {
-                if (_Image.Source is WriteableBitmap source)
-                {
-                    try
-                    {
-                        source.SaveToFile(saveFileDialog.FileName);
-                        _FilePath = saveFileDialog.FileName;
-                    }
-                    catch(Exception ex)
-                    {
-                        MessageBox.Show(ex.Message);
-                    }
-                }
-                else
-                    MessageBox.Show("No source");
-            }
-        }
-
-        private void SaveFile()
-        {
-            // Close menu panel
-            IsMenuOpened = false;
-            if (_Image.Source is WriteableBitmap source)
-            {
-                try
-                {
-                    source.SaveToFile(FilePath);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                }
-            }
-            else
-                MessageBox.Show("No source");
-        }
-
-        private void OpenFile()
-        {
-            // Close menu panel
-            IsMenuOpened = false;
-            FilePath = (new FileWorker().OpenFileWithDialog());
-        }
 
         private void UpdateImage(string path)
         {
