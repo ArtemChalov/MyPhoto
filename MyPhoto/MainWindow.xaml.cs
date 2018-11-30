@@ -103,7 +103,17 @@ namespace MyPhoto
             if (res != null && res == true)
             {
                 if (_Image.Source is WriteableBitmap source)
-                    source.SaveToFile(saveFileDialog.FileName);
+                {
+                    try
+                    {
+                        source.SaveToFile(saveFileDialog.FileName);
+                        _FilePath = saveFileDialog.FileName;
+                    }
+                    catch(Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
+                }
                 else
                     MessageBox.Show("No source");
             }
