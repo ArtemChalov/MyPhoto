@@ -1,4 +1,6 @@
-﻿using MVVM;
+﻿using Dialogs.Windows;
+using Microsoft.Win32;
+using MVVM;
 using MyPhoto.Utilities;
 using System;
 using System.ComponentModel;
@@ -91,7 +93,20 @@ namespace MyPhoto
         {
             // Close menu panel
             IsMenuOpened = false;
-            MessageBox.Show("Сохранить как");
+
+            SaveFileDialog saveFileDialog = new SaveFileDialog() { FileName = "*", DefaultExt = "jpg", ValidateNames = true };
+            saveFileDialog.Filter = "All Files |*.*|JPEG Image |*.jpg;*.jpeg|Png Image |*.png|Bitmap Image |*.bmp|Gif Image |*.gif|Tiff Image |*.tiff|Wmf Image |*.wmf";
+            saveFileDialog.DefaultExt = "jpg";
+
+            var res = saveFileDialog.ShowDialog();
+
+            if (res != null && res == true)
+            {
+                if (_Image.Source is WriteableBitmap source)
+                    source.SaveToFile(saveFileDialog.FileName);
+                else
+                    MessageBox.Show("No source");
+            }
         }
 
         private void SaveFile()
