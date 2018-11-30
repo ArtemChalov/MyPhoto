@@ -1,0 +1,57 @@
+﻿<Window x:Class="Dialogs.Windows.QualityDialogResult"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WindowDialogs.Convertors"
+        mc:Ignorable="d"
+        Title="Выбор качества сжатия"
+        SizeToContent="WidthAndHeight"
+        ResizeMode="NoResize"
+        WindowStyle="ToolWindow"
+        WindowStartupLocation="CenterOwner">
+    <Window.Resources>
+        <local:QualityInfoConverter x:Key="qConv"/>
+    </Window.Resources>
+    <StackPanel Width="250"
+                Orientation="Vertical">
+        <TextBlock Text="Выберите качество изображения:"
+                   TextWrapping="Wrap"
+                   Width="200"
+                   FontSize="16"
+                   Margin=" 5 10 5 0"
+                   HorizontalAlignment="Stretch"
+                   TextAlignment="Center"/>
+        <DockPanel HorizontalAlignment="Stretch"
+                   Margin="10 20 10 10">
+            <TextBlock Text="{Binding ElementName=QSlider, Path=Value, Mode=OneWay, Converter={StaticResource qConv}}"/>
+            <TextBlock Text="{Binding ElementName=QSlider, Path=Value}"
+                       FontSize="14"
+                       HorizontalAlignment="Right"/>
+        </DockPanel>
+        <Slider x:Name="QSlider"
+                Width="220"
+                Margin="0 0 0 20"
+                Minimum="1"
+                Maximum="10"
+                Value="8"
+                TickFrequency="0.5"
+                IsSnapToTickEnabled="True"/>
+        <StackPanel Orientation="Horizontal"
+                    HorizontalAlignment="Right"
+                     Margin="0 10 0 10">
+            <Button Content="Применить"
+                Width="80"
+                Margin="5 5 10 0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
+                Click="Button_Click"/>
+            <Button Content="Отменить"
+                Width="80"
+                Margin="5 5 5 0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
+                Click="Cancel_Click"/>
+        </StackPanel>
+    </StackPanel>
+</Window>

@@ -1,0 +1,133 @@
+﻿<Window x:Class="Dialogs.Windows.ResizeDialogResult"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local ="clr-namespace:WindowDialogs.ValidationRules"
+        mc:Ignorable="d"
+        WindowStyle="ToolWindow"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
+        SizeToContent="WidthAndHeight"
+        Title="Изменение размеров">
+    <Window.Resources>
+        <ControlTemplate x:Key="validationFailed">
+            <StackPanel Orientation="Horizontal">
+                <Border BorderBrush="Violet" BorderThickness="2">
+                    <AdornedElementPlaceholder />
+                </Border>
+                <TextBlock Foreground="Red" FontSize="26" FontWeight="Bold">!</TextBlock>
+            </StackPanel>
+        </ControlTemplate>
+    </Window.Resources>
+    <StackPanel Orientation="Vertical" Validation.Error="TextBox_Error">
+        <GroupBox Header="Новые размеры"
+              FontSize="16"
+                  Margin="5">
+            <StackPanel Orientation="Vertical">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Text="Ширина:"
+                           Grid.Column="0"
+                           Grid.Row="0"
+                           Margin="5 10 5 5"/>
+                    <TextBox x:Name="wTextBox"
+                             Grid.Column="1"
+                             Grid.Row="0"
+                             Width="80"
+                             Margin="5 10 5 5">
+                        <TextBox.Text>
+                            <Binding RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType=Window}"
+                                     Path="PixelWidth"
+                                     UpdateSourceTrigger="PropertyChanged"
+                                     NotifyOnValidationError="True">
+                                <Binding.ValidationRules>
+                                    <local:IntegerValidationRules Min="1" Max="10000"/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                        <TextBox.Style>
+                            <Style TargetType="TextBox">
+                                <Style.Triggers>
+                                    <Trigger Property="Validation.HasError" Value="True">
+                                        <Setter Property="ToolTip"
+                                                Value="{Binding RelativeSource={RelativeSource Self},
+                                                Path=(Validation.Errors)[0].ErrorContent}" />
+                                        <Setter Property="Foreground" Value="Red" />
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBox.Style>
+                    </TextBox>
+                    <TextBlock Text="Высота:"
+                           Grid.Column="0"
+                           Grid.Row="1"
+                           Margin="5"/>
+                    <TextBox x:Name="hTextBox"
+                             Grid.Column="1"
+                             Grid.Row="1"
+                             Width="80"
+                             Margin="5,0,5,5">
+                        <TextBox.Text>
+                            <Binding RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType=Window}"
+                                     Path="PixelHeight"
+                                     UpdateSourceTrigger="PropertyChanged"
+                                     NotifyOnValidationError="True">
+                                <Binding.ValidationRules>
+                                    <local:IntegerValidationRules Min="1" Max="10000"/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                    </TextBox>
+                    <DockPanel Grid.Column="2"
+                           Grid.Row="0"
+                           HorizontalAlignment="Left"
+                           VerticalAlignment="Stretch"
+                           Grid.RowSpan="2">
+                        <Path Stretch="Uniform"
+                          Height="40"
+                          Margin="0 5 5 5"
+                          Stroke="Black"
+                          StrokeThickness="2"
+                          SnapsToDevicePixels="True"
+                          Data="M0,0 H30 V40 H35 H30 V80 H0"/>
+                        <CheckBox VerticalContentAlignment="Center"
+                              IsChecked="{Binding RelativeSource={RelativeSource AncestorType=Window}, 
+                        Path=KeepProportions, Mode=TwoWay}">
+                            <TextBlock TextWrapping="Wrap"
+                                   TextAlignment="Center"
+                                   VerticalAlignment="Center">
+                            <Run Text="Сохранять"/>
+                             <LineBreak/>
+                            <Run Text="пропорции"/>
+                            </TextBlock>
+                        </CheckBox>
+                    </DockPanel>
+                </Grid>
+            </StackPanel>
+        </GroupBox>
+        <ComboBox x:Name="methodCombo" Margin="5 20 5 0"/>
+        <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Right"
+                        Margin="0 10 0 10">
+            <Button x:Name="ApplyBtn" 
+                    Content="Применить"
+                    MinWidth="80"
+                    Margin="5 5 10 0"
+                    Click="ApplyButton_Click"/>
+            <Button Content="Отменить"
+                        MinWidth="80"
+                        Margin="5 5 5 0"
+                        Click="CancelButton_Click"/>
+        </StackPanel>
+    </StackPanel>
+
+</Window>
