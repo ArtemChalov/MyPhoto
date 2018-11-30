@@ -17,8 +17,8 @@ namespace MyPhoto.Utilities
     class ImgPreviewTransformer
     {
         private FrameworkElement _control;
-        private readonly double _Width;
-        private readonly double _Height;
+        private double _Width;
+        private double _Height;
         private bool _IsCenterFitted = true;
         private ScrollViewer _Scroll;
         private Dictionary<string, Action> _TransformationCollection;
@@ -53,6 +53,12 @@ namespace MyPhoto.Utilities
                     { "Rotate", Rotate }
                 };
             }
+        }
+
+        public void SetOriginalDimentions(double width, double height)
+        {
+            _Width = width;
+            _Height = height;
         }
 
         private void _control_MouseWheel(object sender, MouseWheelEventArgs e)

@@ -49,6 +49,7 @@ namespace MyPhoto
         private void MenuInit()
         {
             MenuItemFactory itemFactory = new MenuItemFactory();
+            ViewPortMenuItemFactory itemVPFactory = new ViewPortMenuItemFactory();
 
             MenuList = new StackPanel()
             {
@@ -63,6 +64,17 @@ namespace MyPhoto
             MenuList.Children.Add(itemFactory.CreateMenuItem("\uEA35", "Сохранить как", saveascmd));
 
             itemFactory = null;
+
+            ViewPortMenu = new StackPanel()
+            {
+                Orientation = Orientation.Horizontal,
+                HorizontalAlignment = HorizontalAlignment.Center,
+                VerticalAlignment = VerticalAlignment.Center
+            };
+
+            itemVPFactory.CreateMenu(ViewPortMenu, _Image.Source);
+
+            itemVPFactory = null;
         }
 
         #endregion
@@ -119,6 +131,8 @@ namespace MyPhoto
         }
 
         public StackPanel MenuList { get; set; }
+
+        public StackPanel ViewPortMenu { get; set; }
 
         public string FilePath
         {

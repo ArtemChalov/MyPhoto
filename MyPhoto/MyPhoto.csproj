@@ -65,6 +65,7 @@
     <Compile Include="Utilities\ImgPreviewTransformer.cs" />
     <Compile Include="Utilities\FileWorker.cs" />
     <Compile Include="Utilities\MenuItemFactory.cs" />
+    <Compile Include="Utilities\ViewPortMenuItemFactory.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

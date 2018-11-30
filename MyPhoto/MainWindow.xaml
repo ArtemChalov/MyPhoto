@@ -93,13 +93,19 @@
                         Grid.Column="1"
                         Grid.Row="0"
                         Content="{Binding ImgViewer}"/>
-        
-        <StackPanel x:Name="menutransform"
+
+        <ContentControl x:Name="viewportmenu" 
+                        Content="{Binding ViewPortMenu}"
+                        Grid.Column="1"
+                        Grid.Row="0"/>
+
+        <StackPanel x:Name="menutransform1"
                     Orientation="Horizontal"
                     Grid.Column="1"
                     Grid.Row="0"
                     Background="#7F000000"
                     HorizontalAlignment="Center"
+                    Visibility="Hidden"
                     VerticalAlignment="Top">
             <Button Content="&#xE1A4;"
                     FontFamily="Segoe MDL2 Assets"
