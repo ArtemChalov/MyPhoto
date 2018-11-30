@@ -82,21 +82,11 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <Button x:Name="menubtn"
-                    Grid.Row="0"
+                    Content="&#xE700;"
+                    FontSize="18"
                     Width="32"
                     Height="32"
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Top"
-                    FontSize="24"
-                    FontFamily="Segoe MDL2 Assets"
-                    Background="{x:Null}"
-                    FocusVisualStyle="{x:Null}"
-                    HorizontalContentAlignment="Center"
-                    VerticalContentAlignment="Center"
-                    Foreground="WhiteSmoke" 
-                    Content="&#xE700;"
-                    Click="Menubtn_Click">
-            </Button>
+                    Click="Menubtn_Click"/>
         </Grid>
 
         <ContentControl x:Name="imgconteiner" 
