@@ -169,7 +169,7 @@ namespace MyPhoto.Utilities
 
         private void FitToParent()
         {
-            if (_control.Parent is FrameworkElement parent) {
+            if (_control.Parent is ScrollViewer parent) {
                 var transform = _control.LayoutTransform as RotateTransform;
                 var curAngle = transform?.Angle;
                 Thickness thickness = _control.Margin;
@@ -186,14 +186,14 @@ namespace MyPhoto.Utilities
             _IsCenterFitted = true;
         }
 
-        private void FitNotRotated(FrameworkElement parent)
+        private void FitNotRotated(ScrollViewer parent)
         {
-            double width = parent.ActualWidth;
+            double width = parent.ActualWidth - parent.Padding.Left - parent.Padding.Right;
             double aspectRatio = _Width / _Height;
 
             double height = width / aspectRatio;
-            if (height >= parent.ActualHeight) {
-                height = parent.ActualHeight;
+            if (height >= (parent.ActualHeight - parent.Padding.Top - parent.Padding.Bottom)) {
+                height = parent.ActualHeight - parent.Padding.Top - parent.Padding.Bottom;
                 if (height < 0) height = 0;
                 width = height * aspectRatio;
             }
@@ -202,14 +202,14 @@ namespace MyPhoto.Utilities
             _control.Height = height;
         }
 
-        private void FitRotated(FrameworkElement parent)
+        private void FitRotated(ScrollViewer parent)
         {
-            double width = parent.ActualHeight;
+            double width = parent.ActualHeight - parent.Padding.Top - parent.Padding.Bottom;
             double aspectRatio = _Width / _Height;
 
             double height = width / aspectRatio;
-            if (height >= parent.ActualWidth) {
-                height = parent.ActualWidth;
+            if (height >= (parent.ActualWidth - parent.Padding.Left - parent.Padding.Right)) {
+                height = parent.ActualWidth - parent.Padding.Left - parent.Padding.Right;
                 if (height < 0) height = 0;
                 width = height * aspectRatio;
             }
