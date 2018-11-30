@@ -6,7 +6,7 @@ namespace MyPhoto.Utilities
 {
     class ViewPortMenuItemFactory
     {
-        public void CreateMenu(StackPanel panel, ImgPreviewTransformer transformer, Image image)
+        public void CreateAllMenuItems(StackPanel panel, ImgPreviewTransformer transformer, Image image)
         {
             ICommand transformcmd = new DelegateCommand((obj) => transformer.ExecuteTransformWith(obj as string), (obj) => image.Source != null);
 

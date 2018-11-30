@@ -17,7 +17,6 @@ namespace MyPhoto
     /// </summary>
     public partial class MainWindow: Window, INotifyPropertyChanged
     {
-        private ScrollViewer _ScrollViewer;
         private ImgPreviewTransformer _ImageViewTransformer;
         private bool _IsMenuOpened;
         private string _FilePath;
@@ -29,6 +28,7 @@ namespace MyPhoto
             this.DataContext = this;
             ImagePresenterInit();
             MenuInit();
+            ViewPortMenuInit();
         }
 
         #region Init methods
@@ -48,7 +48,6 @@ namespace MyPhoto
         private void MenuInit()
         {
             MenuItemFactory itemFactory = new MenuItemFactory();
-            ViewPortMenuItemFactory itemVPFactory = new ViewPortMenuItemFactory();
 
             MenuList = new StackPanel()
             {
@@ -63,6 +62,11 @@ namespace MyPhoto
             MenuList.Children.Add(itemFactory.CreateMenuItem("\uEA35", "Сохранить как", saveascmd));
 
             itemFactory = null;
+        }
+
+        private void ViewPortMenuInit()
+        {
+            ViewPortMenuItemFactory itemVPFactory = new ViewPortMenuItemFactory();
 
             ViewPortMenu = new StackPanel()
             {
@@ -74,7 +78,7 @@ namespace MyPhoto
 
             _ImageViewTransformer = new ImgPreviewTransformer(_Image, 0, 0);
 
-            itemVPFactory.CreateMenu(ViewPortMenu, _ImageViewTransformer, _Image);
+            itemVPFactory.CreateAllMenuItems(ViewPortMenu, _ImageViewTransformer, _Image);
 
             itemVPFactory = null;
         }
@@ -104,21 +108,26 @@ namespace MyPhoto
             FilePath = (new FileWorker().OpenFileWithDialog());
         }
 
+        private void UpdateImage(string path)
+        {
+            _Image.Source = null;
+
+            WriteableBitmapFactory factory = new WriteableBitmapFactory();
+            // Create and show an image
+            _Image.Source = factory.CreateFromFile(path);
+            factory = null;
+
+            _ImageViewTransformer.SetOriginalDimentions((_Image.Source as WriteableBitmap).PixelWidth, (_Image.Source as WriteableBitmap).PixelHeight);
+
+            if (!String.IsNullOrEmpty(Properties.Settings.Default.DefaultPreview))
+                _ImageViewTransformer.ExecuteTransformWith(Properties.Settings.Default.DefaultPreview);
+        }
+
         #endregion
 
         #region Properties
 
-        public ScrollViewer ImgViewer
-        {
-            get { return _ScrollViewer; }
-            set { _ScrollViewer = value; OnPropertyChanged(); }
-        }
-
-        public bool IsMenuOpened
-        {
-            get { return _IsMenuOpened; }
-            set { _IsMenuOpened = value; OnPropertyChanged(); }
-        }
+        public ScrollViewer ImgViewer { get; set; }
 
         public StackPanel MenuList { get; set; }
 
@@ -130,20 +139,14 @@ namespace MyPhoto
             set
             {
                 _FilePath = value;
-                if (value != null)
-                {
-                    _Image.Source = null;
-                    WriteableBitmapFactory factory = new WriteableBitmapFactory();
-                    // Create and show an image
-                    _Image.Source = factory.CreateFromFile(value);
-                    factory = null;
-
-                    _ImageViewTransformer.SetOriginalDimentions((_Image.Source as WriteableBitmap).PixelWidth, (_Image.Source as WriteableBitmap).PixelHeight);
-
-                    if (!String.IsNullOrEmpty(Properties.Settings.Default.DefaultPreview))
-                        _ImageViewTransformer.ExecuteTransformWith(Properties.Settings.Default.DefaultPreview);
-                }
+                if (value != null) UpdateImage(value);
             }
+        }
+
+        public bool IsMenuOpened
+        {
+            get { return _IsMenuOpened; }
+            set { _IsMenuOpened = value; OnPropertyChanged(); }
         }
 
         #endregion
