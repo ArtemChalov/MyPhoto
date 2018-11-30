@@ -123,7 +123,19 @@ namespace MyPhoto
         {
             // Close menu panel
             IsMenuOpened = false;
-            MessageBox.Show("Сохранить");
+            if (_Image.Source is WriteableBitmap source)
+            {
+                try
+                {
+                    source.SaveToFile(FilePath);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
+            else
+                MessageBox.Show("No source");
         }
 
         private void OpenFile()
