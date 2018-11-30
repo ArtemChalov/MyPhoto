@@ -19,7 +19,6 @@ namespace MyPhoto
     {
         private ScrollViewer _ScrollViewer;
         private ImgPreviewTransformer _ImageViewTransformer;
-        private ICommand _ViewTransformCmd;
         private bool _IsMenuOpened;
         private string _FilePath;
         private Image _Image;
@@ -67,12 +66,15 @@ namespace MyPhoto
 
             ViewPortMenu = new StackPanel()
             {
+                Margin = new Thickness(5, 5, 0, 5),
                 Orientation = Orientation.Horizontal,
                 HorizontalAlignment = HorizontalAlignment.Center,
-                VerticalAlignment = VerticalAlignment.Center
+                VerticalAlignment = VerticalAlignment.Top
             };
 
-            itemVPFactory.CreateMenu(ViewPortMenu, _Image.Source);
+            _ImageViewTransformer = new ImgPreviewTransformer(_Image, 0, 0);
+
+            itemVPFactory.CreateMenu(ViewPortMenu, _ImageViewTransformer, _Image);
 
             itemVPFactory = null;
         }
@@ -147,22 +149,11 @@ namespace MyPhoto
                     // Create and show an image
                     _Image.Source = factory.CreateFromFile(value);
                     factory = null;
-                    ImgPreviewTransformerInit();
+
+                    _ImageViewTransformer.SetOriginalDimentions((_Image.Source as WriteableBitmap).PixelWidth, (_Image.Source as WriteableBitmap).PixelHeight);
+
+                    //ImgPreviewTransformerInit();
                 }
-            }
-        }
-
-        #endregion
-
-        #region Commands
-
-        public ICommand ViewTransformCmd
-        {
-            get
-            {
-                return _ViewTransformCmd ??
-                (_ViewTransformCmd = new DelegateCommand((obj) =>
-                _ImageViewTransformer.ExecuteTransformWith(obj as string), (obj) => _Image.Source != null));
             }
         }
 
@@ -187,7 +178,8 @@ namespace MyPhoto
                 _Image.Width = double.NaN;
             if (_Image.Height != double.NaN)
                 _Image.Height = double.NaN;
-            _ImageViewTransformer?.ExecuteTransformWith("FitToParent");
+            if (_Image.Source != null)
+                _ImageViewTransformer?.ExecuteTransformWith("FitToParent");
         }
 
         private void Menubtn_Click(object sender, RoutedEventArgs e)

@@ -99,52 +99,6 @@
                         Grid.Column="1"
                         Grid.Row="0"/>
 
-        <StackPanel x:Name="menutransform1"
-                    Orientation="Horizontal"
-                    Grid.Column="1"
-                    Grid.Row="0"
-                    Background="#7F000000"
-                    HorizontalAlignment="Center"
-                    Visibility="Hidden"
-                    VerticalAlignment="Top">
-            <Button Content="&#xE1A4;"
-                    FontFamily="Segoe MDL2 Assets"
-                    VerticalContentAlignment="Center"
-                    HorizontalContentAlignment="Center"
-                    Margin="5 5 0 5"
-                    Width="32"
-                    Height="32"
-                    Command="{Binding ViewTransformCmd}" CommandParameter="Zoom-"/>
-            <Button Content="&#xE12E;"
-                    VerticalContentAlignment="Center"
-                    HorizontalContentAlignment="Center"
-                    Margin="5"
-                    Width="32"
-                    Height="32"
-                    Command="{Binding ViewTransformCmd}" CommandParameter="Zoom+"/>
-            <Button Content="&#xE1A3;"
-                    VerticalContentAlignment="Center"
-                    HorizontalContentAlignment="Center"
-                    Margin="5"
-                    Width="32"
-                    Height="32"
-                    Command="{Binding ViewTransformCmd}" CommandParameter="OriginalSize"/>
-            <Button Content="&#xE91B;"
-                    VerticalContentAlignment="Center"
-                    HorizontalContentAlignment="Center"
-                    Margin="5"
-                    Width="32"
-                    Height="32"
-                    Command="{Binding ViewTransformCmd}" CommandParameter="FitToParent"/>
-            <Button Content="&#xE14A;"
-                    VerticalContentAlignment="Center"
-                    HorizontalContentAlignment="Center"
-                    Margin="5"
-                    Width="32"
-                    Height="32"
-                    Command="{Binding ViewTransformCmd}" CommandParameter="Rotate"/>
-        </StackPanel>
-        
         <Grid x:Name="statusbar"
               Grid.Column="0"
               Grid.ColumnSpan="3"

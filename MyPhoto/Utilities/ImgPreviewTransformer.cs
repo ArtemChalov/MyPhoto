@@ -21,7 +21,8 @@ namespace MyPhoto.Utilities
         private double _Height;
         private bool _IsCenterFitted = true;
         private ScrollViewer _Scroll;
-        private Dictionary<string, Action> _TransformationCollection;
+        private readonly Dictionary<string, Action> _TransformationCollection;
+        private readonly Dictionary<string, object> _TransformationIconCollection;
 
         private double _Original_H_Offset = 1;
         private double _Original_V_Offset = 1;
@@ -46,11 +47,19 @@ namespace MyPhoto.Utilities
                 _Width = width;
                 _Height = height;
                 _TransformationCollection = new Dictionary<string, Action>{
-                    { "Zoom+", ZoomAdd },
                     { "Zoom-", ZoomSub },
+                    { "Zoom+", ZoomAdd },
                     { "OriginalSize", OriginalSize },
                     { "FitToParent", FitToParent },
                     { "Rotate", Rotate }
+                };
+                _TransformationIconCollection = new Dictionary<string, object>
+                {
+                    { "Zoom-", "\uE1A4" },
+                    { "Zoom+", "\uE12E" },
+                    { "OriginalSize", "\uE1A3" },
+                    { "FitToParent", "\uE91B" },
+                    { "Rotate", "\uE14A" }
                 };
             }
         }
@@ -107,6 +116,8 @@ namespace MyPhoto.Utilities
         /// </summary>
         /// <returns>List of the available transformation method's names.</returns>
         public List<string> GetMethods() => _TransformationCollection?.Select(dict => dict.Key).ToList();
+
+        public object GetIconWithName(string methodname) => _TransformationIconCollection?[methodname]?? null;
 
         /// <summary>
         /// Apply a transformation with specified method's name.
