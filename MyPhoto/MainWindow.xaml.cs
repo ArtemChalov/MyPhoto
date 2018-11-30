@@ -104,18 +104,6 @@ namespace MyPhoto
             FilePath = (new FileWorker().OpenFileWithDialog());
         }
 
-        private void ImgPreviewTransformerInit()
-        {
-            if (_Image.Source != null)
-            {
-                _ImageViewTransformer = null;
-                _ImageViewTransformer =
-                    new ImgPreviewTransformer(_Image, (_Image.Source as WriteableBitmap).PixelWidth, (_Image.Source as WriteableBitmap).PixelHeight);
-                if (!String.IsNullOrEmpty(Properties.Settings.Default.DefaultPreview))
-                    _ImageViewTransformer.ExecuteTransformWith(Properties.Settings.Default.DefaultPreview);
-            }
-        }
-
         #endregion
 
         #region Properties
@@ -152,7 +140,8 @@ namespace MyPhoto
 
                     _ImageViewTransformer.SetOriginalDimentions((_Image.Source as WriteableBitmap).PixelWidth, (_Image.Source as WriteableBitmap).PixelHeight);
 
-                    //ImgPreviewTransformerInit();
+                    if (!String.IsNullOrEmpty(Properties.Settings.Default.DefaultPreview))
+                        _ImageViewTransformer.ExecuteTransformWith(Properties.Settings.Default.DefaultPreview);
                 }
             }
         }
