@@ -66,7 +66,7 @@ namespace MyPhoto
             {
                 IsMenuOpened = false;
                 fileWorker.SaveFile(_Image, FilePath);
-                UpdateImage(FilePath);
+                UpLoadImage(FilePath);
             }, (obj) => _Image.Source != null);
             MenuList.Children.Add(itemFactory.CreateMenuItem("\uE105", "Сохранить", savecmd));
 
@@ -103,7 +103,7 @@ namespace MyPhoto
 
         #region Private methods
 
-        private void UpdateImage(string path)
+        private void UpLoadImage(string path)
         {
             _Image.Source = null;
 
@@ -134,7 +134,7 @@ namespace MyPhoto
             set
             {
                 _FilePath = value;
-                if (value != null) UpdateImage(value);
+                if (value != null) UpLoadImage(value);
             }
         }
 
