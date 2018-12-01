@@ -1,6 +1,4 @@
-﻿
-using System.Windows.Controls;
-using System.Windows.Media.Imaging;
+﻿using System.Windows.Media.Imaging;
 using WriteableBitmapEx;
 
 namespace MyPhoto.Types

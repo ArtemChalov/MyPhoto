@@ -64,72 +64,72 @@
     </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="auto"
-                              MinWidth="68"
+            <ColumnDefinition Width="68"
+                              MinWidth="100"
                               MaxWidth="200"/>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="auto"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
 
-        <Grid Grid.Column="0"
-              Grid.Row="0"
-              MinWidth="64"
-              HorizontalAlignment="Stretch"
-              VerticalAlignment="Stretch">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-            <Button x:Name="menubtn"
-                    Content="&#xE700;"
-                    FontSize="18"
-                    HorizontalAlignment="Left"
-                    Width="32"
-                    Height="32"
-                    Click="Menubtn_Click"/>
-            <ListBox x:Name="foldercontent" 
-                     Grid.Row="1" 
-                     ItemsSource="{Binding FolderContent}">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel Margin="5" Orientation="Vertical">
-                            <Image Source="{Binding Path=Thumbnail}"
+        <Button x:Name="menubtn"
+                Grid.Column="0"
+                Grid.Row="0"
+                Content="&#xE700;"
+                FontSize="18"
+                HorizontalAlignment="Left"
+                Width="32"
+                Height="32"
+                Click="Menubtn_Click"/>
+
+        <ListBox x:Name="foldercontent"
+                 Grid.Column="0"
+                 Grid.Row="1" 
+                 BorderThickness="0"
+                 Background="Transparent"
+                 ItemsSource="{Binding FolderContent}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Margin="5" Orientation="Vertical">
+                        <Image Source="{Binding Path=Thumbnail}"
                                    Width="64"
                                    VerticalAlignment="Top"
                                    HorizontalAlignment="Left">
-                                <Image.Style>
-                                    <Style TargetType="Image">
-                                        <Style.Triggers>
-                                            <Trigger Property="Source" Value="{x:Null}">
-                                                <Setter Property="Visibility" Value="Collapsed"/>
-                                            </Trigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </Image.Style>
-                            </Image>
-                            <TextBlock FontSize="12" 
-                                       Text="{Binding Path=FileName}" 
-                                       HorizontalAlignment="Stretch" />
-                        </StackPanel>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
-        </Grid>
+                            <Image.Style>
+                                <Style TargetType="Image">
+                                    <Style.Triggers>
+                                        <Trigger Property="Source" Value="{x:Null}">
+                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Image.Style>
+                        </Image>
+                        <TextBlock FontSize="12" 
+                                   Foreground="WhiteSmoke"
+                                   Text="{Binding Path=FileName}"
+                                   HorizontalAlignment="Left" />
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
 
         <GridSplitter Grid.Column="0"
-                      Grid.Row="0"
+                      Grid.Row="1"
                       Width="4"
                       Background="#FF5B5B5B"
                       VerticalAlignment="Stretch"
                       HorizontalAlignment="Right"/>
 
+
         <ContentControl x:Name="imgconteiner" 
                         Grid.Column="1"
                         Grid.Row="0"
+                        Grid.RowSpan="2"
                         Content="{Binding ImgViewer}"/>
 
         <ContentControl x:Name="viewportmenu" 
@@ -140,23 +140,23 @@
         <Grid x:Name="statusbar"
               Grid.Column="0"
               Grid.ColumnSpan="3"
-              Grid.Row="1"
+              Grid.Row="2"
               Height="24">
         </Grid>
         
         <Border x:Name="menu" 
-              Grid.Column="0"
-              Grid.ColumnSpan="3"
-              Grid.Row="0"
+                Grid.Column="0"
+                Grid.ColumnSpan="3"
+                Grid.Row="0"
+                Grid.RowSpan="2"
                 CornerRadius="0 20 0 0"
-              Grid.RowSpan="2"
-              Panel.ZIndex="100"
-              ClipToBounds="False"
-              Background="#FF3087D4"
-              Margin="-200 0 0 0"
-              Width="200"
-              HorizontalAlignment="Left"
-              VerticalAlignment="Stretch">
+                Panel.ZIndex="100"
+                ClipToBounds="False"
+                Background="#FF3087D4"
+                Margin="-200 0 0 0"
+                Width="200"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Stretch">
             <Border.Style>
                 <Style>
                     <Style.Triggers>
