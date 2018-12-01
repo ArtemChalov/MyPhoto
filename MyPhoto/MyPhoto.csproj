@@ -83,6 +83,7 @@
     </ApplicationDefinition>
     <Compile Include="MVVM\BaseViewModel.cs" />
     <Compile Include="MVVM\DelegateCommand.cs" />
+    <Compile Include="Types\FolderContentInfo.cs" />
     <Compile Include="Utilities\ImgPreviewTransformer.cs" />
     <Compile Include="Utilities\FileWorker.cs" />
     <Compile Include="Utilities\MenuItemFactory.cs" />
@@ -130,7 +131,6 @@
     <Resource Include="Test_image.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Types\" />
     <Folder Include="ViewModels\" />
     <Folder Include="Views\" />
   </ItemGroup>
