@@ -95,6 +95,19 @@
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Margin="5" Orientation="Vertical">
+                            <Image Source="{Binding Path=Thumbnail, TargetNullValue={x:Null}}"
+                                   Width="64"
+                                   Height="64">
+                                <Image.Style>
+                                    <Style TargetType="Image">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Source}" Value="{x:Null}">
+                                                <Setter Property="Visibility" Value="Collapsed"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Image.Style>
+                            </Image>
                             <TextBlock FontSize="12" 
                                        Text="{Binding Path=FileName}" 
                                        HorizontalAlignment="Stretch" />
