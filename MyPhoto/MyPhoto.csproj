@@ -89,7 +89,6 @@
     <Compile Include="Utilities\FileWorker.cs" />
     <Compile Include="Utilities\MenuItemFactory.cs" />
     <Compile Include="Utilities\ViewPortMenuItemFactory.cs" />
-    <Compile Include="Utilities\WriteableBitmapToFileEx.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
