@@ -1,4 +1,8 @@
 ﻿
+using System.Windows.Controls;
+using System.Windows.Media.Imaging;
+using WriteableBitmapEx;
+
 namespace MyPhoto.Types
 {
     public struct FolderContentInfo
@@ -7,9 +11,11 @@ namespace MyPhoto.Types
         {
             FilePath = filepath;
             FileName = filename;
+            Thumbnail = new WriteableBitmapFactory().CreateFromFile(filepath);
         }
 
         public string FileName { get; set; }
         public string FilePath { get; set; }
+        public WriteableBitmap Thumbnail { get; set; }
     }
 }
