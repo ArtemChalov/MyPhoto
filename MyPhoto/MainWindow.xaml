@@ -75,6 +75,7 @@
 
         <Grid Grid.Column="0"
               Grid.Row="0"
+              Width="100"
               HorizontalAlignment="Stretch"
               VerticalAlignment="Stretch">
             <Grid.RowDefinitions>
@@ -84,6 +85,7 @@
             <Button x:Name="menubtn"
                     Content="&#xE700;"
                     FontSize="18"
+                    HorizontalAlignment="Left"
                     Width="32"
                     Height="32"
                     Click="Menubtn_Click"/>
@@ -92,9 +94,11 @@
                      ItemsSource="{Binding FolderContent}">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <Grid>
-                            <TextBlock Text="{Binding FileName}"/>
-                        </Grid>
+                        <StackPanel Margin="5" Orientation="Vertical">
+                            <TextBlock FontSize="12" 
+                                       Text="{Binding Path=FileName}" 
+                                       HorizontalAlignment="Stretch" />
+                        </StackPanel>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>

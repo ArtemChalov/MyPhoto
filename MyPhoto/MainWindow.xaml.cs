@@ -120,7 +120,8 @@ namespace MyPhoto
             if (!String.IsNullOrEmpty(Properties.Settings.Default.DefaultPreview))
                 _ImageViewTransformer.ExecuteTransformWith(Properties.Settings.Default.DefaultPreview);
 
-            new FolderWorker().UpLoadFolderContent(path);
+            FolderContent = null;
+            FolderContent = new FolderWorker().UpLoadFolderContent(path);
         }
 
         #endregion
