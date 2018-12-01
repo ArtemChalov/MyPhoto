@@ -4,7 +4,7 @@ using System.Windows.Media.Imaging;
 
 namespace MyPhoto.Utilities
 {
-    static class WriteableBitmapToFileEx
+    public static class WriteableBitmapToFileEx
     {
         public static void SaveToFile(this WriteableBitmap source, string filename)
         {

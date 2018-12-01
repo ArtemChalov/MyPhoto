@@ -69,14 +69,12 @@
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
-    <Reference Include="WindowDialogs">
-      <HintPath>..\WindowDialogs\bin\Release\WindowDialogs.dll</HintPath>
-    </Reference>
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
-    <Reference Include="WriteableBitmapEx">
-      <HintPath>..\WriteableBitmapEx\bin\Release\WriteableBitmapEx.dll</HintPath>
+    <Reference Include="WriteableBitmapEx, Version=1.0.0.0, Culture=neutral, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Release\WriteableBitmapEx.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

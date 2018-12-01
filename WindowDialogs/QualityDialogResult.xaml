@@ -9,7 +9,7 @@
         SizeToContent="WidthAndHeight"
         ResizeMode="NoResize"
         WindowStyle="ToolWindow"
-        WindowStartupLocation="CenterOwner">
+        WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <local:QualityInfoConverter x:Key="qConv"/>
     </Window.Resources>
