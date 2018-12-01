@@ -11,7 +11,7 @@ namespace MyPhoto.Types
         {
             FilePath = filepath;
             FileName = filename;
-            Thumbnail = new WriteableBitmapFactory().CreateFromFile(filepath);
+            Thumbnail = new WriteableBitmapFactory().CreateThumbnailFromFile(filepath, 64);
         }
 
         public string FileName { get; set; }

@@ -99,7 +99,7 @@
                         <StackPanel Margin="5" Orientation="Vertical">
                             <Image Source="{Binding Path=Thumbnail}"
                                    Width="64"
-                                   Height="64"
+                                   VerticalAlignment="Top"
                                    HorizontalAlignment="Left">
                                 <Image.Style>
                                     <Style TargetType="Image">
@@ -122,7 +122,7 @@
 
         <GridSplitter Grid.Column="0"
                       Grid.Row="0"
-                      Width="2"
+                      Width="4"
                       Background="#FF5B5B5B"
                       VerticalAlignment="Stretch"
                       HorizontalAlignment="Right"/>
