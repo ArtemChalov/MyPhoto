@@ -64,7 +64,7 @@
     </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="auto" MaxWidth="200"/>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="auto"/>
         </Grid.ColumnDefinitions>
@@ -87,6 +87,17 @@
                     Width="32"
                     Height="32"
                     Click="Menubtn_Click"/>
+            <ListBox x:Name="foldercontent" 
+                     Grid.Row="1" 
+                     ItemsSource="{Binding FolderContent}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <TextBlock Text="{Binding FileName}"/>
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
         </Grid>
 
         <ContentControl x:Name="imgconteiner" 

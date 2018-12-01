@@ -20,6 +20,7 @@ namespace MyPhoto
         private bool _IsMenuOpened;
         private string _FilePath;
         private Image _Image;
+        
 
         public MainWindow()
         {
