@@ -1,6 +1,8 @@
 ﻿using MVVM;
+using MyPhoto.Types;
 using MyPhoto.Utilities;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
@@ -20,7 +22,7 @@ namespace MyPhoto
         private bool _IsMenuOpened;
         private string _FilePath;
         private Image _Image;
-        
+        private List<FolderContentInfo> _FolderContent;
 
         public MainWindow()
         {
@@ -137,6 +139,12 @@ namespace MyPhoto
                 _FilePath = value;
                 if (value != null) UpLoadImage(value);
             }
+        }
+
+        public List<FolderContentInfo> FolderContent
+        {
+            get { return _FolderContent; }
+            set { _FolderContent = value; OnPropertyChanged(); }
         }
 
         public bool IsMenuOpened
