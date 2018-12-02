@@ -11,15 +11,14 @@ namespace MyPhoto.Utilities
     {
         public string OpenFileWithDialog()
         {
-            string defaultPath = "C:\\";
+            string lastpath = "C:\\";
+            // Get the last opened directory to open with
             if (Directory.Exists(Properties.Settings.Default.DefaultOpenPath))
-            {
-                defaultPath = Properties.Settings.Default.DefaultOpenPath;
-            }
+                lastpath = Properties.Settings.Default.DefaultOpenPath;
 
             OpenFileDialog opendialog = new OpenFileDialog
             {
-                InitialDirectory = defaultPath,
+                InitialDirectory = lastpath,
                 Filter = "Image files|*.jpg;*.jpeg;*.png;*.bmp|All files|*.*",
                 FilterIndex = 0,
                 ValidateNames = false,
@@ -32,28 +31,38 @@ namespace MyPhoto.Utilities
 
             if (res != null && res == true)
             {
-                if (TestFileName(opendialog.FileName) == null)
-                {
-                    return null;
-                }
-                else return opendialog.FileName;
+                return TestedFileName(opendialog.FileName);
             }
 
             return null;
         }
 
-        private string TestFileName(string filepath)
+        private string TestedFileName(string filepath)
         {
             var dirinfo = new DirectoryInfo(filepath);
             var folder = dirinfo.Parent;
 
-            if (Directory.Exists(folder.FullName))
-                Properties.Settings.Default.DefaultOpenPath = folder.FullName;
+            if (!File.Exists(filepath))
+            {
+                // Set default result
+                filepath = null;
+                // Try find out an image in the folder
+                foreach (var finfo in folder.GetFiles())
+                {
+                    if (IsFileImage(finfo.Extension))
+                    {
+                        filepath = finfo.FullName;
+                        // Set tha last opened directory to next open with
+                        Properties.Settings.Default.DefaultOpenPath = folder.FullName;
+                        break;
+                    }
+                }
+            }
 
-            if (File.Exists(filepath) && IsFileImage(dirinfo.Extension))
-                return filepath;
+            if (filepath == null)
+                MessageBox.Show($" В каталоге:\n {folder.FullName}\nнет изображений.", "Открытие папки", MessageBoxButton.OK, MessageBoxImage.Information);
 
-            return null;
+            return filepath;
         }
 
         public static bool IsFileImage(string fileExtention)
