@@ -56,6 +56,20 @@ namespace MyPhoto.Utilities
             return null;
         }
 
+        public static bool IsFileImage(string fileExtention)
+        {
+            switch (fileExtention)
+            {
+                case ".jpg": return true;
+                case ".jpeg": return true;
+                case ".png": return true;
+                case ".bmp": return true;
+                case ".tiff": return true;
+                case ".gif": return true;
+                default: return false;
+            }
+        }
+
         public string SaveFileWithDialog(Image img, string currentpath)
         {
             SaveFileDialog saveFileDialog = new SaveFileDialog() { FileName = "*", DefaultExt = "jpg", ValidateNames = true };
