@@ -52,8 +52,6 @@ namespace MyPhoto.Utilities
                     if (IsFileImage(finfo.Extension))
                     {
                         filepath = finfo.FullName;
-                        // Set tha last opened directory to next open with
-                        Properties.Settings.Default.DefaultOpenPath = folder.FullName;
                         break;
                     }
                 }
@@ -61,6 +59,9 @@ namespace MyPhoto.Utilities
 
             if (filepath == null)
                 MessageBox.Show($" В каталоге:\n {folder.FullName}\nнет изображений.", "Открытие папки", MessageBoxButton.OK, MessageBoxImage.Information);
+            else
+                // Set tha last opened directory to next open with
+                Properties.Settings.Default.DefaultOpenPath = folder.FullName;
 
             return filepath;
         }

@@ -8,6 +8,7 @@
         WindowState="Normal"
         Title="MyPhoto"
         Background="Black"
+        Closing="Window_Closing"
         Height="450" Width="800"
         SizeChanged="Window_SizeChanged">
     <Window.Resources>

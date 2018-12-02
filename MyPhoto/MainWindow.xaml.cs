@@ -193,5 +193,11 @@ namespace MyPhoto
         }
 
         #endregion
+
+        private void Window_Closing(object sender, CancelEventArgs e)
+        {
+            Properties.Settings.Default.Save();
+            base.OnClosed(e);
+        }
     }
 }
