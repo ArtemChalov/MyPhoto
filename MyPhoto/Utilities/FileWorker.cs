@@ -23,7 +23,7 @@ namespace MyPhoto.Utilities
                 Filter = "Image files|*.jpg;*.jpeg;*.png;*.bmp|All files|*.*",
                 FilterIndex = 0,
                 ValidateNames = false,
-                CheckFileExists = false,
+                CheckFileExists = true,
                 CheckPathExists = true,
                 FileName = "Открытие папки"
             };
@@ -32,14 +32,26 @@ namespace MyPhoto.Utilities
 
             if (res != null && res == true)
             {
-                if (!String.IsNullOrEmpty(opendialog.FileName)){
-                    var ind = opendialog.FileName.LastIndexOf('\\');
-                    string newFolderPath = opendialog.FileName.Substring(0, ind + 1);
-                    Properties.Settings.Default.DefaultOpenPath = newFolderPath;
-
-                    return opendialog.FileName;
+                if (TestFileName(opendialog.FileName) == null)
+                {
+                    return null;
                 }
+                else return opendialog.FileName;
             }
+
+            return null;
+        }
+
+        private string TestFileName(string filepath)
+        {
+            var dirinfo = new DirectoryInfo(filepath);
+            var folder = dirinfo.Parent;
+
+            if (Directory.Exists(folder.FullName))
+                Properties.Settings.Default.DefaultOpenPath = folder.FullName;
+
+            if (File.Exists(filepath))
+                return filepath;
 
             return null;
         }

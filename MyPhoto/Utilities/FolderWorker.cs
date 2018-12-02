@@ -19,19 +19,14 @@ namespace MyPhoto.Utilities
 
             foreach (var finfo in dirInfo.GetFiles())
             {
-                if (IsFileImage(finfo.Name))
+                if (IsFileImage(finfo.Extension))
                     fileList.Add(new FolderContentInfo(finfo.FullName, finfo.Name));
             }
             return fileList;
         }
 
-        private bool IsFileImage(string fileName)
+        private bool IsFileImage(string fileExtention)
         {
-            var index = fileName.LastIndexOf('.');
-            var count = fileName.Length - index;
-
-            string fileExtention = fileName.Substring(index, count).ToLower();
-
             switch (fileExtention)
             {
                 case ".jpg": return true;
@@ -43,5 +38,6 @@ namespace MyPhoto.Utilities
                 default: return false;
             }
         }
+
     }
 }
