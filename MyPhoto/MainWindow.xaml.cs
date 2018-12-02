@@ -4,6 +4,7 @@ using MyPhoto.Utilities;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
@@ -108,6 +109,11 @@ namespace MyPhoto
 
         private void UpLoadImage(string path)
         {
+            if (!File.Exists(path))
+            {
+                MessageBox.Show($"   Файл с именем\n\"{path}\"\nне найден!", "Ошибка открытия", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
             _Image.Source = null;
 
             WriteableBitmapFactory factory = new WriteableBitmapFactory();
