@@ -50,7 +50,7 @@ namespace MyPhoto.Utilities
             if (Directory.Exists(folder.FullName))
                 Properties.Settings.Default.DefaultOpenPath = folder.FullName;
 
-            if (File.Exists(filepath))
+            if (File.Exists(filepath) && IsFileImage(dirinfo.Extension))
                 return filepath;
 
             return null;
