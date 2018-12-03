@@ -80,7 +80,7 @@ namespace MyPhoto.Utilities
             }
         }
 
-        public string SaveFileWithDialog(Image img, string currentpath)
+        public string SaveFileWithDialog(Image img)
         {
             SaveFileDialog saveFileDialog = new SaveFileDialog() { FileName = "*", DefaultExt = "jpg", ValidateNames = true };
             saveFileDialog.Filter = "All Files |*.*|JPEG Image |*.jpg;*.jpeg|Png Image |*.png|Bitmap Image |*.bmp|Gif Image |*.gif|Tiff Image |*.tiff|Wmf Image |*.wmf";
@@ -106,7 +106,7 @@ namespace MyPhoto.Utilities
                     MessageBox.Show("No source");
             }
 
-            return currentpath;
+            return null;
         }
 
         public void SaveFile(Image img, string currentpath)

@@ -83,7 +83,7 @@ namespace MyPhoto
             ICommand saveascmd = new DelegateCommand((obj) =>
             {
                 IsMenuOpened = false;
-                FilePath = fileWorker.SaveFileWithDialog(_Image, FilePath);
+                FilePath = fileWorker.SaveFileWithDialog(_Image);
                 if (FilePath != null)
                 {
                     FolderContent = null;
