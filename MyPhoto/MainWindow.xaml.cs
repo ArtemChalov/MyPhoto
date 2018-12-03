@@ -66,6 +66,7 @@ namespace MyPhoto
             MenuList.Children.Add(itemFactory.CreateMenuItem("\uED25", ApplicationCommands.Open.Text, ApplicationCommands.Open));
             MenuList.Children.Add(itemFactory.CreateMenuItem("\uE105", ApplicationCommands.Save.Text, ApplicationCommands.Save));
             MenuList.Children.Add(itemFactory.CreateMenuItem("\uEA35", ApplicationCommands.SaveAs.Text, ApplicationCommands.SaveAs));
+            MenuList.Children.Add(itemFactory.CreateMenuItem("\uE8C8", ApplicationCommands.Copy.Text, ApplicationCommands.Copy));
             MenuList.Children.Add(itemFactory.CreateHSeparator((Color)(new ColorConverter().ConvertFrom("#FF2C628B"))));
             MenuList.Children.Add(itemFactory.CreateMenuItem("\uE107", ApplicationCommands.Delete.Text, ApplicationCommands.Delete));
 
@@ -218,6 +219,11 @@ namespace MyPhoto
             IsMenuOpened = false;
             FilePath = new FileWorker().SaveFileWithDialog(_Image);
             UploadFolderContent();
+        }
+
+        private void Copy_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            IsMenuOpened = false;
         }
 
         private void Save_CanExecute(object sender, CanExecuteRoutedEventArgs e)
