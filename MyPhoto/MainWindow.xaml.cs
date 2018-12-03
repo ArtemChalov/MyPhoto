@@ -53,7 +53,6 @@ namespace MyPhoto
         private void MenuInit()
         {
             MenuItemFactory itemFactory = new MenuItemFactory();
-            FileWorker fileWorker = new FileWorker();
 
             MenuList = new StackPanel()
             {
@@ -64,7 +63,7 @@ namespace MyPhoto
             ICommand opencmd = new DelegateCommand((obj) =>
             {
                 IsMenuOpened = false;
-                FilePath = fileWorker.OpenFileWithDialog();
+                FilePath = new FileWorker().OpenFileWithDialog();
                 UploadFolderContent();
             });
             MenuList.Children.Add(itemFactory.CreateMenuItem("\uED25", "Открыть", opencmd));
@@ -72,7 +71,7 @@ namespace MyPhoto
             ICommand savecmd = new DelegateCommand((obj) =>
             {
                 IsMenuOpened = false;
-                fileWorker.SaveFile(_Image, FilePath);
+                new FileWorker().SaveFile(_Image, FilePath);
                 UploadImage(FilePath);
             }, (obj) => _Image.Source != null);
             MenuList.Children.Add(itemFactory.CreateMenuItem("\uE105", "Сохранить", savecmd));
@@ -80,7 +79,7 @@ namespace MyPhoto
             ICommand saveascmd = new DelegateCommand((obj) =>
             {
                 IsMenuOpened = false;
-                FilePath = fileWorker.SaveFileWithDialog(_Image);
+                FilePath = new FileWorker().SaveFileWithDialog(_Image);
                 UploadFolderContent();
             }, (obj) => _Image.Source != null);
             MenuList.Children.Add(itemFactory.CreateMenuItem("\uEA35", "Сохранить как", saveascmd));
