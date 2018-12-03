@@ -9,6 +9,7 @@ using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using WriteableBitmapEx;
 
@@ -63,6 +64,7 @@ namespace MyPhoto
             MenuList.Children.Add(itemFactory.CreateMenuItem("\uED25", ApplicationCommands.Open.Text, ApplicationCommands.Open));
             MenuList.Children.Add(itemFactory.CreateMenuItem("\uE105", ApplicationCommands.Save.Text, ApplicationCommands.Save));
             MenuList.Children.Add(itemFactory.CreateMenuItem("\uEA35", ApplicationCommands.SaveAs.Text, ApplicationCommands.SaveAs));
+            MenuList.Children.Add(itemFactory.CreateHSeparator((Color)(new ColorConverter().ConvertFrom("#FF2C628B"))));
 
             itemFactory = null;
         }
@@ -128,11 +130,7 @@ namespace MyPhoto
         public string FilePath
         {
             get { return _FilePath; }
-            set
-            {
-                _FilePath = value;
-                UploadImage(value);
-            }
+            set { _FilePath = value; UploadImage(value); }
         }
 
         public List<FolderContentInfo> FolderContent
@@ -152,7 +150,6 @@ namespace MyPhoto
             }
         }
 
-
         public ScrollViewer ImgViewer { get; set; }
 
         public StackPanel MenuList { get; set; }
@@ -163,17 +160,6 @@ namespace MyPhoto
         {
             get { return _IsMenuOpened; }
             set { _IsMenuOpened = value; OnPropertyChanged(); }
-        }
-
-        #endregion
-
-        #region PropertyChanged interface
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        public void OnPropertyChanged([CallerMemberName]string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         #endregion
@@ -210,10 +196,6 @@ namespace MyPhoto
 
         #region ApplicationCommand
 
-
-
-        #endregion
-
         private void Open_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             IsMenuOpened = false;
@@ -239,5 +221,18 @@ namespace MyPhoto
         {
             e.CanExecute = _Image.Source != null;
         }
+
+        #endregion
+
+        #region PropertyChanged interface
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public void OnPropertyChanged([CallerMemberName]string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        #endregion
     }
 }

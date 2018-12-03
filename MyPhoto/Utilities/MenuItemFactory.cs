@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
 
 namespace MyPhoto.Utilities
 {
@@ -43,6 +44,17 @@ namespace MyPhoto.Utilities
             button.Command = command;
 
             return button;
+        }
+
+        public Border CreateHSeparator(Color color)
+        {
+            return new Border()
+            {
+                HorizontalAlignment = System.Windows.HorizontalAlignment.Stretch,
+                Background = new SolidColorBrush(color),
+                Margin = new System.Windows.Thickness(5, 3, 5, 1),
+                Height = 1
+            };
         }
     }
 }
