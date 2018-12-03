@@ -72,6 +72,7 @@ namespace MyPhoto
                     // Highlight the showed image on the folder presenter panel
                     _SelectedPreviewImage = FolderContent.First<FolderContentInfo>(cont => cont.FilePath == FilePath);
                     OnPropertyChanged("SelectedPreviewImage");
+                    foldercontent.Focus();
                 }
             });
             MenuList.Children.Add(itemFactory.CreateMenuItem("\uED25", "Открыть", opencmd));
@@ -95,6 +96,7 @@ namespace MyPhoto
                     // Highlight the showed image on the folder presenter panel
                     _SelectedPreviewImage = FolderContent.First<FolderContentInfo>(cont => cont.FilePath == FilePath);
                     OnPropertyChanged("SelectedPreviewImage");
+                    foldercontent.Focus();
                 }
             }, (obj) => _Image.Source != null);
             MenuList.Children.Add(itemFactory.CreateMenuItem("\uEA35", "Сохранить как", saveascmd));
