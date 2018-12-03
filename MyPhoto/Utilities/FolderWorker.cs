@@ -12,32 +12,15 @@ namespace MyPhoto.Utilities
     {
         public List<FolderContentInfo> UpLoadFolderContent(string filepath)
         {
-            var fileInfo = new FileInfo(filepath);
-
-            var dirInfo = new DirectoryInfo(fileInfo.DirectoryName);
+            var dirInfo = new DirectoryInfo(filepath).Parent;
             List<FolderContentInfo> fileList = new List<FolderContentInfo>();
 
             foreach (var finfo in dirInfo.GetFiles())
             {
-                if (IsFileImage(finfo.Extension))
+                if (FileWorker.IsFileImage(finfo.Extension))
                     fileList.Add(new FolderContentInfo(finfo.FullName, finfo.Name));
             }
             return fileList;
         }
-
-        private bool IsFileImage(string fileExtention)
-        {
-            switch (fileExtention)
-            {
-                case ".jpg": return true;
-                case ".jpeg": return true;
-                case ".png": return true;
-                case ".bmp": return true;
-                case ".tiff": return true;
-                case ".gif": return true;
-                default: return false;
-            }
-        }
-
     }
 }
