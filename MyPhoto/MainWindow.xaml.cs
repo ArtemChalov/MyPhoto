@@ -4,6 +4,7 @@ using MyPhoto.Utilities;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows;
@@ -225,7 +226,25 @@ namespace MyPhoto
 
         private void Delete_Executed(object sender, ExecutedRoutedEventArgs e)
         {
+            IsMenuOpened = false;
+            if (File.Exists(FilePath))
+            {
+                if (foldercontent.Items.Count > 0)
+                {
+                    FolderContentInfo item = SelectedPreviewImage;
+                    MessageBoxResult result = MessageBox.Show($"Будет удален файл:\n{item.FileName}", "Удаление файла", MessageBoxButton.OKCancel, MessageBoxImage.Exclamation);
 
+                    if (result == MessageBoxResult.OK)
+                    {
+                        File.Delete(FilePath);
+                        if (foldercontent.SelectedIndex > 0)
+                            foldercontent.SelectedIndex = foldercontent.SelectedIndex - 1;
+                        FolderContent.Remove(item);
+                        OnPropertyChanged("FolderContent");
+                    }
+                }
+            }
+            else MessageBox.Show("Неверный путь к файлу.");
         }
 
         private void Delete_CanExecute(object sender, CanExecuteRoutedEventArgs e)
