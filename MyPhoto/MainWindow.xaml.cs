@@ -64,6 +64,11 @@ namespace MyPhoto
             {
                 IsMenuOpened = false;
                 FilePath = fileWorker.OpenFileWithDialog();
+                if (FilePath != null)
+                {
+                    FolderContent = null;
+                    FolderContent = new FolderWorker().UpLoadFolderContent(FilePath);
+                }
             });
             MenuList.Children.Add(itemFactory.CreateMenuItem("\uED25", "Открыть", opencmd));
 
@@ -79,6 +84,11 @@ namespace MyPhoto
             {
                 IsMenuOpened = false;
                 FilePath = fileWorker.SaveFileWithDialog(_Image, FilePath);
+                if (FilePath != null)
+                {
+                    FolderContent = null;
+                    FolderContent = new FolderWorker().UpLoadFolderContent(FilePath);
+                }
             }, (obj) => _Image.Source != null);
             MenuList.Children.Add(itemFactory.CreateMenuItem("\uEA35", "Сохранить как", saveascmd));
 
@@ -121,9 +131,6 @@ namespace MyPhoto
 
             if (!String.IsNullOrEmpty(Properties.Settings.Default.DefaultPreview))
                 _ImageViewTransformer.ExecuteTransformWith(Properties.Settings.Default.DefaultPreview);
-
-            FolderContent = null;
-            FolderContent = new FolderWorker().UpLoadFolderContent(path);
         }
 
         #endregion
