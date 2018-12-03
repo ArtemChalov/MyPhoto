@@ -233,7 +233,7 @@ namespace MyPhoto
                 if (foldercontent.Items.Count > 0)
                 {
                     FolderContentInfo item = SelectedPreviewImage;
-                    MessageBoxResult result = MessageBox.Show($"Будет удален файл:\n{item.FileName}", "Удаление файла", MessageBoxButton.OKCancel, MessageBoxImage.Exclamation);
+                    MessageBoxResult result = MessageBox.Show($" Файл\n{item.FileName}\nбудет удален с диска!", "Удаление файла", MessageBoxButton.OKCancel, MessageBoxImage.Exclamation);
 
                     if (result == MessageBoxResult.OK)
                     {
