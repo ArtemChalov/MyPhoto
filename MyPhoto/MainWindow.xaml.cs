@@ -60,29 +60,9 @@ namespace MyPhoto
                 HorizontalAlignment = HorizontalAlignment.Stretch
             };
 
-            ICommand opencmd = new DelegateCommand((obj) =>
-            {
-                IsMenuOpened = false;
-                FilePath = new FileWorker().OpenFileWithDialog();
-                UploadFolderContent();
-            });
-            MenuList.Children.Add(itemFactory.CreateMenuItem("\uED25", "Открыть", opencmd));
-
-            ICommand savecmd = new DelegateCommand((obj) =>
-            {
-                IsMenuOpened = false;
-                new FileWorker().SaveFile(_Image, FilePath);
-                UploadImage(FilePath);
-            }, (obj) => _Image.Source != null);
-            MenuList.Children.Add(itemFactory.CreateMenuItem("\uE105", "Сохранить", savecmd));
-
-            ICommand saveascmd = new DelegateCommand((obj) =>
-            {
-                IsMenuOpened = false;
-                FilePath = new FileWorker().SaveFileWithDialog(_Image);
-                UploadFolderContent();
-            }, (obj) => _Image.Source != null);
-            MenuList.Children.Add(itemFactory.CreateMenuItem("\uEA35", "Сохранить как", saveascmd));
+            MenuList.Children.Add(itemFactory.CreateMenuItem("\uED25", ApplicationCommands.Open.Text, ApplicationCommands.Open));
+            MenuList.Children.Add(itemFactory.CreateMenuItem("\uE105", ApplicationCommands.Save.Text, ApplicationCommands.Save));
+            MenuList.Children.Add(itemFactory.CreateMenuItem("\uEA35", ApplicationCommands.SaveAs.Text, ApplicationCommands.SaveAs));
 
             itemFactory = null;
         }
@@ -227,5 +207,37 @@ namespace MyPhoto
         }
 
         #endregion
+
+        #region ApplicationCommand
+
+
+
+        #endregion
+
+        private void Open_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            IsMenuOpened = false;
+            FilePath = new FileWorker().OpenFileWithDialog();
+            UploadFolderContent();
+        }
+
+        private void Save_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            IsMenuOpened = false;
+            new FileWorker().SaveFile(_Image, FilePath);
+            UploadImage(FilePath);
+        }
+
+        private void SaveAs_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            IsMenuOpened = false;
+            FilePath = new FileWorker().SaveFileWithDialog(_Image);
+            UploadFolderContent();
+        }
+
+        private void Save_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = _Image.Source != null;
+        }
     }
 }
