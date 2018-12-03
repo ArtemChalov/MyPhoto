@@ -159,6 +159,8 @@ namespace MyPhoto
             set
             {
                 _SelectedPreviewImage = value;
+                if (value.FilePath != null)
+                    FilePath = value.FilePath;
             }
         }
 
