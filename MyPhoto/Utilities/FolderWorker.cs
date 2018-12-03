@@ -1,6 +1,7 @@
 ﻿using MyPhoto.Types;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -10,10 +11,10 @@ namespace MyPhoto.Utilities
 {
     class FolderWorker
     {
-        public List<FolderContentInfo> UpLoadFolderContent(string filepath)
+        public ObservableCollection<FolderContentInfo> UpLoadFolderContent(string filepath)
         {
             var dirInfo = new DirectoryInfo(filepath).Parent;
-            List<FolderContentInfo> fileList = new List<FolderContentInfo>();
+            ObservableCollection<FolderContentInfo> fileList = new ObservableCollection<FolderContentInfo>();
 
             foreach (var finfo in dirInfo.GetFiles())
             {

@@ -3,6 +3,7 @@ using MyPhoto.Types;
 using MyPhoto.Utilities;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
@@ -23,7 +24,7 @@ namespace MyPhoto
     {
         private Image _Image;
         private string _FilePath;
-        private List<FolderContentInfo> _FolderContent;
+        private ObservableCollection<FolderContentInfo> _FolderContent;
         private ImgPreviewTransformer _ImageViewTransformer;
         private FolderContentInfo _SelectedPreviewImage;
 
@@ -135,7 +136,7 @@ namespace MyPhoto
             set { _FilePath = value; UploadImage(value); }
         }
 
-        public List<FolderContentInfo> FolderContent
+        public ObservableCollection<FolderContentInfo> FolderContent
         {
             get { return _FolderContent; }
             set { _FolderContent = value; OnPropertyChanged(); }
@@ -240,7 +241,6 @@ namespace MyPhoto
                         if (foldercontent.SelectedIndex > 0)
                             foldercontent.SelectedIndex = foldercontent.SelectedIndex - 1;
                         FolderContent.Remove(item);
-                        OnPropertyChanged("FolderContent");
                     }
                 }
             }
