@@ -69,10 +69,10 @@ namespace MyPhoto
                 {
                     FolderContent = null;
                     FolderContent = new FolderWorker().UpLoadFolderContent(FilePath);
+                    foldercontent.Focus();
                     // Highlight the showed image on the folder presenter panel
                     _SelectedPreviewImage = FolderContent.First<FolderContentInfo>(cont => cont.FilePath == FilePath);
                     OnPropertyChanged("SelectedPreviewImage");
-                    foldercontent.Focus();
                 }
             });
             MenuList.Children.Add(itemFactory.CreateMenuItem("\uED25", "Открыть", opencmd));
@@ -93,10 +93,10 @@ namespace MyPhoto
                 {
                     FolderContent = null;
                     FolderContent = new FolderWorker().UpLoadFolderContent(FilePath);
+                    foldercontent.Focus();
                     // Highlight the showed image on the folder presenter panel
                     _SelectedPreviewImage = FolderContent.First<FolderContentInfo>(cont => cont.FilePath == FilePath);
                     OnPropertyChanged("SelectedPreviewImage");
-                    foldercontent.Focus();
                 }
             }, (obj) => _Image.Source != null);
             MenuList.Children.Add(itemFactory.CreateMenuItem("\uEA35", "Сохранить как", saveascmd));
@@ -131,6 +131,8 @@ namespace MyPhoto
         {
             _Image.Source = null;
 
+            if (path == null) return;
+
             WriteableBitmapFactory factory = new WriteableBitmapFactory();
             // Create and show an image
             _Image.Source = factory.CreateFromFile(path);
@@ -152,7 +154,7 @@ namespace MyPhoto
             set
             {
                 _FilePath = value;
-                if (value != null) UpLoadImage(value);
+                UpLoadImage(value);
             }
         }
 
