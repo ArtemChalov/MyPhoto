@@ -224,6 +224,32 @@ namespace MyPhoto
         private void Copy_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             IsMenuOpened = false;
+            if (File.Exists(FilePath))
+            {
+                string extention = FilePath.Substring(FilePath.LastIndexOf('.'));
+                string newfile = FilePath.Substring(0, FilePath.LastIndexOf('.'));
+                if (!newfile.Contains("_копия"))
+                    newfile = FilePath.Substring(0, FilePath.LastIndexOf('.')) + "_копия0";
+                while (File.Exists(newfile + extention))
+                {
+                    var root = newfile.Substring(0, newfile.LastIndexOf('я') + 1);
+                    var snum = newfile.Substring(newfile.LastIndexOf('я') + 1);
+                    Int32.TryParse(snum, out int inum);
+                    inum++;
+                    newfile = root + inum.ToString();
+                }
+
+                newfile += extention;
+
+                File.Copy(FilePath, newfile);
+                if (File.Exists(newfile))
+                {
+                    FileInfo fileInfo = new FileInfo(newfile);
+                    FolderContentInfo item = new FolderContentInfo(newfile, fileInfo.Name);
+                    FolderContent.Add(item);
+                    SelectedPreviewImage = item;
+                }
+            }
         }
 
         private void Save_CanExecute(object sender, CanExecuteRoutedEventArgs e)
