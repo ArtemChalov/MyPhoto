@@ -3,7 +3,7 @@ using WriteableBitmapEx;
 
 namespace MyPhoto.Types
 {
-    public struct FolderContentInfo
+    public class FolderContentInfo
     {
         public FolderContentInfo(string filepath, string filename)
         {

@@ -65,9 +65,9 @@ namespace MyPhoto
             {
                 IsMenuOpened = false;
                 FilePath = fileWorker.OpenFileWithDialog();
+                FolderContent = null;
                 if (FilePath != null)
                 {
-                    FolderContent = null;
                     FolderContent = new FolderWorker().UpLoadFolderContent(FilePath);
                     foldercontent.Focus();
                     // Highlight the showed image on the folder presenter panel
@@ -89,9 +89,9 @@ namespace MyPhoto
             {
                 IsMenuOpened = false;
                 FilePath = fileWorker.SaveFileWithDialog(_Image);
+                FolderContent = null;
                 if (FilePath != null)
                 {
-                    FolderContent = null;
                     FolderContent = new FolderWorker().UpLoadFolderContent(FilePath);
                     foldercontent.Focus();
                     // Highlight the showed image on the folder presenter panel
