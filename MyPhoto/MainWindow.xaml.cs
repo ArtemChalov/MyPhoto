@@ -166,7 +166,6 @@ namespace MyPhoto
                 _SelectedPreviewImage = value;
                 if (value.FilePath != null)
                     FilePath = value.FilePath;
-                OnPropertyChanged();
             }
         }
 
