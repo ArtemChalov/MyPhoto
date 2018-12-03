@@ -22,6 +22,7 @@ namespace MyPhoto
         private string _FilePath;
         private List<FolderContentInfo> _FolderContent;
         private ImgPreviewTransformer _ImageViewTransformer;
+        private FolderContentInfo _SelectedPreviewImage;
 
         private bool _IsMenuOpened;
 
@@ -144,6 +145,16 @@ namespace MyPhoto
             get { return _FolderContent; }
             set { _FolderContent = value; OnPropertyChanged(); }
         }
+
+        public FolderContentInfo SelectedPreviewImage
+        {
+            get { return _SelectedPreviewImage; }
+            set
+            {
+                _SelectedPreviewImage = value;
+            }
+        }
+
 
         public ScrollViewer ImgViewer { get; set; }
 

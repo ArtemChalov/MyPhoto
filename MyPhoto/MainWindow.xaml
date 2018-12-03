@@ -91,6 +91,7 @@
                  Grid.Column="0"
                  Grid.Row="1" 
                  BorderThickness="0"
+                 SelectedItem="{Binding SelectedPreviewImage}"
                  Background="Transparent"
                  ItemsSource="{Binding FolderContent}">
             <ListBox.ItemTemplate>
