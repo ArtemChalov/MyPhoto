@@ -65,16 +65,7 @@ namespace MyPhoto
             {
                 IsMenuOpened = false;
                 FilePath = fileWorker.OpenFileWithDialog();
-                FolderContent = null;
-                _SelectedPreviewImage = null;
-                if (FilePath != null)
-                {
-                    FolderContent = new FolderWorker().UpLoadFolderContent(FilePath);
-                    foldercontent.Focus();
-                    // Highlight the showed image on the folder presenter panel
-                    _SelectedPreviewImage = FolderContent.First<FolderContentInfo>(cont => cont.FilePath == FilePath);
-                    OnPropertyChanged("SelectedPreviewImage");
-                }
+                UploadFolderContent();
             });
             MenuList.Children.Add(itemFactory.CreateMenuItem("\uED25", "Открыть", opencmd));
 
@@ -82,7 +73,7 @@ namespace MyPhoto
             {
                 IsMenuOpened = false;
                 fileWorker.SaveFile(_Image, FilePath);
-                UpLoadImage(FilePath);
+                UploadImage(FilePath);
             }, (obj) => _Image.Source != null);
             MenuList.Children.Add(itemFactory.CreateMenuItem("\uE105", "Сохранить", savecmd));
 
@@ -90,16 +81,7 @@ namespace MyPhoto
             {
                 IsMenuOpened = false;
                 FilePath = fileWorker.SaveFileWithDialog(_Image);
-                FolderContent = null;
-                _SelectedPreviewImage = null;
-                if (FilePath != null)
-                {
-                    FolderContent = new FolderWorker().UpLoadFolderContent(FilePath);
-                    foldercontent.Focus();
-                    // Highlight the showed image on the folder presenter panel
-                    _SelectedPreviewImage = FolderContent.First<FolderContentInfo>(cont => cont.FilePath == FilePath);
-                    OnPropertyChanged("SelectedPreviewImage");
-                }
+                UploadFolderContent();
             }, (obj) => _Image.Source != null);
             MenuList.Children.Add(itemFactory.CreateMenuItem("\uEA35", "Сохранить как", saveascmd));
 
@@ -129,7 +111,7 @@ namespace MyPhoto
 
         #region Private methods
 
-        private void UpLoadImage(string path)
+        private void UploadImage(string path)
         {
             _Image.Source = null;
 
@@ -146,6 +128,20 @@ namespace MyPhoto
                 _ImageViewTransformer.ExecuteTransformWith(Properties.Settings.Default.DefaultPreview);
         }
 
+        private void UploadFolderContent()
+        {
+            FolderContent = null;
+            _SelectedPreviewImage = null;
+            if (FilePath != null)
+            {
+                FolderContent = new FolderWorker().UpLoadFolderContent(FilePath);
+                foldercontent.Focus();
+                // Highlight the showed image on the folder presenter panel
+                _SelectedPreviewImage = FolderContent.First<FolderContentInfo>(cont => cont.FilePath == FilePath);
+                OnPropertyChanged("SelectedPreviewImage");
+            }
+        }
+
         #endregion
 
         #region Properties
@@ -156,7 +152,7 @@ namespace MyPhoto
             set
             {
                 _FilePath = value;
-                UpLoadImage(value);
+                UploadImage(value);
             }
         }
 
