@@ -68,7 +68,7 @@ namespace MyPhoto.Utilities
 
         public static bool IsFileImage(string fileExtention)
         {
-            switch (fileExtention)
+            switch (fileExtention.ToLower())
             {
                 case ".jpg": return true;
                 case ".jpeg": return true;
