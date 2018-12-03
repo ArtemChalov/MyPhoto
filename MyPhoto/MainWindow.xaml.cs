@@ -66,6 +66,7 @@ namespace MyPhoto
                 IsMenuOpened = false;
                 FilePath = fileWorker.OpenFileWithDialog();
                 FolderContent = null;
+                _SelectedPreviewImage = null;
                 if (FilePath != null)
                 {
                     FolderContent = new FolderWorker().UpLoadFolderContent(FilePath);
@@ -90,6 +91,7 @@ namespace MyPhoto
                 IsMenuOpened = false;
                 FilePath = fileWorker.SaveFileWithDialog(_Image);
                 FolderContent = null;
+                _SelectedPreviewImage = null;
                 if (FilePath != null)
                 {
                     FolderContent = new FolderWorker().UpLoadFolderContent(FilePath);
