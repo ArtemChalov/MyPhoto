@@ -4,6 +4,7 @@ using MyPhoto.Utilities;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
@@ -68,6 +69,9 @@ namespace MyPhoto
                 {
                     FolderContent = null;
                     FolderContent = new FolderWorker().UpLoadFolderContent(FilePath);
+                    // Highlight the showed image on the folder presenter panel
+                    SelectedPreviewImage = FolderContent.First<FolderContentInfo>(cont => cont.FilePath == FilePath);
+                    OnPropertyChanged("SelectedPreviewImage");
                 }
             });
             MenuList.Children.Add(itemFactory.CreateMenuItem("\uED25", "Открыть", opencmd));
@@ -88,6 +92,9 @@ namespace MyPhoto
                 {
                     FolderContent = null;
                     FolderContent = new FolderWorker().UpLoadFolderContent(FilePath);
+                    // Highlight the showed image on the folder presenter panel
+                    SelectedPreviewImage = FolderContent.First<FolderContentInfo>(cont => cont.FilePath == FilePath);
+                    OnPropertyChanged("SelectedPreviewImage");
                 }
             }, (obj) => _Image.Source != null);
             MenuList.Children.Add(itemFactory.CreateMenuItem("\uEA35", "Сохранить как", saveascmd));
