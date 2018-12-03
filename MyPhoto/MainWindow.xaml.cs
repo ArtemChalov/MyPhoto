@@ -4,7 +4,6 @@ using MyPhoto.Utilities;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.IO;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
@@ -19,11 +18,12 @@ namespace MyPhoto
     /// </summary>
     public partial class MainWindow: Window, INotifyPropertyChanged
     {
-        private ImgPreviewTransformer _ImageViewTransformer;
-        private bool _IsMenuOpened;
-        private string _FilePath;
         private Image _Image;
+        private string _FilePath;
         private List<FolderContentInfo> _FolderContent;
+        private ImgPreviewTransformer _ImageViewTransformer;
+
+        private bool _IsMenuOpened;
 
         public MainWindow()
         {
@@ -129,12 +129,6 @@ namespace MyPhoto
 
         #region Properties
 
-        public ScrollViewer ImgViewer { get; set; }
-
-        public StackPanel MenuList { get; set; }
-
-        public StackPanel ViewPortMenu { get; set; }
-
         public string FilePath
         {
             get { return _FilePath; }
@@ -150,6 +144,12 @@ namespace MyPhoto
             get { return _FolderContent; }
             set { _FolderContent = value; OnPropertyChanged(); }
         }
+
+        public ScrollViewer ImgViewer { get; set; }
+
+        public StackPanel MenuList { get; set; }
+
+        public StackPanel ViewPortMenu { get; set; }
 
         public bool IsMenuOpened
         {
@@ -192,12 +192,12 @@ namespace MyPhoto
             if (IsMenuOpened) IsMenuOpened = false;
         }
 
-        #endregion
-
         private void Window_Closing(object sender, CancelEventArgs e)
         {
             Properties.Settings.Default.Save();
             base.OnClosed(e);
         }
+
+        #endregion
     }
 }
