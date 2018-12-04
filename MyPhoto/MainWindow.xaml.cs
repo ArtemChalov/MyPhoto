@@ -244,10 +244,8 @@ namespace MyPhoto
                 File.Copy(FilePath, newfile);
                 if (File.Exists(newfile))
                 {
-                    FileInfo fileInfo = new FileInfo(newfile);
-                    FolderContentInfo item = new FolderContentInfo(newfile, fileInfo.Name);
-                    FolderContent.Add(item);
-                    SelectedPreviewImage = item;
+                    _FilePath = newfile;
+                    UploadFolderContent();
                 }
             }
         }
