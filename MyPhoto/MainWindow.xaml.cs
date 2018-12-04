@@ -115,10 +115,10 @@ namespace MyPhoto
 
         private void UploadFolderContent()
         {
-            FolderContent = null;
             _SelectedPreviewImage = null;
             if (FilePath != null)
             {
+                FolderContent = null;
                 FolderContent = new FolderWorker().UpLoadFolderContent(FilePath);
                 foldercontent.Focus();
                 // Highlight the showed image on the folder presenter panel
