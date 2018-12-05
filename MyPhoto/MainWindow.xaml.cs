@@ -29,6 +29,7 @@ namespace MyPhoto
         private FolderContentInfo _SelectedPreviewImage;
 
         private bool _IsMenuOpened;
+        private bool _IsFolderContentOld;
 
         public MainWindow()
         {
@@ -62,7 +63,6 @@ namespace MyPhoto
                 Orientation = Orientation.Vertical,
                 HorizontalAlignment = HorizontalAlignment.Stretch
             };
-
             MenuList.Children.Add(itemFactory.CreateMenuItem("\uED25", ApplicationCommands.Open.Text, ApplicationCommands.Open));
             MenuList.Children.Add(itemFactory.CreateMenuItem("\uE105", ApplicationCommands.Save.Text, ApplicationCommands.Save));
             MenuList.Children.Add(itemFactory.CreateMenuItem("\uEA35", ApplicationCommands.SaveAs.Text, ApplicationCommands.SaveAs));
@@ -100,10 +100,12 @@ namespace MyPhoto
         {
             _Image.Source = null;
 
+            //_Image.SourceUpdated -= Image_SourceUpdated;
+
             if (path == null) return;
 
             var previewheight = (int)(ImgViewer.ActualHeight - 3.5);
-            
+
             // Create and show a preview image
             // to get fast load
             _Image.Source = BitmapImageFactory.CreateThumbnailFromFile(path, previewheight, WriteableBitmapEx.DesiredSize.Height);
@@ -111,15 +113,18 @@ namespace MyPhoto
             if (!String.IsNullOrEmpty(Properties.Settings.Default.DefaultPreview))
                 _ImageViewTransformer.ExecuteTransformWith(Properties.Settings.Default.DefaultPreview);
 
-            // Create and show the full size image
+                // Create and show the full size image
             _Image.Source = await WriteableBitmapFactory.CreateFromFileAsync(path);
             _ImageViewTransformer.SetOriginalDimentions((_Image.Source as WriteableBitmap).PixelWidth, (_Image.Source as WriteableBitmap).PixelHeight);
             if (!String.IsNullOrEmpty(Properties.Settings.Default.DefaultPreview))
                 _ImageViewTransformer.ExecuteTransformWith(Properties.Settings.Default.DefaultPreview);
+
+            if (_IsFolderContentOld) UploadFolderContent();
         }
 
         private void UploadFolderContent()
         {
+            _IsFolderContentOld = false;
             _SelectedPreviewImage = null;
             if (FilePath != null)
             {
@@ -208,8 +213,8 @@ namespace MyPhoto
         private void Open_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             IsMenuOpened = false;
+            _IsFolderContentOld = true;
             FilePath = new FileWorker().OpenFileWithDialog();
-            //UploadFolderContent();
         }
 
         private void Save_Executed(object sender, ExecutedRoutedEventArgs e)
