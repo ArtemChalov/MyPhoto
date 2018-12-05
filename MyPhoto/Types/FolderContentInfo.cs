@@ -9,11 +9,9 @@ namespace MyPhoto.Types
         {
             FilePath = filepath;
             FileName = filename;
-            Thumbnail = BitmapImageFactory.CreateThumbnailFromFile(filepath, 64, DesiredSize.Width);
         }
 
         public string FileName { get; set; }
         public string FilePath { get; set; }
-        public BitmapImage Thumbnail { get; set; }
     }
 }

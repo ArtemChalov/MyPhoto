@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MyPhoto"
+        xmlns:converters="clr-namespace:MyPhoto.Converters"
         mc:Ignorable="d"
         WindowState="Normal"
         Title="MyPhoto"
@@ -28,6 +29,7 @@
                         CanExecute="Save_CanExecute"/>
     </Window.CommandBindings>
     <Window.Resources>
+        <converters:ThumbnailConverter x:Key="thnailConv"/>
         <ThicknessAnimation x:Key="close"  To="-200 0 0 0" Duration="0:0:0.1" Storyboard.TargetProperty="Margin"/>
         <ThicknessAnimation x:Key="open"  To="0 0 0 0" Duration="0:0:0.1" Storyboard.TargetProperty="Margin"/>
         <Style TargetType="{x:Type Button}">
@@ -113,7 +115,7 @@
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Margin="5" Orientation="Vertical">
-                        <Image Source="{Binding Path=Thumbnail}"
+                        <Image Source="{Binding Path=FilePath, IsAsync=True, Mode=OneWay, Converter={StaticResource thnailConv}}"
                                    Width="64"
                                    VerticalAlignment="Top"
                                    HorizontalAlignment="Left">
