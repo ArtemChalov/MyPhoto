@@ -1,6 +1,7 @@
 ﻿using Microsoft.Win32;
 using System;
 using System.IO;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
@@ -13,10 +14,12 @@ namespace MyPhoto.Utilities
         /// <summary>
         /// Method to open folder with dialog.
         /// </summary>
+        /// <param name="dialogfilter">String with a standart dialog filter expression.</param>
         /// <param name="supportExt">String with a file extention pattern like "*.jpg|*.png".</param>
         /// <returns>Full file path or Null if file not found with the defined pattern.</returns>
-        public string OpenFileWithDialog(string supportExt)
+        public string OpenFileWithDialog(string dialogfilter, string supportExt)
         {
+            // Default path
             string lastpath = "C:\\";
             // Get the last opened directory to open with
             if (Directory.Exists(Properties.Settings.Default.DefaultOpenPath))
@@ -25,7 +28,7 @@ namespace MyPhoto.Utilities
             OpenFileDialog opendialog = new OpenFileDialog
             {
                 InitialDirectory = lastpath,
-                Filter = "Image files|*.jpg;*.jpeg;*.png;*.bmp|All files|*.*",
+                Filter = dialogfilter,
                 FilterIndex = 0,
                 ValidateNames = false,
                 CheckFileExists = true,
@@ -37,53 +40,34 @@ namespace MyPhoto.Utilities
 
             if (res != null && res == true)
             {
-                return TestedFileName(opendialog.FileName);
+                var filePath = opendialog.FileName;
+                if (File.Exists(filePath) && supportExt.Contains(Path.GetExtension(filePath).ToLower())) return filePath;
+                else
+                    return GetSuitableFileFromDirectory(opendialog.FileName, supportExt);
             }
 
             return null;
         }
 
-        private string TestedFileName(string filepath)
+        private string GetSuitableFileFromDirectory(string filePath, string supportExt)
         {
-            var dirinfo = new DirectoryInfo(filepath);
-            var folder = dirinfo.Parent;
+            var dirInfo = new DirectoryInfo(filePath).Parent;
+            // Set default result
+            filePath = null;
 
-            if (!File.Exists(filepath))
-            {
-                // Set default result
-                filepath = null;
-                // Try find out an image in the folder
-                foreach (var finfo in folder.GetFiles())
-                {
-                    if (IsFileImage(finfo.Extension))
-                    {
-                        filepath = finfo.FullName;
-                        break;
-                    }
-                }
-            }
+            // Returns the first found file path satisfying support file extentions
+            // or Null if not found
+            filePath = dirInfo.GetFiles("*.*")
+                        .Where((fi) => supportExt.Contains(Path.GetExtension(fi.Name).ToLower()))
+                        .FirstOrDefault()?.FullName;
 
-            if (filepath == null)
-                MessageBox.Show($" В каталоге:\n {folder.FullName}\nнет изображений.", "Открытие папки", MessageBoxButton.OK, MessageBoxImage.Information);
+            if (filePath == null)
+                MessageBox.Show($" В каталоге:\n {dirInfo.FullName}\nнет изображений.", "Открытие папки", MessageBoxButton.OK, MessageBoxImage.Information);
             else
                 // Set tha last opened directory to next open with
-                Properties.Settings.Default.DefaultOpenPath = folder.FullName;
+                Properties.Settings.Default.DefaultOpenPath = dirInfo.FullName;
 
-            return filepath;
-        }
-
-        public static bool IsFileImage(string fileExtention)
-        {
-            switch (fileExtention.ToLower())
-            {
-                case ".jpg": return true;
-                case ".jpeg": return true;
-                case ".png": return true;
-                case ".bmp": return true;
-                case ".tiff": return true;
-                case ".gif": return true;
-                default: return false;
-            }
+            return filePath;
         }
 
         public string SaveFileWithDialog(Image img)

@@ -24,7 +24,8 @@ namespace MyPhoto
     {
         private Image _Image;
         private string _FilePath;
-        private string _SupportExtentions = "*.jpg|*.jpeg|*.png|*.bmp|*.tiff|*.gif";
+        private string _SupportExtentions = "*.jpg;*.jpeg;*.png;*.bmp;*.tiff;*.gif";
+        private string _OpenFileDialogFilter = "Image files|*.jpg;*.jpeg;*.png;*.bmp;*tiff;*.gif|All files|*.*";
         private ObservableCollection<FolderContentInfo> _FolderContent;
         private ImgPreviewTransformer _ImageViewTransformer;
         private FolderContentInfo _SelectedPreviewImage;
@@ -215,7 +216,7 @@ namespace MyPhoto
         {
             IsMenuOpened = false;
             _IsFolderContentOld = true;
-            FilePath = new FileWorker().OpenFileWithDialog(_SupportExtentions);
+            FilePath = new FileWorker().OpenFileWithDialog(_OpenFileDialogFilter, _SupportExtentions);
         }
 
         private void Save_Executed(object sender, ExecutedRoutedEventArgs e)
