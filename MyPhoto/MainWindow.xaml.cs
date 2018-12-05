@@ -96,16 +96,17 @@ namespace MyPhoto
 
         #region Private methods
 
-        private void UploadImage(string path)
+        private async void UploadImage(string path)
         {
             _Image.Source = null;
 
             if (path == null) return;
 
-            WriteableBitmapFactory factory = new WriteableBitmapFactory();
-            // Create and show an image
-            _Image.Source = WriteableBitmapFactory.CreateFromFile(path);
-            factory = null;
+            // Create and show a preview image
+            // to get fast load
+            _Image.Source = BitmapImageFactory.CreateThumbnailFromFile(path, 600);
+            // Create and show the full size image
+            _Image.Source = await WriteableBitmapFactory.CreateFromFileAsync(path);
 
             _ImageViewTransformer.SetOriginalDimentions((_Image.Source as WriteableBitmap).PixelWidth, (_Image.Source as WriteableBitmap).PixelHeight);
 
@@ -204,7 +205,7 @@ namespace MyPhoto
         {
             IsMenuOpened = false;
             FilePath = new FileWorker().OpenFileWithDialog();
-            UploadFolderContent();
+            //UploadFolderContent();
         }
 
         private void Save_Executed(object sender, ExecutedRoutedEventArgs e)
