@@ -104,7 +104,7 @@ namespace MyPhoto
 
             WriteableBitmapFactory factory = new WriteableBitmapFactory();
             // Create and show an image
-            _Image.Source = factory.CreateFromFile(path);
+            _Image.Source = WriteableBitmapFactory.CreateFromFile(path);
             factory = null;
 
             _ImageViewTransformer.SetOriginalDimentions((_Image.Source as WriteableBitmap).PixelWidth, (_Image.Source as WriteableBitmap).PixelHeight);

@@ -9,11 +9,11 @@ namespace MyPhoto.Types
         {
             FilePath = filepath;
             FileName = filename;
-            Thumbnail = new WriteableBitmapFactory().CreateThumbnailFromFile(filepath, 64);
+            Thumbnail = BitmapImageFactory.CreateThumbnailFromFile(filepath, 64);
         }
 
         public string FileName { get; set; }
         public string FilePath { get; set; }
-        public WriteableBitmap Thumbnail { get; set; }
+        public BitmapImage Thumbnail { get; set; }
     }
 }
