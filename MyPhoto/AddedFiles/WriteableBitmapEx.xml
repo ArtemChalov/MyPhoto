@@ -1,0 +1,169 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>WriteableBitmapEx</name>
+    </assembly>
+    <members>
+        <member name="T:WriteableBitmapEx.BitmapImageFactory">
+            <summary>
+            Exposes static methods for create an instance of the BitmapImage class.
+            </summary>
+        </member>
+        <member name="M:WriteableBitmapEx.BitmapImageFactory.CreateFromFile(System.String)">
+            <summary>
+            Create a new instance of the BitmapImage class.
+            </summary>
+            <param name="filePath">Full path of the file.</param>
+            <returns>The instance of the BitmapImage class.</returns>
+        </member>
+        <member name="M:WriteableBitmapEx.BitmapImageFactory.CreateFromFileAsync(System.String)">
+            <summary>
+            Create a new instance of the BitmapImage class asynchronously.
+            </summary>
+            <param name="filePath">Full path of the file.</param>
+            <returns>The instance of the BitmapImage class.</returns>
+        </member>
+        <member name="M:WriteableBitmapEx.BitmapImageFactory.CreateThumbnailFromFile(System.String,System.Int32)">
+            <summary>
+            Create a new resized instance of the BitmapImage class with desired width.
+            </summary>
+            <param name="filePath">Full path of the file.</param>
+            <param name="desiredWidth">Desired width.</param>
+            <returns>The instance of the BitmapImage class.</returns>
+        </member>
+        <member name="T:WriteableBitmapEx.Convertors.QualityInfoConverter">
+            <summary>
+            Implement the IValueConverter interface.
+            </summary>
+        </member>
+        <member name="M:WriteableBitmapEx.Convertors.QualityInfoConverter.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Converts a double value to a string.
+            </summary>
+            <param name="value">The value produced by the binding source.</param>
+            <param name="targetType">The type of the binding target property.</param>
+            <param name="parameter">The converter parameter to use.</param>
+            <param name="culture">The culture to use in the converter.</param>
+            <returns>A converted value. If the method returns null, the valid null value is used.</returns>
+        </member>
+        <member name="M:WriteableBitmapEx.Convertors.QualityInfoConverter.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Not implemented.
+            </summary>
+            <param name="value">The value that is produced by the binding target.</param>
+            <param name="targetType">The type to convert to.</param>
+            <param name="parameter">The converter parameter to use.</param>
+            <param name="culture">The culture to use in the converter.</param>
+            <returns>A converted value. If the method returns null, the valid null value is used.</returns>
+        </member>
+        <member name="T:WriteableBitmapEx.ValidationRules.IntegerValidationRules">
+            <summary>
+            Implement the ValidationRule abstract class.
+            </summary>
+        </member>
+        <member name="P:WriteableBitmapEx.ValidationRules.IntegerValidationRules.Min">
+            <summary>
+            Minimum boundary value.
+            </summary>
+        </member>
+        <member name="P:WriteableBitmapEx.ValidationRules.IntegerValidationRules.Max">
+            <summary>
+            Maximum boundary value.
+            </summary>
+        </member>
+        <member name="M:WriteableBitmapEx.ValidationRules.IntegerValidationRules.Validate(System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            ValidationResult object.
+            </summary>
+            <param name="value">The value that is produced by the binding target.</param>
+            <param name="cultureInfo">The culture to use in the ValidationRule.</param>
+            <returns>ValidationResult object.</returns>
+        </member>
+        <member name="T:WriteableBitmapEx.WriteableBitmapFactory">
+            <summary>
+            Exposes static methods for create an instance of the WriteableBitmap class.
+            </summary>
+        </member>
+        <member name="M:WriteableBitmapEx.WriteableBitmapFactory.CreateFromFile(System.String)">
+            <summary>
+            Create a new instance of the WriteableBitmap class.
+            </summary>
+            <param name="filePath">Full path of the file.</param>
+            <returns>The instance of the WriteableBitmap class</returns>
+        </member>
+        <member name="M:WriteableBitmapEx.WriteableBitmapFactory.CreateFromFileAsync(System.String)">
+            <summary>
+            Create a new instance of the WriteableBitmap class asynchronously.
+            </summary>
+            <param name="filePath">Full path of the file.</param>
+            <returns>The instance of the WriteableBitmap class</returns>
+        </member>
+        <member name="T:WriteableBitmapEx.WriteableBitmapSaveEx">
+            <summary>
+            Exposes static methods for save an instance of the WriteableBitmap class to the file.
+            Support extentions: jpg, jpeg, png, bmp, tiff, gif.
+            </summary>
+        </member>
+        <member name="M:WriteableBitmapEx.WriteableBitmapSaveEx.SaveToFile(System.Windows.Media.Imaging.WriteableBitmap,System.String)">
+            <summary>
+            Save the WriteableBitmap class instance to the file as an image.
+            Support extentions: jpg, jpeg, png, bmp, tiff, gif.
+            </summary>
+            <param name="source">The WriteableBitmap instance.</param>
+            <param name="fileName">The file name to save.</param>
+        </member>
+        <member name="T:Dialogs.Windows.QualityDialogResult">
+            <summary>
+            Логика взаимодействия для QualityDialogResult.xaml
+            </summary>
+            <summary>
+            QualityDialogResult
+            </summary>
+        </member>
+        <member name="M:Dialogs.Windows.QualityDialogResult.#ctor">
+            <summary>
+            Initializes a new instance of the QualityDialogResult class.
+            </summary>
+        </member>
+        <member name="P:Dialogs.Windows.QualityDialogResult.Quality">
+            <summary>
+            The property that keep a slider value 
+            </summary>
+        </member>
+        <member name="M:Dialogs.Windows.QualityDialogResult.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:XamlGeneratedNamespace.GeneratedInternalTypeHelper">
+            <summary>
+            GeneratedInternalTypeHelper
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.CreateInstance(System.Type,System.Globalization.CultureInfo)">
+            <summary>
+            CreateInstance
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.GetPropertyValue(System.Reflection.PropertyInfo,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            GetPropertyValue
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.SetPropertyValue(System.Reflection.PropertyInfo,System.Object,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            SetPropertyValue
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.CreateDelegate(System.Type,System.Object,System.String)">
+            <summary>
+            CreateDelegate
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.AddEventHandler(System.Reflection.EventInfo,System.Object,System.Delegate)">
+            <summary>
+            AddEventHandler
+            </summary>
+        </member>
+    </members>
+</doc>
