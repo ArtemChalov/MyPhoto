@@ -17,7 +17,7 @@ namespace MyPhoto.Utilities
         /// <param name="dialogfilter">String with a standart dialog filter expression.</param>
         /// <param name="supportExt">String with a file extention pattern like "*.jpg|*.png".</param>
         /// <returns>Full file path or Null if file not found with the defined pattern.</returns>
-        public string OpenFileWithDialog(string dialogfilter, string supportExt)
+        public string OpenWithDialog(string dialogfilter, string supportExt)
         {
             // Default path
             string lastpath = "C:\\";

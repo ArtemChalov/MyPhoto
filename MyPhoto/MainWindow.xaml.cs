@@ -1,8 +1,6 @@
-﻿using MVVM;
-using MyPhoto.Types;
+﻿using MyPhoto.Types;
 using MyPhoto.Utilities;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
@@ -216,7 +214,7 @@ namespace MyPhoto
         {
             IsMenuOpened = false;
             _IsFolderContentOld = true;
-            FilePath = new FileWorker().OpenFileWithDialog(_OpenFileDialogFilter, _SupportExtentions);
+            FilePath = new FileWorker().OpenWithDialog(_OpenFileDialogFilter, _SupportExtentions);
         }
 
         private void Save_Executed(object sender, ExecutedRoutedEventArgs e)
