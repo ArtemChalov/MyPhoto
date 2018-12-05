@@ -215,7 +215,7 @@ namespace MyPhoto
         {
             IsMenuOpened = false;
             _IsFolderContentOld = true;
-            FilePath = new FileWorker().OpenFileWithDialog();
+            FilePath = new FileWorker().OpenFileWithDialog(_SupportExtentions);
         }
 
         private void Save_Executed(object sender, ExecutedRoutedEventArgs e)

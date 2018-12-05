@@ -7,6 +7,12 @@ namespace MyPhoto.Utilities
 {
     class FolderWorker
     {
+        /// <summary>
+        /// Method to find out the all files in a directory.
+        /// </summary>
+        /// <param name="filePath">The file path that determine a folder to find out the all files in with defined pattern.</param>
+        /// <param name="supportExt">String with a file extention pattern like "*.jpg|*.png".</param>
+        /// <returns>An ObservableCollection&lt;FolderContentInfo&gt; instance.</returns>
         public ObservableCollection<FolderContentInfo> UpLoadFolderContent(string filePath, string supportExt)
         {
             var dirInfo = new DirectoryInfo(filePath).Parent;

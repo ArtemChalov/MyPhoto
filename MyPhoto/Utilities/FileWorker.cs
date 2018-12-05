@@ -10,7 +10,12 @@ namespace MyPhoto.Utilities
 {
     class FileWorker
     {
-        public string OpenFileWithDialog()
+        /// <summary>
+        /// Method to open folder with dialog.
+        /// </summary>
+        /// <param name="supportExt">String with a file extention pattern like "*.jpg|*.png".</param>
+        /// <returns>Full file path or Null if file not found with the defined pattern.</returns>
+        public string OpenFileWithDialog(string supportExt)
         {
             string lastpath = "C:\\";
             // Get the last opened directory to open with
