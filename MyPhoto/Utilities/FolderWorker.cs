@@ -1,25 +1,20 @@
 ﻿using MyPhoto.Types;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MyPhoto.Utilities
 {
     class FolderWorker
     {
-        public ObservableCollection<FolderContentInfo> UpLoadFolderContent(string filepath)
+        public ObservableCollection<FolderContentInfo> UpLoadFolderContent(string filePath, string supportExt)
         {
-            var dirInfo = new DirectoryInfo(filepath).Parent;
+            var dirInfo = new DirectoryInfo(filePath).Parent;
             ObservableCollection<FolderContentInfo> fileList = new ObservableCollection<FolderContentInfo>();
 
-            foreach (var finfo in dirInfo.GetFiles())
+            foreach (var finfo in dirInfo.GetFiles("*.*").Where((fi) => supportExt.Contains(Path.GetExtension(fi.Name).ToLower())))
             {
-                if (FileWorker.IsFileImage(finfo.Extension))
-                    fileList.Add(new FolderContentInfo(finfo.FullName, finfo.Name));
+                fileList.Add(new FolderContentInfo(finfo.FullName, finfo.Name));
             }
             return fileList;
         }

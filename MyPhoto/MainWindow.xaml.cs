@@ -24,6 +24,7 @@ namespace MyPhoto
     {
         private Image _Image;
         private string _FilePath;
+        private string _SupportExtentions = "*.jpg|*.jpeg|*.png|*.bmp|*.tiff|*.gif";
         private ObservableCollection<FolderContentInfo> _FolderContent;
         private ImgPreviewTransformer _ImageViewTransformer;
         private FolderContentInfo _SelectedPreviewImage;
@@ -129,7 +130,7 @@ namespace MyPhoto
             if (FilePath != null)
             {
                 FolderContent = null;
-                FolderContent = new FolderWorker().UpLoadFolderContent(FilePath);
+                FolderContent = new FolderWorker().UpLoadFolderContent(FilePath, _SupportExtentions);
                 foldercontent.Focus();
                 // Highlight the showed image on the folder presenter panel
                 _SelectedPreviewImage = FolderContent.First<FolderContentInfo>(cont => cont.FilePath == FilePath);
