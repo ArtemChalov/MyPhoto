@@ -104,7 +104,7 @@ namespace MyPhoto
 
             // Create and show a preview image
             // to get fast load
-            _Image.Source = BitmapImageFactory.CreateThumbnailFromFile(path, 600);
+            _Image.Source = BitmapImageFactory.CreateThumbnailFromFile(path, 600, WriteableBitmapEx.DesiredSize.Width);
             // Create and show the full size image
             _Image.Source = await WriteableBitmapFactory.CreateFromFileAsync(path);
 

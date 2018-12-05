@@ -4,6 +4,21 @@
         <name>WriteableBitmapEx</name>
     </assembly>
     <members>
+        <member name="T:WriteableBitmapEx.DesiredSize">
+            <summary>
+            Used in some methods is affect to method logic.
+            </summary>
+        </member>
+        <member name="F:WriteableBitmapEx.DesiredSize.Width">
+            <summary>
+            Width is used in a method logic
+            </summary>
+        </member>
+        <member name="F:WriteableBitmapEx.DesiredSize.Height">
+            <summary>
+            Height is used in a method logic
+            </summary>
+        </member>
         <member name="T:WriteableBitmapEx.BitmapImageFactory">
             <summary>
             Exposes static methods for create an instance of the BitmapImage class.
@@ -23,12 +38,13 @@
             <param name="filePath">Full path of the file.</param>
             <returns>The instance of the BitmapImage class.</returns>
         </member>
-        <member name="M:WriteableBitmapEx.BitmapImageFactory.CreateThumbnailFromFile(System.String,System.Int32)">
+        <member name="M:WriteableBitmapEx.BitmapImageFactory.CreateThumbnailFromFile(System.String,System.Int32,WriteableBitmapEx.DesiredSize)">
             <summary>
             Create a new resized instance of the BitmapImage class with desired width.
             </summary>
             <param name="filePath">Full path of the file.</param>
-            <param name="desiredWidth">Desired width.</param>
+            <param name="desiredSize">Desired width or height.</param>
+            <param name="kindOfSize">Desired kind of size to be used.</param>
             <returns>The instance of the BitmapImage class.</returns>
         </member>
         <member name="T:WriteableBitmapEx.Convertors.QualityInfoConverter">
