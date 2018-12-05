@@ -102,14 +102,18 @@ namespace MyPhoto
 
             if (path == null) return;
 
+            var previewheight = (int)(ImgViewer.ActualHeight - 3.5);
+            
             // Create and show a preview image
             // to get fast load
-            _Image.Source = BitmapImageFactory.CreateThumbnailFromFile(path, 600, WriteableBitmapEx.DesiredSize.Width);
+            _Image.Source = BitmapImageFactory.CreateThumbnailFromFile(path, previewheight, WriteableBitmapEx.DesiredSize.Height);
+            _ImageViewTransformer.SetOriginalDimentions((_Image.Source as BitmapImage).PixelWidth, (_Image.Source as BitmapImage).PixelHeight);
+            if (!String.IsNullOrEmpty(Properties.Settings.Default.DefaultPreview))
+                _ImageViewTransformer.ExecuteTransformWith(Properties.Settings.Default.DefaultPreview);
+
             // Create and show the full size image
             _Image.Source = await WriteableBitmapFactory.CreateFromFileAsync(path);
-
             _ImageViewTransformer.SetOriginalDimentions((_Image.Source as WriteableBitmap).PixelWidth, (_Image.Source as WriteableBitmap).PixelHeight);
-
             if (!String.IsNullOrEmpty(Properties.Settings.Default.DefaultPreview))
                 _ImageViewTransformer.ExecuteTransformWith(Properties.Settings.Default.DefaultPreview);
         }
