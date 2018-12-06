@@ -100,8 +100,6 @@ namespace MyPhoto
         {
             _Image.Source = null;
 
-            //_Image.SourceUpdated -= Image_SourceUpdated;
-
             if (path == null) return;
 
             var previewheight = (int)(ImgViewer.ActualHeight - 3.5);

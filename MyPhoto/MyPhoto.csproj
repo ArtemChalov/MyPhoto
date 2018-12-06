@@ -140,8 +140,9 @@
     <Resource Include="myphoto.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="AddedFiles\WriteableBitmapEx.dll" />
-    <Resource Include="AddedFiles\WriteableBitmapEx.xml" />
+    <Content Include="Dependences\WriteableBitmapEx.dll" />
+    <Content Include="Dependences\WriteableBitmapEx.pdb" />
+    <Resource Include="Dependences\WriteableBitmapEx.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
