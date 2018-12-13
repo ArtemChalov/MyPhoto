@@ -1,6 +1,8 @@
-﻿using MyPhoto.Types;
+﻿using MyPhoto.Adapters;
+using MyPhoto.Types;
 using MyPhoto.Utilities;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
@@ -11,6 +13,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using UnFilemanager;
 using WriteableBitmapEx;
 
 namespace MyPhoto
@@ -23,13 +26,15 @@ namespace MyPhoto
         private Image _Image;
         private string _FilePath;
         private string _SupportExtentions = "*.jpg;*.jpeg;*.png;*.bmp;*.tiff;*.gif";
-        private string _OpenFileDialogFilter = "Image files|*.jpg;*.jpeg;*.png;*.bmp;*tiff;*.gif|All files|*.*";
+        private string[] _Extentions = new string[] { "jpg", "jpeg", "png", "bmp", "tiff", "gif" };
+        //private string _OpenFileDialogFilter = "Image files|*.jpg;*.jpeg;*.png;*.bmp;*tiff;*.gif|All files|*.*";
+        private Dictionary<string, string[]> filters;
         private ObservableCollection<FolderContentInfo> _FolderContent;
         private ImgPreviewTransformer _ImageViewTransformer;
         private FolderContentInfo _SelectedPreviewImage;
 
         private bool _IsMenuOpened;
-        private bool _IsFolderContentOld;
+        private bool _FolderContentIsOld;
 
         public MainWindow()
         {
@@ -38,6 +43,11 @@ namespace MyPhoto
             ImagePresenterInit();
             MenuInit();
             ViewPortMenuInit();
+            filters = new Dictionary<string, string[]>
+            {
+                {"Image files", _Extentions },
+                {"All files", new string[] {"*.*" } }
+            };
         }
 
         #region Init methods
@@ -117,12 +127,12 @@ namespace MyPhoto
             if (!String.IsNullOrEmpty(Properties.Settings.Default.DefaultPreview))
                 _ImageViewTransformer.ExecuteTransformWith(Properties.Settings.Default.DefaultPreview);
 
-            if (_IsFolderContentOld) UploadFolderContent();
+            if (_FolderContentIsOld) UploadFolderContent();
         }
 
         private void UploadFolderContent()
         {
-            _IsFolderContentOld = false;
+            _FolderContentIsOld = false;
             _SelectedPreviewImage = null;
             if (FilePath != null)
             {
@@ -211,8 +221,14 @@ namespace MyPhoto
         private void Open_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             IsMenuOpened = false;
-            _IsFolderContentOld = true;
-            FilePath = new FileWorker().OpenWithDialog(_OpenFileDialogFilter, _SupportExtentions);
+            _FolderContentIsOld = true;
+
+            OpenFileManager manager = new OpenFileManager(new OpenDialogAdapter(filters), ExtentionFilters.SupportedOrFirst, _Extentions);
+
+            var(dialogresult, filePath, isValid) = manager.GetFullPath(new WrongMessangerAdapter());
+
+            if (dialogresult && isValid)
+                FilePath = filePath;
         }
 
         private void Save_Executed(object sender, ExecutedRoutedEventArgs e)

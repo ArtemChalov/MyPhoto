@@ -78,7 +78,7 @@ namespace MyPhoto.Utilities
 
             var res = saveFileDialog.ShowDialog();
 
-            if (res != null && res == true)
+            if (res == true)
             {
                 if (img.Source is WriteableBitmap source)
                 {
