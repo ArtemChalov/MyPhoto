@@ -26,9 +26,6 @@ namespace MyPhoto
         private Image _Image;
         private string _FilePath;
         private string _SupportExtentions = "*.jpg;*.jpeg;*.png;*.bmp;*.tiff;*.gif";
-        private string[] _Extentions = new string[] { "jpg", "jpeg", "png", "bmp", "tiff", "gif" };
-        //private string _OpenFileDialogFilter = "Image files|*.jpg;*.jpeg;*.png;*.bmp;*tiff;*.gif|All files|*.*";
-        private Dictionary<string, string[]> filters;
         private ObservableCollection<FolderContentInfo> _FolderContent;
         private ImgPreviewTransformer _ImageViewTransformer;
         private FolderContentInfo _SelectedPreviewImage;
@@ -43,11 +40,6 @@ namespace MyPhoto
             ImagePresenterInit();
             MenuInit();
             ViewPortMenuInit();
-            filters = new Dictionary<string, string[]>
-            {
-                {"Image files", _Extentions },
-                {"All files", new string[] {"*.*" } }
-            };
         }
 
         #region Init methods
@@ -225,7 +217,7 @@ namespace MyPhoto
 
             OpenFileManager manager = new OpenFileManager(new OpenDialogAdapter(filters), ExtentionFilters.SupportedOrFirst, _Extentions);
 
-            var(dialogresult, filePath, isValid) = manager.GetFullPath(new WrongMessangerAdapter());
+            var(dialogresult, filePath, filePaths, isValid) = manager.GetFullPath(new WrongMessangerAdapter());
 
             if (dialogresult && isValid)
                 FilePath = filePath;

@@ -8,18 +8,25 @@ using System.Text;
 using System.Threading.Tasks;
 using UnFilemanager;
 using UnFilemanager.Interfaces;
+using UnFilemanager.Utilities;
 
 namespace MyPhoto.Adapters
 {
     class OpenDialogAdapter : IDialogWrapper
     {
-        Dictionary<string, string[]> _supportExtentions;
+        private readonly Dictionary<string, string[]> _supportExtentions;
 
         public OpenDialogAdapter(Dictionary<string,string[]> supportExtentions)
         {
             _supportExtentions = supportExtentions;
         }
         public string Path { get; set; }
+
+        public string[] FileNames { get; private set; }
+
+        public string FileName { get; private set; }
+
+        public string InitialDirectory { get; private set; }
 
         public bool ShowDialog()
         {
@@ -28,13 +35,13 @@ namespace MyPhoto.Adapters
             // Get the last opened directory to open with
             if (Directory.Exists(Properties.Settings.Default.DefaultOpenPath))
                 lastpath = Properties.Settings.Default.DefaultOpenPath;
-            var ss = OpenDialogFilterCombainer.CombainFilter(_supportExtentions);
 
             OpenFileDialog opendialog = new OpenFileDialog
             {
                 InitialDirectory = lastpath,
-                Filter = ss,
+                Filter = FilterExpressionConverter.OpenDialogFilter(App.SupportFilesDictionary),
                 FilterIndex = 0,
+                Multiselect = true,
                 ValidateNames = false,
                 CheckFileExists = true,
                 CheckPathExists = true,
@@ -43,7 +50,13 @@ namespace MyPhoto.Adapters
 
             var res = (bool)opendialog.ShowDialog();
 
-            if (res == true) Path = opendialog.FileName;
+            if (res == true)
+            {
+                Path = opendialog.FileName;
+                FileName = opendialog.FileName;
+                FileNames = opendialog.FileNames;
+                InitialDirectory = opendialog.InitialDirectory;
+            }
 
             return res;
         }

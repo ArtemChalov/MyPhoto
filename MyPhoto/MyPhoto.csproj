@@ -71,7 +71,7 @@
     </Reference>
     <Reference Include="UnFilemanager, Version=1.0.0.0, Culture=neutral, processorArchitecture=AMD64">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>Dependences\UnFilemanager.dll</HintPath>
+      <HintPath>..\..\..\Net_Standart\UnFilemanager\UnFilemanager\bin\x64\Debug\netstandard2.0\UnFilemanager.dll</HintPath>
     </Reference>
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
@@ -95,7 +95,6 @@
     <Compile Include="Utilities\FolderWorker.cs" />
     <Compile Include="Utilities\ImgPreviewTransformer.cs" />
     <Compile Include="Utilities\MenuItemFactory.cs" />
-    <Compile Include="Utilities\OpenDialogFilterCombainer.cs" />
     <Compile Include="Utilities\ViewPortMenuItemFactory.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
