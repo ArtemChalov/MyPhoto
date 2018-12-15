@@ -14,12 +14,6 @@ namespace MyPhoto.Adapters
 {
     class OpenDialogAdapter : IDialogWrapper
     {
-        private readonly Dictionary<string, string[]> _supportExtentions;
-
-        public OpenDialogAdapter(Dictionary<string,string[]> supportExtentions)
-        {
-            _supportExtentions = supportExtentions;
-        }
         public string Path { get; set; }
 
         public string[] FileNames { get; private set; }

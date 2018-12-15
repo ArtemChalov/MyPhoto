@@ -71,7 +71,7 @@
     </Reference>
     <Reference Include="UnFilemanager, Version=1.0.0.0, Culture=neutral, processorArchitecture=AMD64">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Net_Standart\UnFilemanager\UnFilemanager\bin\x64\Debug\netstandard2.0\UnFilemanager.dll</HintPath>
+      <HintPath>bin\x64\Release\UnFilemanager.dll</HintPath>
     </Reference>
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />

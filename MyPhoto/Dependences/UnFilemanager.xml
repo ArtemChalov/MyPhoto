@@ -1,0 +1,133 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>UnFilemanager</name>
+    </assembly>
+    <members>
+        <member name="T:UnFilemanager.Filters.ExtentionSupport">
+            <summary>
+            Class that provides method to get filtered file list.
+            </summary>
+        </member>
+        <member name="M:UnFilemanager.Filters.ExtentionSupport.GetSupportedFiles(System.String,System.Object)">
+            <summary>
+            Get a list of file's path from the directory with specified extentions.
+            </summary>
+            <param name="directory">The direcctory to get files from.</param>
+            <param name="filterData">The collection supported extentions.</param>
+            <returns>The path list of all found files in the directory.</returns>
+        </member>
+        <member name="T:UnFilemanager.UnFMFilters">
+            <summary>
+            Class that contains the property that is used as filter's factory.
+            </summary>
+        </member>
+        <member name="P:UnFilemanager.UnFMFilters.SupportedExtentions">
+            <summary>
+            Property that is used as filter's factory.
+            </summary>
+        </member>
+        <member name="T:UnFilemanager.Interfaces.IDialogWrapper">
+            <summary>
+            Interface
+            </summary>
+        </member>
+        <member name="P:UnFilemanager.Interfaces.IDialogWrapper.FileName">
+            <summary>
+            Gets a string containing the file name selected in the file dialog box.
+            </summary>
+        </member>
+        <member name="P:UnFilemanager.Interfaces.IDialogWrapper.FileNames">
+            <summary>
+            Get the file names of all selected files in the file dialog box.
+            </summary>
+        </member>
+        <member name="P:UnFilemanager.Interfaces.IDialogWrapper.InitialDirectory">
+            <summary>
+            Get the initial directory displayed by the file dialog box.
+            </summary>
+        </member>
+        <member name="M:UnFilemanager.Interfaces.IDialogWrapper.ShowDialog">
+            <summary>
+            Runs a common dialog box with a default owner.
+            </summary>
+            <returns>True if the user clicks OK button, otherwise returns False.</returns>
+        </member>
+        <member name="T:UnFilemanager.Interfaces.IFilesFilter">
+            <summary>
+            Interface
+            </summary>
+        </member>
+        <member name="M:UnFilemanager.Interfaces.IFilesFilter.GetSupportedFiles(System.String,System.Object)">
+            <summary>
+            Method to get file collection whith specified filter.
+            </summary>
+            <param name="directory">Directory to find files out with.</param>
+            <param name="filterData">Specific data to the filter.</param>
+            <returns>Collection of the file paths tha was found in the directory.</returns>
+        </member>
+        <member name="T:UnFilemanager.Interfaces.IMockFilesFilter">
+            <summary>
+            Interface used to test only
+            </summary>
+        </member>
+        <member name="M:UnFilemanager.Interfaces.IMockFilesFilter.GetSupportedFiles(System.String,System.Object,System.IO.Abstractions.IFileSystem)">
+            <summary>
+            Testable method.
+            </summary>
+            <param name="directory"></param>
+            <param name="filterData"></param>
+            <param name="fileSystem"></param>
+            <returns></returns>
+        </member>
+        <member name="T:UnFilemanager.Interfaces.IUMessanger">
+            <summary>
+            Interface
+            </summary>
+        </member>
+        <member name="M:UnFilemanager.Interfaces.IUMessanger.ShowMessege(System.String)">
+            <summary>
+            Method to display message.
+            </summary>
+            <param name="messege">String to dislpay message with.</param>
+        </member>
+        <member name="T:UnFilemanager.OpenManager">
+            <summary>
+            Class that provide a business logic to get the supported files.
+            </summary>
+        </member>
+        <member name="M:UnFilemanager.OpenManager.#ctor(UnFilemanager.Interfaces.IDialogWrapper)">
+            <summary>
+            
+            </summary>
+            <param name="dialog">Dialog.</param>
+        </member>
+        <member name="M:UnFilemanager.OpenManager.#ctor(UnFilemanager.Interfaces.IDialogWrapper,UnFilemanager.Interfaces.IFilesFilter,System.Object)">
+            <summary>
+            
+            </summary>
+            <param name="dialog">Dialog.</param>
+            <param name="filter">File filter.</param>
+            <param name="filterData">Filter data.</param>
+        </member>
+        <member name="M:UnFilemanager.OpenManager.GetDialogData(UnFilemanager.Interfaces.IUMessanger)">
+            <summary>
+            Get the filtered file list with specified filter.
+            </summary>
+            <param name="messanger">Messanger.</param>
+            <returns>Filtered data.</returns>
+        </member>
+        <member name="T:UnFilemanager.Utilities.FilterExpressionConverter">
+            <summary>
+            Class that used to combain a specific expression from the incoming data.
+            </summary>
+        </member>
+        <member name="M:UnFilemanager.Utilities.FilterExpressionConverter.OpenDialogFilter(System.Collections.Generic.Dictionary{System.String,System.String[]})">
+            <summary>
+            Create the string used to set filter to the Win32 OpenFileDialog.
+            </summary>
+            <param name="filters">Extention array like ".txt", ".bmp".</param>
+            <returns>The string expression.</returns>
+        </member>
+    </members>
+</doc>
