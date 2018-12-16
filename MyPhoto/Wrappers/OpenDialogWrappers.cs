@@ -1,9 +1,10 @@
 ﻿using Microsoft.Win32;
 using System.IO;
+using System.Windows;
 using UnFilemanager.Interfaces;
 using UnFilemanager.Utilities;
 
-namespace MyPhoto.Adapters
+namespace MyPhoto.Wrappers
 {
     class OpenDialogWrapper : IDialogWrapper
     {
@@ -41,6 +42,14 @@ namespace MyPhoto.Adapters
             }
 
             return res;
+        }
+    }
+
+    class MistakeMessanger : IUMessanger
+    {
+        public void ShowMessege(string message)
+        {
+            MessageBox.Show(message, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Asterisk);
         }
     }
 }

@@ -1,6 +1,6 @@
-﻿using MyPhoto.Adapters;
-using MyPhoto.Types;
+﻿using MyPhoto.Types;
 using MyPhoto.Utilities;
+using MyPhoto.Wrappers;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -214,9 +214,12 @@ namespace MyPhoto
             IsMenuOpened = false;
             _FolderContentIsOld = true;
 
-            OpenManager manager = new OpenManager(new OpenDialogWrapper(), UnFMFilters.SupportedExtentions, App.SupportExtentions);
+            // From UnFilemanager.dll
+            OpenManager manager = new OpenManager(new OpenDialogWrapper(), 
+                                                    UnFMFilters.SupportedExtentions, // From UnFilemanager.dll
+                                                    App.SupportExtentions);
 
-            var (dialogresult, filePath, filePaths) = manager.GetDialogData(new WrongMessangerAdapter());
+            var (dialogresult, filePath, filePaths) = manager.GetDialogData(new MistakeMessanger());
 
             if (dialogresult )
                 FilePath = filePath;
