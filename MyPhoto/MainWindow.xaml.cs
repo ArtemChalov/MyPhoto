@@ -214,7 +214,7 @@ namespace MyPhoto
             IsMenuOpened = false;
             _FolderContentIsOld = true;
 
-            OpenManager manager = new OpenManager(new OpenDialogAdapter(), UnFMFilters.SupportedExtentions, App.SupportExtentions);
+            OpenManager manager = new OpenManager(new OpenDialogWrapper(), UnFMFilters.SupportedExtentions, App.SupportExtentions);
 
             var (dialogresult, filePath, filePaths) = manager.GetDialogData(new WrongMessangerAdapter());
 

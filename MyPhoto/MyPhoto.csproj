@@ -86,7 +86,7 @@
       <Generator>MSBuild:Compile</Generator>
     </ApplicationDefinition>
     <Compile Include="Adapters\WrongMessangerAdapter.cs" />
-    <Compile Include="Adapters\OpenDialogAdapter.cs" />
+    <Compile Include="Adapters\OpenDialogWrapper.cs" />
     <Compile Include="Converters\ThumbnailConverter.cs" />
     <Compile Include="MVVM\BaseViewModel.cs" />
     <Compile Include="MVVM\DelegateCommand.cs" />

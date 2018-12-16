@@ -5,7 +5,7 @@ using UnFilemanager.Utilities;
 
 namespace MyPhoto.Adapters
 {
-    class OpenDialogAdapter : IDialogWrapper
+    class OpenDialogWrapper : IDialogWrapper
     {
         public string Path { get; set; }
 
