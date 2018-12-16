@@ -1,0 +1,47 @@
+﻿<UserControl x:Class="FolderContentPresenter.PresenterView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:FolderContentPresenter"
+             xmlns:converters="clr-namespace:FolderContentPresenter.Converters"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800"
+             BorderThickness="0"
+             BorderBrush="Transparent">
+    <UserControl.Resources>
+        <converters:PathToNameConverter x:Key="PathToName"/>
+        <converters:ThumbnailConverter x:Key="Thumbnail"/>
+    </UserControl.Resources>
+    <DockPanel LastChildFill="True">
+        <ListBox Background="Transparent"
+                 BorderThickness="0"
+                 ItemsSource="{Binding PathCollection}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Margin="5" Orientation="Vertical">
+                        <Image Source="{Binding IsAsync=True, Mode=OneWay, Converter={StaticResource Thumbnail}}"
+                                   Width="64"
+                                   VerticalAlignment="Top"
+                                   HorizontalAlignment="Left">
+                            <Image.Style>
+                                <Style TargetType="Image">
+                                    <Style.Triggers>
+                                        <Trigger Property="Source" Value="{x:Null}">
+                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Image.Style>
+                        </Image>
+                        <TextBlock FontSize="12" 
+                                   Foreground="WhiteSmoke"
+                                   Text="{Binding Converter={StaticResource PathToName}, IsAsync=True, Mode=OneWay}"
+                                   HorizontalAlignment="Left" />
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+
+        </ListBox>
+    </DockPanel>
+</UserControl>

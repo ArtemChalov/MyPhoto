@@ -1,4 +1,5 @@
-﻿using MyPhoto.Types;
+﻿using FolderContentPresenter;
+using MyPhoto.Types;
 using MyPhoto.Utilities;
 using MyPhoto.Wrappers;
 using System;
@@ -28,6 +29,7 @@ namespace MyPhoto
         private ObservableCollection<FolderContentInfo> _FolderContent;
         private ImgPreviewTransformer _ImageViewTransformer;
         private FolderContentInfo _SelectedPreviewImage;
+        private PresenterViewModel _folderPreview;
 
         private bool _IsMenuOpened;
         private bool _FolderContentIsOld;
@@ -37,6 +39,7 @@ namespace MyPhoto
             InitializeComponent();
             this.DataContext = this;
             ImagePresenterInit();
+            FolderPresenterInit();
             MenuInit();
             ViewPortMenuInit();
         }
@@ -53,6 +56,13 @@ namespace MyPhoto
                 HorizontalScrollBarVisibility = ScrollBarVisibility.Auto,
                 Content = _Image
             };
+        }
+
+        private void FolderPresenterInit()
+        {
+            FolderPresenter = new PresenterView();
+            _folderPreview = FolderPresenter.DataContext as PresenterViewModel;
+            _folderPreview.SupportExtentions = App.SupportExtentions;
         }
 
         private void MenuInit()
@@ -127,12 +137,14 @@ namespace MyPhoto
             _SelectedPreviewImage = null;
             if (FilePath != null)
             {
-                FolderContent = null;
-                FolderContent = new FolderWorker().UpLoadFolderContent(FilePath, _SupportExtentions);
-                foldercontent.Focus();
+                _folderPreview.UpdateFolderContent(Directory.GetParent(FilePath).FullName);
+
+                //FolderContent = null;
+                //FolderContent = new FolderWorker().UpLoadFolderContent(FilePath, _SupportExtentions);
+                //foldercontent.Focus();
                 // Highlight the showed image on the folder presenter panel
-                _SelectedPreviewImage = FolderContent.First<FolderContentInfo>(cont => cont.FilePath == FilePath);
-                OnPropertyChanged("SelectedPreviewImage");
+                //_SelectedPreviewImage = FolderContent.First<FolderContentInfo>(cont => cont.FilePath == FilePath);
+                //OnPropertyChanged("SelectedPreviewImage");
             }
         }
 
@@ -145,6 +157,8 @@ namespace MyPhoto
             get { return _FilePath; }
             set { _FilePath = value; UploadImage(value); }
         }
+
+        public ContentControl FolderPresenter { get; set; }
 
         public ObservableCollection<FolderContentInfo> FolderContent
         {
@@ -283,19 +297,20 @@ namespace MyPhoto
             IsMenuOpened = false;
             if (File.Exists(FilePath))
             {
-                if (foldercontent.Items.Count > 0)
-                {
-                    FolderContentInfo item = SelectedPreviewImage;
-                    MessageBoxResult result = MessageBox.Show($" Файл\n{item.FileName}\nбудет удален с диска!", "Удаление файла", MessageBoxButton.OKCancel, MessageBoxImage.Exclamation);
+                throw new NotImplementedException();
+                //if (foldercontent.Items.Count > 0)
+                //{
+                //    FolderContentInfo item = SelectedPreviewImage;
+                //    MessageBoxResult result = MessageBox.Show($" Файл\n{item.FileName}\nбудет удален с диска!", "Удаление файла", MessageBoxButton.OKCancel, MessageBoxImage.Exclamation);
 
-                    if (result == MessageBoxResult.OK)
-                    {
-                        File.Delete(FilePath);
-                        if (foldercontent.SelectedIndex > 0)
-                            foldercontent.SelectedIndex = foldercontent.SelectedIndex - 1;
-                        FolderContent.Remove(item);
-                    }
-                }
+                //    if (result == MessageBoxResult.OK)
+                //    {
+                //        File.Delete(FilePath);
+                //        if (foldercontent.SelectedIndex > 0)
+                //            foldercontent.SelectedIndex = foldercontent.SelectedIndex - 1;
+                //        FolderContent.Remove(item);
+                //    }
+                //}
             }
             else MessageBox.Show("Неверный путь к файлу.");
         }

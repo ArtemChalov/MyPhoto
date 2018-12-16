@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MyPhoto"
+        xmlns:folderpres="clr-namespace:FolderContentPresenter;assembly=FolderContentPresenter"
         xmlns:converters="clr-namespace:MyPhoto.Converters"
         mc:Ignorable="d"
         WindowState="Normal"
@@ -104,8 +105,10 @@
                 Width="32"
                 Height="32"
                 Click="Menubtn_Click"/>
-
-        <ListBox x:Name="foldercontent"
+        <ContentControl Grid.Column="0" 
+                        Grid.Row="1" 
+                        Content="{Binding FolderPresenter}"/>
+        <!--<ListBox x:Name="foldercontent"
                  Grid.Column="0"
                  Grid.Row="1" 
                  BorderThickness="0"
@@ -171,7 +174,7 @@
                     </MenuItem>
                 </ContextMenu>
             </ListBox.ContextMenu>
-        </ListBox>
+        </ListBox>-->
 
         <GridSplitter Grid.Column="0"
                       Grid.Row="1"

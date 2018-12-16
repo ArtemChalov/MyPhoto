@@ -1,0 +1,41 @@
+﻿using MVVM;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using UnFilemanager.Filters;
+
+namespace FolderContentPresenter
+{
+    public class PresenterViewModel : BaseViewModel
+    {
+        private ObservableCollection<string> _PathCollection;
+
+        #region Properties
+
+        public ObservableCollection<string> PathCollection
+        {
+            get { return _PathCollection; }
+            set { _PathCollection = value; OnPropertyChanged(); }
+        }
+
+        public string[] SupportExtentions { get; set; } = new string[] { ".*" };
+
+        #endregion
+
+        public void UpdateFolderContent(string directory)
+        {
+            PathCollection = null;
+
+            ExtentionSupport support = new ExtentionSupport();
+
+            var list = support.GetSupportedFiles(directory, SupportExtentions);
+
+            PathCollection = new ObservableCollection<string>(list);
+
+            support = null;
+        }
+    }
+}
