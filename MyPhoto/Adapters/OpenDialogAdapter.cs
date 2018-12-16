@@ -1,12 +1,5 @@
 ﻿using Microsoft.Win32;
-using MyPhoto.Utilities;
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnFilemanager;
 using UnFilemanager.Interfaces;
 using UnFilemanager.Utilities;
 
@@ -20,19 +13,13 @@ namespace MyPhoto.Adapters
 
         public string FileName { get; private set; }
 
-        public string InitialDirectory { get; private set; }
+        public string CurrentDirectory { get; private set; }
 
         public bool ShowDialog()
         {
-            // Default path
-            string lastpath = "C:\\";
-            // Get the last opened directory to open with
-            if (Directory.Exists(Properties.Settings.Default.DefaultOpenPath))
-                lastpath = Properties.Settings.Default.DefaultOpenPath;
-
             OpenFileDialog opendialog = new OpenFileDialog
             {
-                InitialDirectory = lastpath,
+                InitialDirectory = Properties.Settings.Default.DefaultOpenPath,
                 Filter = FilterExpressionConverter.OpenDialogFilter(App.SupportFilesDictionary),
                 FilterIndex = 0,
                 Multiselect = true,
@@ -49,7 +36,8 @@ namespace MyPhoto.Adapters
                 Path = opendialog.FileName;
                 FileName = opendialog.FileName;
                 FileNames = opendialog.FileNames;
-                InitialDirectory = opendialog.InitialDirectory;
+                CurrentDirectory = Directory.GetParent(Path).FullName;
+                Properties.Settings.Default.DefaultOpenPath = CurrentDirectory;
             }
 
             return res;

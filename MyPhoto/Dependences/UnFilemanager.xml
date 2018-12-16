@@ -42,7 +42,7 @@
             Get the file names of all selected files in the file dialog box.
             </summary>
         </member>
-        <member name="P:UnFilemanager.Interfaces.IDialogWrapper.InitialDirectory">
+        <member name="P:UnFilemanager.Interfaces.IDialogWrapper.CurrentDirectory">
             <summary>
             Get the initial directory displayed by the file dialog box.
             </summary>
