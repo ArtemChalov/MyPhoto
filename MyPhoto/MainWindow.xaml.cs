@@ -218,7 +218,6 @@ namespace MyPhoto
             OpenManager manager = new OpenManager(new OpenDialogWrapper(), 
                                                     UnFMFilters.SupportedExtentions, // From UnFilemanager.dll
                                                     App.SupportExtentions);
-
             var (dialogresult, filePath, filePaths) = manager.GetDialogData(new MistakeMessanger());
 
             if (dialogresult )
@@ -228,15 +227,21 @@ namespace MyPhoto
         private void Save_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             IsMenuOpened = false;
-            new FileWorker().SaveFile(_Image, FilePath);
+
+            SaveDialogWrapper saver = new SaveDialogWrapper();
+            saver.SaveFile(_Image, FilePath);
             UploadImage(FilePath);
+            saver = null;
         }
 
         private void SaveAs_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             IsMenuOpened = false;
-            FilePath = new FileWorker().SaveFileWithDialog(_Image);
+
+            SaveDialogWrapper saver = new SaveDialogWrapper();
+            saver.SaveFileWithDialog(_Image);
             UploadFolderContent();
+            saver = null;
         }
 
         private void Copy_Executed(object sender, ExecutedRoutedEventArgs e)

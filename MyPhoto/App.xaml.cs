@@ -9,15 +9,22 @@ namespace MyPhoto
     public partial class App : Application
     {
         public static string[] SupportExtentions = new string[] { ".jpg", ".jpeg", ".png", ".bmp", ".tiff", ".gif" };
-
         public static Dictionary<string, string[]> SupportFilesDictionary = new Dictionary<string, string[]>
-            {
-                { "Image files",  SupportExtentions },
-                { "JPEG", new string[] { ".jpg", ".jpeg" } },
-                { "PNG", new string[] { ".png" } },
-                { "BitMap", new string[] { ".bmp" } },
-                { "TIFF", new string[] { ".tiff" } },
-                { "GIF", new string[] { ".gif" } },
-            };
+        {
+            { "Image files",  SupportExtentions },
+            { "JPEG Image", new string[] { ".jpg", ".jpeg" } },
+            { "PNG Image", new string[] { ".png" } },
+            { "Bitmap Image", new string[] { ".bmp" } },
+            { "TIFF Image", new string[] { ".tiff" } },
+            { "GIF Image", new string[] { ".gif" } }
+        };
+        public static Dictionary<string, string[]> SupportSaveDictionary = new Dictionary<string, string[]>
+        {
+            { "JPEG Image", new string[] { ".jpg", ".jpeg" } },
+            { "PNG Image", new string[] { ".png" } },
+            { "Bitmap Image", new string[] { ".bmp" } },
+            { "TIFF Image", new string[] { ".tiff" } },
+            { "GIF Image", new string[] { ".gif" } }
+        };
     }
 }

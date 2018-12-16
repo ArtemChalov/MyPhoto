@@ -3,16 +3,17 @@ using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
+using UnFilemanager.Utilities;
 using WriteableBitmapEx;
 
-namespace MyPhoto.Utilities
+namespace MyPhoto.Wrappers
 {
-    class FileWorker
+    class SaveDialogWrapper
     {
         public string SaveFileWithDialog(Image img)
         {
             SaveFileDialog saveFileDialog = new SaveFileDialog() { FileName = "*", DefaultExt = "jpg", ValidateNames = true };
-            saveFileDialog.Filter = "All Files |*.*|JPEG Image |*.jpg;*.jpeg|Png Image |*.png|Bitmap Image |*.bmp|Gif Image |*.gif|Tiff Image |*.tiff|Wmf Image |*.wmf";
+            saveFileDialog.Filter = FilterExpressionConverter.OpenDialogFilter(App.SupportSaveDictionary);
             saveFileDialog.DefaultExt = "jpg";
 
             var res = saveFileDialog.ShowDialog();
