@@ -218,7 +218,7 @@
             <Border.Style>
                 <Style>
                     <Style.Triggers>
-                        <DataTrigger Binding="{Binding Path=IsMenuOpened}" Value="True">
+                        <DataTrigger Binding="{Binding Path=StateKeeper.IsMenuOpened}" Value="True">
                             <DataTrigger.EnterActions>
                                 <BeginStoryboard>
                                     <Storyboard>

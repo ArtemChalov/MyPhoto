@@ -88,9 +88,9 @@
     <ApplicationDefinition Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
     </ApplicationDefinition>
+    <Compile Include="StateKeeper.cs" />
     <Compile Include="Wrappers\OpenDialogWrappers.cs" />
     <Compile Include="Converters\ThumbnailConverter.cs" />
-    <Compile Include="MVVM\BaseViewModel.cs" />
     <Compile Include="MVVM\DelegateCommand.cs" />
     <Compile Include="Types\FolderContentInfo.cs" />
     <Compile Include="Utilities\FolderWorker.cs" />
@@ -140,10 +140,7 @@
   <ItemGroup>
     <Resource Include="Test_image.jpg" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ViewModels\" />
-    <Folder Include="Views\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Resource Include="myphoto.ico" />
   </ItemGroup>

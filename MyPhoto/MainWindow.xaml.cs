@@ -6,14 +6,15 @@ using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
-using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using UnFilemanager;
+using UnFilemanager.Filters;
 using WriteableBitmapEx;
 
 namespace MyPhoto
@@ -21,18 +22,19 @@ namespace MyPhoto
     /// <summary>
     /// Логика взаимодействия для MainWindow.xaml
     /// </summary>
-    public partial class MainWindow: Window, INotifyPropertyChanged
+    public partial class MainWindow : Window, INotifyPropertyChanged
     {
         private Image _Image;
         private string _FilePath;
-        private string _SupportExtentions = "*.jpg;*.jpeg;*.png;*.bmp;*.tiff;*.gif";
         private ObservableCollection<FolderContentInfo> _FolderContent;
         private ImgPreviewTransformer _ImageViewTransformer;
         private FolderContentInfo _SelectedPreviewImage;
         private PresenterViewModel _folderPreview;
 
-        private bool _IsMenuOpened;
-        private bool _FolderContentIsOld;
+        AppStateKeeper _StateKeeper;
+
+        //private bool _IsMenuOpened;
+        //private bool _FolderContentIsOld;
 
         public MainWindow()
         {
@@ -42,6 +44,7 @@ namespace MyPhoto
             FolderPresenterInit();
             MenuInit();
             ViewPortMenuInit();
+            StateKeeper = new AppStateKeeper();
         }
 
         #region Init methods
@@ -122,22 +125,33 @@ namespace MyPhoto
             if (!String.IsNullOrEmpty(Properties.Settings.Default.DefaultPreview))
                 _ImageViewTransformer.ExecuteTransformWith(Properties.Settings.Default.DefaultPreview);
 
-                // Create and show the full size image
+            // Create and show the full size image
             _Image.Source = await WriteableBitmapFactory.CreateFromFileAsync(path);
             _ImageViewTransformer.SetOriginalDimentions((_Image.Source as WriteableBitmap).PixelWidth, (_Image.Source as WriteableBitmap).PixelHeight);
             if (!String.IsNullOrEmpty(Properties.Settings.Default.DefaultPreview))
                 _ImageViewTransformer.ExecuteTransformWith(Properties.Settings.Default.DefaultPreview);
 
-            if (_FolderContentIsOld) UploadFolderContent();
+            if (StateKeeper.FolderContentIsOld) UploadFolderContentAsync();
         }
 
-        private void UploadFolderContent()
+        private async void UploadFolderContentAsync()
         {
-            _FolderContentIsOld = false;
+            StateKeeper.FolderContentIsOld = false;
             _SelectedPreviewImage = null;
             if (FilePath != null)
             {
-                _folderPreview.UpdateFolderContent(Directory.GetParent(FilePath).FullName);
+                ExtentionSupport support = new ExtentionSupport();
+
+                var result = await Task<string[]>.Factory.StartNew(() =>
+                {
+                    return support.GetSupportedFiles(Directory.GetParent(FilePath).FullName, App.SupportExtentions);
+                });
+
+                support = null;
+
+                _folderPreview.PathCollection = new ObservableCollection<string>(result);
+
+                //_folderPreview.UpdateFolderContent(Directory.GetParent(FilePath).FullName);
 
                 //FolderContent = null;
                 //FolderContent = new FolderWorker().UpLoadFolderContent(FilePath, _SupportExtentions);
@@ -183,10 +197,10 @@ namespace MyPhoto
 
         public StackPanel ViewPortMenu { get; set; }
 
-        public bool IsMenuOpened
+        public AppStateKeeper StateKeeper
         {
-            get { return _IsMenuOpened; }
-            set { _IsMenuOpened = value; OnPropertyChanged(); }
+            get { return _StateKeeper; }
+            set { _StateKeeper = value; }
         }
 
         #endregion
@@ -205,12 +219,12 @@ namespace MyPhoto
 
         private void Menubtn_Click(object sender, RoutedEventArgs e)
         {
-            if (!IsMenuOpened) IsMenuOpened = true;
+            if (!StateKeeper.IsMenuOpened) StateKeeper.IsMenuOpened = true;
         }
 
         private void Closemenubtn_Click(object sender, RoutedEventArgs e)
         {
-            if (IsMenuOpened) IsMenuOpened = false;
+            if (StateKeeper.IsMenuOpened) StateKeeper.IsMenuOpened = false;
         }
 
         private void Window_Closing(object sender, CancelEventArgs e)
@@ -225,8 +239,8 @@ namespace MyPhoto
 
         private void Open_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            IsMenuOpened = false;
-            _FolderContentIsOld = true;
+            StateKeeper.IsMenuOpened = false;
+            StateKeeper.FolderContentIsOld = true;
 
             // From UnFilemanager.dll
             OpenManager manager = new OpenManager(new OpenDialogWrapper(), 
@@ -240,7 +254,7 @@ namespace MyPhoto
 
         private void Save_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            IsMenuOpened = false;
+            StateKeeper.IsMenuOpened = false;
 
             SaveDialogWrapper saver = new SaveDialogWrapper();
             saver.SaveFile(_Image, FilePath);
@@ -250,17 +264,18 @@ namespace MyPhoto
 
         private void SaveAs_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            IsMenuOpened = false;
+            StateKeeper.IsMenuOpened = false;
 
             SaveDialogWrapper saver = new SaveDialogWrapper();
             saver.SaveFileWithDialog(_Image);
-            UploadFolderContent();
-            saver = null;
+            throw new NotImplementedException();
+            //UploadFolderContent();
+            //saver = null;
         }
 
         private void Copy_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            IsMenuOpened = false;
+            StateKeeper.IsMenuOpened = false;
             if (File.Exists(FilePath))
             {
                 string extention = FilePath.Substring(FilePath.LastIndexOf('.'));
@@ -282,7 +297,9 @@ namespace MyPhoto
                 if (File.Exists(newfile))
                 {
                     _FilePath = newfile;
-                    UploadFolderContent();
+                    throw new NotImplementedException();
+
+                   // UploadFolderContent();
                 }
             }
         }
@@ -294,7 +311,7 @@ namespace MyPhoto
 
         private void Delete_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            IsMenuOpened = false;
+            StateKeeper.IsMenuOpened = false;
             if (File.Exists(FilePath))
             {
                 throw new NotImplementedException();
