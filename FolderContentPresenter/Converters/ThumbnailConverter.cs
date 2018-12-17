@@ -11,7 +11,7 @@ namespace FolderContentPresenter.Converters
         {
             string filePath = value as string;
 
-            return BitmapImageFactory.CreateFromFile(filePath);
+            return BitmapImageFactory.CreateThumbnailFromFile(filePath, 64, DesiredSize.Width);
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
