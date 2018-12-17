@@ -88,12 +88,12 @@
     <ApplicationDefinition Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
     </ApplicationDefinition>
+    <Compile Include="Services\FolderService.cs" />
     <Compile Include="StateKeeper.cs" />
     <Compile Include="Wrappers\OpenDialogWrappers.cs" />
     <Compile Include="Converters\ThumbnailConverter.cs" />
     <Compile Include="MVVM\DelegateCommand.cs" />
     <Compile Include="Types\FolderContentInfo.cs" />
-    <Compile Include="Utilities\FolderWorker.cs" />
     <Compile Include="Utilities\ImgPreviewTransformer.cs" />
     <Compile Include="Utilities\MenuItemFactory.cs" />
     <Compile Include="Utilities\ViewPortMenuItemFactory.cs" />

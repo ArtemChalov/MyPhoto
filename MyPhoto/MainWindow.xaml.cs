@@ -1,4 +1,5 @@
 ﻿using FolderContentPresenter;
+using MyPhoto.Services;
 using MyPhoto.Types;
 using MyPhoto.Utilities;
 using MyPhoto.Wrappers;
@@ -131,34 +132,11 @@ namespace MyPhoto
             if (!String.IsNullOrEmpty(Properties.Settings.Default.DefaultPreview))
                 _ImageViewTransformer.ExecuteTransformWith(Properties.Settings.Default.DefaultPreview);
 
-            if (StateKeeper.FolderContentIsOld) UploadFolderContentAsync();
-        }
-
-        private async void UploadFolderContentAsync()
-        {
-            StateKeeper.FolderContentIsOld = false;
-            _SelectedPreviewImage = null;
-            if (FilePath != null)
+            if (StateKeeper.FolderContentIsOld)
             {
-                ExtentionSupport support = new ExtentionSupport();
-
-                var result = await Task<string[]>.Factory.StartNew(() =>
-                {
-                    return support.GetSupportedFiles(Directory.GetParent(FilePath).FullName, App.SupportExtentions);
-                });
-
-                support = null;
-
-                _folderPreview.PathCollection = new ObservableCollection<string>(result);
-
-                //_folderPreview.UpdateFolderContent(Directory.GetParent(FilePath).FullName);
-
-                //FolderContent = null;
-                //FolderContent = new FolderWorker().UpLoadFolderContent(FilePath, _SupportExtentions);
-                //foldercontent.Focus();
-                // Highlight the showed image on the folder presenter panel
-                //_SelectedPreviewImage = FolderContent.First<FolderContentInfo>(cont => cont.FilePath == FilePath);
-                //OnPropertyChanged("SelectedPreviewImage");
+                FolderService folderService = new FolderService();
+                folderService.UploadFolderContentAsync(StateKeeper, FilePath, _folderPreview);
+                folderService = null;
             }
         }
 
@@ -178,17 +156,6 @@ namespace MyPhoto
         {
             get { return _FolderContent; }
             set { _FolderContent = value; OnPropertyChanged(); }
-        }
-
-        public FolderContentInfo SelectedPreviewImage
-        {
-            get { return _SelectedPreviewImage; }
-            set
-            {
-                _SelectedPreviewImage = value;
-                if (value.FilePath != null)
-                    FilePath = value.FilePath;
-            }
         }
 
         public ScrollViewer ImgViewer { get; set; }
