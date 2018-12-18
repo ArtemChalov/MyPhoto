@@ -59,6 +59,7 @@
     <Compile Include="Converters\PathToNameConverter.cs" />
     <Compile Include="Converters\ThumbnailConverter.cs" />
     <Compile Include="Converters\ThumbnailConverterToolTip.cs" />
+    <Compile Include="FolderPresenterEventArgs.cs" />
     <Compile Include="PresenterView.xaml.cs">
       <DependentUpon>PresenterView.xaml</DependentUpon>
     </Compile>

@@ -1,13 +1,13 @@
 ﻿using MVVM;
-using System;
 using System.Collections.ObjectModel;
-using UnFilemanager.Filters;
 
 namespace FolderContentPresenter
 {
     public class PresenterViewModel : BaseViewModel
     {
         private ObservableCollection<string> _PathCollection;
+
+        public delegate void FolderPresenterEventHandler(object sender, FolderPresenterEventArgs e);
 
         #region Static properties
 
@@ -25,11 +25,9 @@ namespace FolderContentPresenter
             set { _SelectedPath = value;
                 OnPropertyChanged();
                 if (!string.IsNullOrEmpty(value))
-                    OnPathSelected?.Invoke(value);
+                    OnPathSelected?.Invoke(this, new FolderPresenterEventArgs(value));
             }
         }
-
-        public Action<string> OnPathSelected;
 
         public ObservableCollection<string> PathCollection
         {
@@ -41,17 +39,10 @@ namespace FolderContentPresenter
 
         #endregion
 
-        public void UpdateFolderContent(string directory)
-        {
-            PathCollection = null;
+        #region Events
 
-            ExtentionSupport support = new ExtentionSupport();
+        public event FolderPresenterEventHandler OnPathSelected;
 
-            var list = support.GetSupportedFiles(directory, SupportExtentions);
-
-            PathCollection = new ObservableCollection<string>(list);
-
-            support = null;
-        }
+        #endregion
     }
 }

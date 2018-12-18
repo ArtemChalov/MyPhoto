@@ -39,10 +39,10 @@ namespace MyPhoto
             FolderPresenter = new PresenterView();
             AppServices._folderPreview = FolderPresenter.DataContext as PresenterViewModel;
             AppServices._folderPreview.SupportExtentions = App.SupportExtentions;
+            AppServices._folderPreview.OnPathSelected += (sendee, e) => AppServices.UpdateImage(MainImage, e.FilePath);
+            PresenterViewModel.ToolTipImageWidth = 256;
 
             AppServices._stateKeeper = new AppStateKeeper();
-
-            AppServices._ImageViewTransformer = new ImgPreviewTransformer(MainImage, 0, 0);
         }
 
         private void ImagePresenterInit()
@@ -79,6 +79,7 @@ namespace MyPhoto
         private void ViewPortMenuInit()
         {
             ViewPortMenuItemFactory itemVPFactory = new ViewPortMenuItemFactory();
+            AppServices._ImageViewTransformer = new ImgPreviewTransformer(MainImage, 0, 0);
 
             ViewPortMenu = new StackPanel()
             {
