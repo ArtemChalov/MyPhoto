@@ -13,6 +13,12 @@ namespace FolderContentPresenter
     {
         private ObservableCollection<string> _PathCollection;
 
+        #region Static properties
+
+        public static int ToolTipImageWidth { get; set; } = 256;
+
+        #endregion
+
         #region Properties
 
         public ObservableCollection<string> PathCollection

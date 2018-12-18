@@ -12,6 +12,7 @@
     <UserControl.Resources>
         <converters:PathToNameConverter x:Key="PathToName"/>
         <converters:ThumbnailConverter x:Key="Thumbnail"/>
+        <converters:ThumbnailConverterToolTip x:Key="ThumbnailToolTip"/>
     </UserControl.Resources>
     <DockPanel LastChildFill="True">
         <ListBox Background="Transparent"
@@ -38,10 +39,14 @@
                                    Foreground="WhiteSmoke"
                                    Text="{Binding Converter={StaticResource PathToName}, IsAsync=True, Mode=OneWay}"
                                    HorizontalAlignment="Left" />
+                        <StackPanel.ToolTip>
+                            <ToolTip Padding="0">
+                                <Image Source="{Binding Mode=OneWay, Converter={StaticResource ThumbnailToolTip}}"/>
+                            </ToolTip>
+                        </StackPanel.ToolTip>
                     </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>
-
         </ListBox>
     </DockPanel>
 </UserControl>

@@ -6,7 +6,7 @@ using WriteableBitmapEx;
 
 namespace FolderContentPresenter.Converters
 {
-    class ThumbnailConverter : IValueConverter
+    class ThumbnailConverterToolTip : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
@@ -15,7 +15,7 @@ namespace FolderContentPresenter.Converters
             BitmapImage image = null;
 
             if (!String.IsNullOrEmpty(filePath))
-                image = BitmapImageFactory.CreateThumbnailFromFile(filePath, 64, DesiredSize.Width);
+                image = BitmapImageFactory.CreateThumbnailFromFile(filePath, PresenterViewModel.ToolTipImageWidth, DesiredSize.Width);
 
             return image;
         }
