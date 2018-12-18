@@ -42,7 +42,7 @@
                                    HorizontalAlignment="Left" />
                         <StackPanel.ToolTip>
                             <ToolTip Padding="0">
-                                <Image Source="{Binding Mode=OneWay, Converter={StaticResource ThumbnailToolTip}}"/>
+                                <Image Width="256"  Source="{Binding Mode=OneWay, Converter={StaticResource ThumbnailToolTip}}"/>
                             </ToolTip>
                         </StackPanel.ToolTip>
                     </StackPanel>

@@ -40,7 +40,6 @@ namespace MyPhoto
             AppServices._folderPreview = FolderPresenter.DataContext as PresenterViewModel;
             AppServices._folderPreview.SupportExtentions = App.SupportExtentions;
             AppServices._folderPreview.OnPathSelected += (sendee, e) => AppServices.UpdateImage(MainImage, e.FilePath);
-            PresenterViewModel.ToolTipImageWidth = 256;
 
             AppServices._stateKeeper = new AppStateKeeper();
         }

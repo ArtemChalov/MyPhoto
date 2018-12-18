@@ -15,7 +15,7 @@ namespace FolderContentPresenter.Converters
             BitmapImage image = null;
 
             if (!String.IsNullOrEmpty(filePath))
-                image = BitmapImageFactory.CreateThumbnailFromFile(filePath, PresenterViewModel.ToolTipImageWidth, DesiredSize.Width);
+                image = BitmapImageFactory.CreateThumbnailFromFile(filePath, 256, DesiredSize.Width);
 
             return image;
         }

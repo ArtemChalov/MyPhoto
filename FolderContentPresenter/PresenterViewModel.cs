@@ -9,12 +9,6 @@ namespace FolderContentPresenter
 
         public delegate void FolderPresenterEventHandler(object sender, FolderPresenterEventArgs e);
 
-        #region Static properties
-
-        public static int ToolTipImageWidth { get; set; } = 256;
-
-        #endregion
-
         #region Properties
 
         private string _SelectedPath;
