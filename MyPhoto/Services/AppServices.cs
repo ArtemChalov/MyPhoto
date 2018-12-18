@@ -18,7 +18,7 @@ namespace MyPhoto.Services
         public static PresenterViewModel _folderPreview;
         public static ImgPreviewTransformer _ImageViewTransformer;
 
-        public static async void UpdateImage(Image image, string filePath)
+        public static void UpdateImage(Image image, string filePath)
         {
             image.Source = null;
 
@@ -26,11 +26,7 @@ namespace MyPhoto.Services
 
             LoadPreview(image, filePath);
 
-            // Create and show the full size image
-            image.Source = await WriteableBitmapFactory.CreateFromFileAsync(filePath);
-            _ImageViewTransformer.SetOriginalDimentions((image.Source as WriteableBitmap).PixelWidth, (image.Source as WriteableBitmap).PixelHeight);
-            if (!String.IsNullOrEmpty(Properties.Settings.Default.DefaultPreview))
-                _ImageViewTransformer.ExecuteTransformWith(Properties.Settings.Default.DefaultPreview);
+            LoadFullSizeAsync(image, filePath);
 
             if (_stateKeeper.FolderContentIsOld)
                 AppServices.UploadFolderContentAsync(filePath);
@@ -64,6 +60,15 @@ namespace MyPhoto.Services
             var previewheight = (int)((image.Parent as FrameworkElement).ActualHeight - 3.5);
             image.Source = BitmapImageFactory.CreateThumbnailFromFile(filePath, previewheight, WriteableBitmapEx.DesiredSize.Height);
             _ImageViewTransformer.SetOriginalDimentions((image.Source as BitmapImage).PixelWidth, (image.Source as BitmapImage).PixelHeight);
+            if (!String.IsNullOrEmpty(Properties.Settings.Default.DefaultPreview))
+                _ImageViewTransformer.ExecuteTransformWith(Properties.Settings.Default.DefaultPreview);
+        }
+
+        // Create and show the full size image
+        private static async void LoadFullSizeAsync(Image image, string filePath)
+        {
+            image.Source = await WriteableBitmapFactory.CreateFromFileAsync(filePath);
+            _ImageViewTransformer.SetOriginalDimentions((image.Source as WriteableBitmap).PixelWidth, (image.Source as WriteableBitmap).PixelHeight);
             if (!String.IsNullOrEmpty(Properties.Settings.Default.DefaultPreview))
                 _ImageViewTransformer.ExecuteTransformWith(Properties.Settings.Default.DefaultPreview);
         }
