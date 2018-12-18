@@ -1,4 +1,5 @@
 ﻿using MVVM;
+using System;
 using System.Collections.ObjectModel;
 using UnFilemanager.Filters;
 
@@ -15,6 +16,20 @@ namespace FolderContentPresenter
         #endregion
 
         #region Properties
+
+        private string _SelectedPath;
+
+        public string SelectedPath
+        {
+            get { return _SelectedPath; }
+            set { _SelectedPath = value;
+                OnPropertyChanged();
+                if (!string.IsNullOrEmpty(value))
+                    OnPathSelected?.Invoke(value);
+            }
+        }
+
+        public Action<string> OnPathSelected;
 
         public ObservableCollection<string> PathCollection
         {

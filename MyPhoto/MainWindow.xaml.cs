@@ -10,9 +10,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using UnFilemanager;
-using WriteableBitmapEx;
 
 namespace MyPhoto
 {
@@ -21,46 +19,42 @@ namespace MyPhoto
     /// </summary>
     public partial class MainWindow : Window, INotifyPropertyChanged
     {
-        private Image _Image;
+        private Image MainImage;
         private string _FilePath;
-        private ImgPreviewTransformer _ImageViewTransformer;
-        private PresenterViewModel _folderPreview;
-
-        AppStateKeeper _StateKeeper;
-
-        //private bool _IsMenuOpened;
-        //private bool _FolderContentIsOld;
 
         public MainWindow()
         {
             InitializeComponent();
             this.DataContext = this;
             ImagePresenterInit();
-            FolderPresenterInit();
             MenuInit();
+            ServicesInit();
             ViewPortMenuInit();
-            StateKeeper = new AppStateKeeper();
         }
 
         #region Init methods
 
+        private void ServicesInit()
+        {
+            FolderPresenter = new PresenterView();
+            AppServices._folderPreview = FolderPresenter.DataContext as PresenterViewModel;
+            AppServices._folderPreview.SupportExtentions = App.SupportExtentions;
+
+            AppServices._stateKeeper = new AppStateKeeper();
+
+            AppServices._ImageViewTransformer = new ImgPreviewTransformer(MainImage, 0, 0);
+        }
+
         private void ImagePresenterInit()
         {
-            _Image = new Image();
+            MainImage = new Image();
             ImgViewer = new ScrollViewer
             {
                 Padding = new Thickness(2),
                 VerticalScrollBarVisibility = ScrollBarVisibility.Auto,
                 HorizontalScrollBarVisibility = ScrollBarVisibility.Auto,
-                Content = _Image
+                Content = MainImage
             };
-        }
-
-        private void FolderPresenterInit()
-        {
-            FolderPresenter = new PresenterView();
-            _folderPreview = FolderPresenter.DataContext as PresenterViewModel;
-            _folderPreview.SupportExtentions = App.SupportExtentions;
         }
 
         private void MenuInit()
@@ -94,44 +88,9 @@ namespace MyPhoto
                 VerticalAlignment = VerticalAlignment.Top
             };
 
-            _ImageViewTransformer = new ImgPreviewTransformer(_Image, 0, 0);
-
-            itemVPFactory.CreateAllMenuItems(ViewPortMenu, _ImageViewTransformer, _Image);
+            itemVPFactory.CreateAllMenuItems(ViewPortMenu,  AppServices._ImageViewTransformer, MainImage);
 
             itemVPFactory = null;
-        }
-
-        #endregion
-
-        #region Private methods
-
-        private async void UploadImage(string path)
-        {
-            _Image.Source = null;
-
-            if (path == null) return;
-
-            var previewheight = (int)(ImgViewer.ActualHeight - 3.5);
-
-            // Create and show a preview image
-            // to get fast load
-            _Image.Source = BitmapImageFactory.CreateThumbnailFromFile(path, previewheight, WriteableBitmapEx.DesiredSize.Height);
-            _ImageViewTransformer.SetOriginalDimentions((_Image.Source as BitmapImage).PixelWidth, (_Image.Source as BitmapImage).PixelHeight);
-            if (!String.IsNullOrEmpty(Properties.Settings.Default.DefaultPreview))
-                _ImageViewTransformer.ExecuteTransformWith(Properties.Settings.Default.DefaultPreview);
-
-            // Create and show the full size image
-            _Image.Source = await WriteableBitmapFactory.CreateFromFileAsync(path);
-            _ImageViewTransformer.SetOriginalDimentions((_Image.Source as WriteableBitmap).PixelWidth, (_Image.Source as WriteableBitmap).PixelHeight);
-            if (!String.IsNullOrEmpty(Properties.Settings.Default.DefaultPreview))
-                _ImageViewTransformer.ExecuteTransformWith(Properties.Settings.Default.DefaultPreview);
-
-            if (StateKeeper.FolderContentIsOld)
-            {
-                FolderService folderService = new FolderService();
-                folderService.UploadFolderContentAsync(StateKeeper, FilePath, _folderPreview);
-                folderService = null;
-            }
         }
 
         #endregion
@@ -141,7 +100,8 @@ namespace MyPhoto
         public string FilePath
         {
             get { return _FilePath; }
-            set { _FilePath = value; UploadImage(value); }
+            set { _FilePath = value;
+                AppServices.UpdateImage(MainImage, value); }
         }
 
         public ContentControl FolderPresenter { get; set; }
@@ -154,8 +114,8 @@ namespace MyPhoto
 
         public AppStateKeeper StateKeeper
         {
-            get { return _StateKeeper; }
-            set { _StateKeeper = value; }
+            get { return AppServices._stateKeeper; }
+            set { AppServices._stateKeeper = value; }
         }
 
         #endregion
@@ -164,12 +124,12 @@ namespace MyPhoto
 
         private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            if (_Image.Width != double.NaN)
-                _Image.Width = double.NaN;
-            if (_Image.Height != double.NaN)
-                _Image.Height = double.NaN;
-            if (_Image.Source != null)
-                _ImageViewTransformer?.ExecuteTransformWith("FitToParent");
+            if (MainImage.Width != double.NaN)
+                MainImage.Width = double.NaN;
+            if (MainImage.Height != double.NaN)
+                MainImage.Height = double.NaN;
+            if (MainImage.Source != null)
+                AppServices._ImageViewTransformer?.ExecuteTransformWith("FitToParent");
         }
 
         private void Menubtn_Click(object sender, RoutedEventArgs e)
@@ -212,8 +172,8 @@ namespace MyPhoto
             StateKeeper.IsMenuOpened = false;
 
             SaveDialogWrapper saver = new SaveDialogWrapper();
-            saver.SaveFile(_Image, FilePath);
-            UploadImage(FilePath);
+            saver.SaveFile(MainImage, FilePath);
+            AppServices.UpdateImage(MainImage, FilePath);
             saver = null;
         }
 
@@ -222,7 +182,7 @@ namespace MyPhoto
             StateKeeper.IsMenuOpened = false;
 
             SaveDialogWrapper saver = new SaveDialogWrapper();
-            saver.SaveFileWithDialog(_Image);
+            saver.SaveFileWithDialog(MainImage);
             throw new NotImplementedException();
             //UploadFolderContent();
             //saver = null;
@@ -261,7 +221,7 @@ namespace MyPhoto
 
         private void Save_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-            e.CanExecute = _Image.Source != null;
+            e.CanExecute = MainImage.Source != null;
         }
 
         private void Delete_Executed(object sender, ExecutedRoutedEventArgs e)

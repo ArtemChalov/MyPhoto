@@ -92,7 +92,7 @@
     <ApplicationDefinition Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
     </ApplicationDefinition>
-    <Compile Include="Services\FolderService.cs" />
+    <Compile Include="Services\AppServices.cs" />
     <Compile Include="StateKeeper.cs" />
     <Compile Include="Wrappers\OpenDialogWrappers.cs" />
     <Compile Include="Converters\ThumbnailConverter.cs" />

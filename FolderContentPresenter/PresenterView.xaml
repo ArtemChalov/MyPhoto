@@ -17,7 +17,8 @@
     <DockPanel LastChildFill="True">
         <ListBox Background="Transparent"
                  BorderThickness="0"
-                 ItemsSource="{Binding PathCollection}">
+                 ItemsSource="{Binding PathCollection}"
+                 SelectedItem="{Binding SelectedPath}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Margin="5" Orientation="Vertical">
