@@ -33,6 +33,9 @@
     <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="MVVM">
+      <HintPath>..\MyPhoto\bin\x64\Release\MVVM.dll</HintPath>
+    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
@@ -56,7 +59,6 @@
     <Compile Include="Converters\PathToNameConverter.cs" />
     <Compile Include="Converters\ThumbnailConverter.cs" />
     <Compile Include="Converters\ThumbnailConverterToolTip.cs" />
-    <Compile Include="MVVM\BaseViewModel.cs" />
     <Compile Include="PresenterView.xaml.cs">
       <DependentUpon>PresenterView.xaml</DependentUpon>
     </Compile>

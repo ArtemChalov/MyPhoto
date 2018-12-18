@@ -105,76 +105,10 @@
                 Width="32"
                 Height="32"
                 Click="Menubtn_Click"/>
+        
         <ContentControl Grid.Column="0" 
                         Grid.Row="1" 
                         Content="{Binding FolderPresenter}"/>
-        <!--<ListBox x:Name="foldercontent"
-                 Grid.Column="0"
-                 Grid.Row="1" 
-                 BorderThickness="0"
-                 SelectedItem="{Binding SelectedPreviewImage}"
-                 Background="Transparent"
-                 ItemsSource="{Binding FolderContent}">
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel Margin="5" Orientation="Vertical">
-                        <Image Source="{Binding Path=FilePath, IsAsync=True, Mode=OneWay, Converter={StaticResource thnailConv}}"
-                                   Width="64"
-                                   VerticalAlignment="Top"
-                                   HorizontalAlignment="Left">
-                            <Image.Style>
-                                <Style TargetType="Image">
-                                    <Style.Triggers>
-                                        <Trigger Property="Source" Value="{x:Null}">
-                                            <Setter Property="Visibility" Value="Collapsed"/>
-                                        </Trigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </Image.Style>
-                        </Image>
-                        <TextBlock FontSize="12" 
-                                   Foreground="WhiteSmoke"
-                                   Text="{Binding Path=FileName}"
-                                   HorizontalAlignment="Left" />
-                    </StackPanel>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-            <ListBox.ContextMenu>
-                <ContextMenu>
-                    <MenuItem FontFamily="Segoe UI" FontSize="12" Command="ApplicationCommands.Copy">
-                        <MenuItem.Icon>
-                            <TextBlock Text="&#xE8C8;"
-                                       FontSize="14"
-                                       FontFamily="Segoe MDL2 Assets"
-                                       HorizontalAlignment="Center"
-                                       VerticalAlignment="Center"
-                                       TextAlignment="Center"/>
-                        </MenuItem.Icon>
-                    </MenuItem>
-                    <MenuItem  FontFamily="Segoe UI" FontSize="12" Command="ApplicationCommands.SaveAs">
-                        <MenuItem.Icon>
-                            <TextBlock Text="&#xEA35;"
-                                       FontSize="14"
-                                       FontFamily="Segoe MDL2 Assets"
-                                       HorizontalAlignment="Center"
-                                       VerticalAlignment="Center"
-                                       TextAlignment="Center"/>
-                        </MenuItem.Icon>
-                    </MenuItem>
-                    <Separator />
-                    <MenuItem FontFamily="Segoe UI" FontSize="12" Command="ApplicationCommands.Delete">
-                        <MenuItem.Icon>
-                            <TextBlock Text="&#xE107;"
-                                       FontSize="14"
-                                       FontFamily="Segoe MDL2 Assets"
-                                       HorizontalAlignment="Center"
-                                       VerticalAlignment="Center"
-                                       TextAlignment="Center"/>
-                        </MenuItem.Icon>
-                    </MenuItem>
-                </ContextMenu>
-            </ListBox.ContextMenu>
-        </ListBox>-->
 
         <GridSplitter Grid.Column="0"
                       Grid.Row="1"

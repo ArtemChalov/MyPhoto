@@ -61,6 +61,10 @@
     <Reference Include="FolderContentPresenter">
       <HintPath>..\FolderContentPresenter\bin\Debug\FolderContentPresenter.dll</HintPath>
     </Reference>
+    <Reference Include="MVVM, Version=1.0.0.0, Culture=neutral, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\x64\Release\MVVM.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
@@ -92,8 +96,6 @@
     <Compile Include="StateKeeper.cs" />
     <Compile Include="Wrappers\OpenDialogWrappers.cs" />
     <Compile Include="Converters\ThumbnailConverter.cs" />
-    <Compile Include="MVVM\DelegateCommand.cs" />
-    <Compile Include="Types\FolderContentInfo.cs" />
     <Compile Include="Utilities\ImgPreviewTransformer.cs" />
     <Compile Include="Utilities\MenuItemFactory.cs" />
     <Compile Include="Utilities\ViewPortMenuItemFactory.cs" />

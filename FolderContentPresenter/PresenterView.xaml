@@ -47,6 +47,41 @@
                     </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>
+            <ListBox.ContextMenu>
+                <ContextMenu>
+                    <MenuItem FontFamily="Segoe UI" FontSize="12" Command="ApplicationCommands.Copy">
+                        <MenuItem.Icon>
+                            <TextBlock Text="&#xE8C8;"
+                                       FontSize="14"
+                                       FontFamily="Segoe MDL2 Assets"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"
+                                       TextAlignment="Center"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem  FontFamily="Segoe UI" FontSize="12" Command="ApplicationCommands.SaveAs">
+                        <MenuItem.Icon>
+                            <TextBlock Text="&#xEA35;"
+                                       FontSize="14"
+                                       FontFamily="Segoe MDL2 Assets"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"
+                                       TextAlignment="Center"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <Separator />
+                    <MenuItem FontFamily="Segoe UI" FontSize="12" Command="ApplicationCommands.Delete">
+                        <MenuItem.Icon>
+                            <TextBlock Text="&#xE107;"
+                                       FontSize="14"
+                                       FontFamily="Segoe MDL2 Assets"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"
+                                       TextAlignment="Center"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                </ContextMenu>
+            </ListBox.ContextMenu>
         </ListBox>
     </DockPanel>
 </UserControl>

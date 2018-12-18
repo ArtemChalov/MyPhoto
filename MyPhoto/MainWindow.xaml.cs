@@ -1,21 +1,17 @@
 ﻿using FolderContentPresenter;
 using MyPhoto.Services;
-using MyPhoto.Types;
 using MyPhoto.Utilities;
 using MyPhoto.Wrappers;
 using System;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
 using System.Runtime.CompilerServices;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using UnFilemanager;
-using UnFilemanager.Filters;
 using WriteableBitmapEx;
 
 namespace MyPhoto
@@ -27,9 +23,7 @@ namespace MyPhoto
     {
         private Image _Image;
         private string _FilePath;
-        private ObservableCollection<FolderContentInfo> _FolderContent;
         private ImgPreviewTransformer _ImageViewTransformer;
-        private FolderContentInfo _SelectedPreviewImage;
         private PresenterViewModel _folderPreview;
 
         AppStateKeeper _StateKeeper;
@@ -151,12 +145,6 @@ namespace MyPhoto
         }
 
         public ContentControl FolderPresenter { get; set; }
-
-        public ObservableCollection<FolderContentInfo> FolderContent
-        {
-            get { return _FolderContent; }
-            set { _FolderContent = value; OnPropertyChanged(); }
-        }
 
         public ScrollViewer ImgViewer { get; set; }
 
