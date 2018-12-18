@@ -58,8 +58,9 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="FolderContentPresenter">
-      <HintPath>..\FolderContentPresenter\bin\Debug\FolderContentPresenter.dll</HintPath>
+    <Reference Include="FolderContentPresenter, Version=1.0.0.0, Culture=neutral, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\x64\Release\FolderContentPresenter.dll</HintPath>
     </Reference>
     <Reference Include="MVVM, Version=1.0.0.0, Culture=neutral, processorArchitecture=AMD64">
       <SpecificVersion>False</SpecificVersion>
@@ -85,7 +86,7 @@
     <Reference Include="PresentationFramework" />
     <Reference Include="WriteableBitmapEx, Version=1.0.0.1, Culture=neutral, processorArchitecture=AMD64">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\Release\WriteableBitmapEx.dll</HintPath>
+      <HintPath>bin\x64\Release\WriteableBitmapEx.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
