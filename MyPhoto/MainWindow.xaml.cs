@@ -41,8 +41,6 @@ namespace MyPhoto
             AppServices._folderPreview = FolderPresenter.DataContext as PresenterViewModel;
             AppServices._folderPreview.SupportExtentions = App.SupportExtentions;
             AppServices._folderPreview.OnPathSelected += (sendee, e) => AppServices.UpdateImage(MainImage, e.FilePath);
-
-            AppServices._stateKeeper = new AppStateKeeper();
         }
 
         private void ImagePresenterInit()
@@ -116,12 +114,6 @@ namespace MyPhoto
 
         public StackPanel ViewPortMenu { get; set; }
 
-        public AppStateKeeper StateKeeper
-        {
-            get { return AppServices._stateKeeper; }
-            set { AppServices._stateKeeper = value; }
-        }
-
         #endregion
 
         #region Events
@@ -136,16 +128,6 @@ namespace MyPhoto
                 AppServices._ImageViewTransformer?.ExecuteTransformWith("FitToParent");
         }
 
-        private void Menubtn_Click(object sender, RoutedEventArgs e)
-        {
-            if (!StateKeeper.IsMenuOpened) StateKeeper.IsMenuOpened = true;
-        }
-
-        private void Closemenubtn_Click(object sender, RoutedEventArgs e)
-        {
-            if (StateKeeper.IsMenuOpened) StateKeeper.IsMenuOpened = false;
-        }
-
         private void Window_Closing(object sender, CancelEventArgs e)
         {
             Properties.Settings.Default.Save();
@@ -158,8 +140,6 @@ namespace MyPhoto
 
         private void Open_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            StateKeeper.IsMenuOpened = false;
-
             // From UnFilemanager.dll
             OpenManager manager = new OpenManager(new OpenDialogWrapper(), 
                                                     UnFMFilters.SupportedExtentions, // From UnFilemanager.dll
@@ -175,8 +155,6 @@ namespace MyPhoto
 
         private void Save_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            StateKeeper.IsMenuOpened = false;
-
             SaveDialogWrapper saver = new SaveDialogWrapper();
             saver.SaveFile(MainImage, FilePath);
             AppServices.UpdateImage(MainImage, FilePath);
@@ -185,8 +163,6 @@ namespace MyPhoto
 
         private void SaveAs_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            StateKeeper.IsMenuOpened = false;
-
             SaveDialogWrapper saver = new SaveDialogWrapper();
             saver.SaveFileWithDialog(MainImage);
             throw new NotImplementedException();
@@ -196,7 +172,6 @@ namespace MyPhoto
 
         private void Copy_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            StateKeeper.IsMenuOpened = false;
             if (File.Exists(FilePath))
             {
                 string extention = FilePath.Substring(FilePath.LastIndexOf('.'));
@@ -232,7 +207,6 @@ namespace MyPhoto
 
         private void Delete_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            StateKeeper.IsMenuOpened = false;
             if (File.Exists(FilePath))
             {
                 throw new NotImplementedException();

@@ -14,7 +14,6 @@ namespace MyPhoto.Services
 {
     internal class AppServices
     {
-        internal static AppStateKeeper _stateKeeper;
         internal static PresenterViewModel _folderPreview;
         internal static ImgPreviewTransformer _ImageViewTransformer;
 
@@ -39,9 +38,7 @@ namespace MyPhoto.Services
 
         internal static async void UploadFolderContentAsync(string filePath)
         {
-            if (_stateKeeper == null || _folderPreview == null) throw new NullReferenceException("Method UploadFolderContentAsync.");
-
-            
+            if (_folderPreview == null) throw new NullReferenceException("Method UploadFolderContentAsync.");
 
             if (filePath != null)
             {
