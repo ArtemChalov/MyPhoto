@@ -21,6 +21,7 @@ namespace MyPhoto
     {
         private Image MainImage;
         private string _FilePath;
+        private string[] _FilePaths;
 
         public MainWindow()
         {
@@ -104,6 +105,16 @@ namespace MyPhoto
                 AppServices.UpdateImage(MainImage, value); }
         }
 
+        public string[] FilePaths
+        {
+            get { return _FilePaths; }
+            set
+            {
+                _FilePaths = value;
+                AppServices.UpdateFolderPresenter(value);
+            }
+        }
+
         public ContentControl FolderPresenter { get; set; }
 
         public ScrollViewer ImgViewer { get; set; }
@@ -155,7 +166,6 @@ namespace MyPhoto
         private void Open_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             StateKeeper.IsMenuOpened = false;
-            StateKeeper.FolderContentIsOld = true;
 
             // From UnFilemanager.dll
             OpenManager manager = new OpenManager(new OpenDialogWrapper(), 
@@ -163,8 +173,11 @@ namespace MyPhoto
                                                     App.SupportExtentions);
             var (dialogresult, filePath, filePaths) = manager.GetDialogData(new MistakeMessanger());
 
-            if (dialogresult )
+            if (dialogresult)
+            {
                 FilePath = filePath;
+                FilePaths = filePaths;
+            }
         }
 
         private void Save_Executed(object sender, ExecutedRoutedEventArgs e)

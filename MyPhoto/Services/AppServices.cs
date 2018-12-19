@@ -12,13 +12,13 @@ using WriteableBitmapEx;
 
 namespace MyPhoto.Services
 {
-    class AppServices
+    internal class AppServices
     {
-        public static AppStateKeeper _stateKeeper;
-        public static PresenterViewModel _folderPreview;
-        public static ImgPreviewTransformer _ImageViewTransformer;
+        internal static AppStateKeeper _stateKeeper;
+        internal static PresenterViewModel _folderPreview;
+        internal static ImgPreviewTransformer _ImageViewTransformer;
 
-        public static void UpdateImage(Image image, string filePath)
+        internal static void UpdateImage(Image image, string filePath)
         {
             image.Source = null;
 
@@ -27,16 +27,21 @@ namespace MyPhoto.Services
             LoadPreview(image, filePath);
 
             LoadFullSizeAsync(image, filePath);
-
-            if (_stateKeeper.FolderContentIsOld)
-                AppServices.UploadFolderContentAsync(filePath);
         }
 
-        public static async void UploadFolderContentAsync(string filePath)
+        internal static void UpdateFolderPresenter(string[] filePaths)
+        {
+            if (filePaths == null)
+                _folderPreview.PathCollection = null;
+            else
+                _folderPreview.PathCollection = new ObservableCollection<string>(filePaths);
+        }
+
+        internal static async void UploadFolderContentAsync(string filePath)
         {
             if (_stateKeeper == null || _folderPreview == null) throw new NullReferenceException("Method UploadFolderContentAsync.");
 
-            _stateKeeper.FolderContentIsOld = false;
+            
 
             if (filePath != null)
             {
@@ -55,7 +60,7 @@ namespace MyPhoto.Services
 
         // Create and show a preview image
         // to get fast load
-        private static void LoadPreview(Image image, string filePath)
+        internal static void LoadPreview(Image image, string filePath)
         {
             var previewheight = (int)((image.Parent as FrameworkElement).ActualHeight - 3.5);
             image.Source = BitmapImageFactory.CreateThumbnailFromFile(filePath, previewheight, WriteableBitmapEx.DesiredSize.Height);
@@ -65,7 +70,7 @@ namespace MyPhoto.Services
         }
 
         // Create and show the full size image
-        private static async void LoadFullSizeAsync(Image image, string filePath)
+        internal static async void LoadFullSizeAsync(Image image, string filePath)
         {
             image.Source = await WriteableBitmapFactory.CreateFromFileAsync(filePath);
             _ImageViewTransformer.SetOriginalDimentions((image.Source as WriteableBitmap).PixelWidth, (image.Source as WriteableBitmap).PixelHeight);
