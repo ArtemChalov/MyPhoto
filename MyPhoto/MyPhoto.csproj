@@ -93,6 +93,9 @@
     <ApplicationDefinition Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
     </ApplicationDefinition>
+    <Compile Include="EdgeMenu.xaml.cs">
+      <DependentUpon>EdgeMenu.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Services\AppServices.cs" />
     <Compile Include="StateKeeper.cs" />
     <Compile Include="Wrappers\OpenDialogWrappers.cs" />
@@ -101,6 +104,10 @@
     <Compile Include="Utilities\MenuItemFactory.cs" />
     <Compile Include="Utilities\ViewPortMenuItemFactory.cs" />
     <Compile Include="Wrappers\SaveDialogWrapper.cs" />
+    <Page Include="EdgeMenu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
