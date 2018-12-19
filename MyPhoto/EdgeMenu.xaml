@@ -10,25 +10,169 @@
     <UserControl.Resources>
         <ThicknessAnimation x:Key="close"  To="-200 0 0 0" Duration="0:0:0.1" Storyboard.TargetProperty="Margin"/>
         <ThicknessAnimation x:Key="open"  To="0 0 0 0" Duration="0:0:0.1" Storyboard.TargetProperty="Margin"/>
+        <Style TargetType="{x:Type Button}">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="Foreground" Value="WhiteSmoke"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="FontSize" Value="24" />
+            <Setter Property="FontFamily" Value="Segoe MDL2 Assets"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="border"
+                                BorderBrush="{TemplateBinding BorderBrush}" 
+                                BorderThickness="{TemplateBinding BorderThickness}" 
+                                Background="{TemplateBinding Background}" 
+                                SnapsToDevicePixels="true">
+                            <ContentPresenter x:Name="contentPresenter" 
+                                              Focusable="False"
+                                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
+                                              Margin="{TemplateBinding Padding}"
+                                              RecognizesAccessKey="True" 
+                                              SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" 
+                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsDefaulted" Value="true">
+                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="Foreground" Value="#FF44A7FF"/>
+                                <Setter Property="Background" Value="#FF2B76B8"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="#FF3C7FB1"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="true">
+                                <Setter Property="Foreground" Value="#FF2C628B"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="#FF2C628B"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Background" TargetName="border" Value="Transparent"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="Transparent"/>
+                                <Setter Property="Foreground" Value="#FF4D4D4D"/>
+                                <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="#FF4D4D4D"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </UserControl.Resources>
-    <Border
-        Background="{Binding ElementName=parent, Path=Background}"
-        CornerRadius="0 20 0 0">
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="auto"/>
-            </Grid.RowDefinitions>
-            <StackPanel x:Name="menuList"
-                    Grid.Row="1"
-                    HorizontalAlignment="Stretch"
-                    VerticalAlignment="Stretch"/>
-            <Button x:Name="openButton"
+    <Grid MouseLeave="Grid_MouseLeave">
+        <Button x:Name="openButton"
                 Width="32"
-                Height="32" 
+                Height="32"
                 HorizontalAlignment="Left" 
-                VerticalAlignment="Top"/>
-        </Grid>
-    </Border>
+                VerticalAlignment="Top"
+                Content="&#xE700;"
+                FontSize="18"
+                Panel.ZIndex="1000"
+                Click="OpenButton_Click"/>
+        <Border Background="#FF1F67A2"
+                CornerRadius="0 20 0 0"
+                Width="200"
+                Panel.ZIndex="1001"
+                HorizontalAlignment="Left">
+            <Border.Style>
+                <Style>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Path=IsMenuOpened}" Value="True">
+                            <DataTrigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <StaticResource ResourceKey="open"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </DataTrigger.EnterActions>
+                            <DataTrigger.ExitActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <StaticResource ResourceKey="close"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </DataTrigger.ExitActions>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Border.Style>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+                <Button x:Name="closemenubtn"
+                        Content="&#xE0A6;"
+                        Grid.Row="0"
+                        VerticalContentAlignment="Center"
+                        HorizontalContentAlignment="Center"
+                        Margin="5"
+                        Width="32"
+                        Height="32"
+                        Click="Closemenubtn_Click"
+                        HorizontalAlignment="Right">
+                    <Button.Style>
+                        <Style TargetType="{x:Type Button}">
+                            <Setter Property="Background" Value="Transparent"/>
+                            <Setter Property="BorderBrush" Value="Transparent"/>
+                            <Setter Property="Foreground" Value="WhiteSmoke"/>
+                            <Setter Property="BorderThickness" Value="0"/>
+                            <Setter Property="FontSize" Value="24" />
+                            <Setter Property="FontFamily" Value="Segoe MDL2 Assets"/>
+                            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                            <Setter Property="VerticalContentAlignment" Value="Center"/>
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type Button}">
+                                        <Border x:Name="border"
+                                            CornerRadius="16"
+                                BorderBrush="{TemplateBinding BorderBrush}" 
+                                BorderThickness="{TemplateBinding BorderThickness}" 
+                                Background="{TemplateBinding Background}" 
+                                SnapsToDevicePixels="true">
+                                            <ContentPresenter x:Name="contentPresenter" 
+                                              Focusable="False"
+                                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
+                                              Margin="{TemplateBinding Padding}"
+                                              RecognizesAccessKey="True" 
+                                              SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" 
+                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                                        </Border>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsDefaulted" Value="true">
+                                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                                            </Trigger>
+                                            <Trigger Property="IsMouseOver" Value="true">
+                                                <Setter Property="Foreground" Value="#FF44A7FF"/>
+                                                <Setter Property="Background" Value="#FF2B76B8"/>
+                                                <Setter Property="BorderBrush" TargetName="border" Value="#FF3C7FB1"/>
+                                            </Trigger>
+                                            <Trigger Property="IsPressed" Value="true">
+                                                <Setter Property="Foreground" Value="#FF3087D4"/>
+                                                <Setter Property="BorderBrush" TargetName="border" Value="#FF2C628B"/>
+                                            </Trigger>
+                                            <Trigger Property="IsEnabled" Value="false">
+                                                <Setter Property="Background" TargetName="border" Value="Transparent"/>
+                                                <Setter Property="BorderBrush" TargetName="border" Value="Transparent"/>
+                                                <Setter Property="Foreground" Value="#FF4D4D4D"/>
+                                                <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="#FF4D4D4D"/>
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </Button.Style>
+                </Button>
+                <StackPanel x:Name="menuList"
+                            Grid.Row="1"
+                            Width="200"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Stretch">
+                </StackPanel>
+            </Grid>
+        </Border>
+    </Grid>
 </UserControl>

@@ -59,21 +59,12 @@ namespace MyPhoto
 
         private void MenuInit()
         {
-            MenuItemFactory itemFactory = new MenuItemFactory();
-
-            MenuList = new StackPanel()
-            {
-                Orientation = Orientation.Vertical,
-                HorizontalAlignment = HorizontalAlignment.Stretch
-            };
-            MenuList.Children.Add(itemFactory.CreateMenuItem("\uED25", ApplicationCommands.Open.Text, ApplicationCommands.Open));
-            MenuList.Children.Add(itemFactory.CreateMenuItem("\uE105", ApplicationCommands.Save.Text, ApplicationCommands.Save));
-            MenuList.Children.Add(itemFactory.CreateMenuItem("\uEA35", ApplicationCommands.SaveAs.Text, ApplicationCommands.SaveAs));
-            MenuList.Children.Add(itemFactory.CreateMenuItem("\uE8C8", ApplicationCommands.Copy.Text, ApplicationCommands.Copy));
-            MenuList.Children.Add(itemFactory.CreateHSeparator((Color)(new ColorConverter().ConvertFrom("#FF2C628B"))));
-            MenuList.Children.Add(itemFactory.CreateMenuItem("\uE107", ApplicationCommands.Delete.Text, ApplicationCommands.Delete));
-
-            itemFactory = null;
+            menuEdge.CreateMenuItem("\uED25", ApplicationCommands.Open.Text, ApplicationCommands.Open);
+            menuEdge.CreateMenuItem("\uE105", ApplicationCommands.Save.Text, ApplicationCommands.Save);
+            menuEdge.CreateMenuItem("\uEA35", ApplicationCommands.SaveAs.Text, ApplicationCommands.SaveAs);
+            menuEdge.CreateMenuItem("\uE8C8", ApplicationCommands.Copy.Text, ApplicationCommands.Copy);
+            menuEdge.CreateHSeparator((Color)(new ColorConverter().ConvertFrom("#FF2C628B")));
+            menuEdge.CreateMenuItem("\uE107", ApplicationCommands.Delete.Text, ApplicationCommands.Delete);
         }
 
         private void ViewPortMenuInit()

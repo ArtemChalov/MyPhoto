@@ -96,16 +96,6 @@
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
 
-        <Button x:Name="menubtn"
-                Grid.Column="0"
-                Grid.Row="0"
-                Content="&#xE700;"
-                FontSize="18"
-                HorizontalAlignment="Left"
-                Width="32"
-                Height="32"
-                Click="Menubtn_Click"/>
-        
         <ContentControl Grid.Column="0" 
                         Grid.Row="1" 
                         Content="{Binding FolderPresenter}"/>
@@ -135,158 +125,13 @@
               Grid.Row="2"
               Height="24">
         </Grid>
-        
-        <Border x:Name="menu" 
-                Grid.Column="0"
-                Grid.ColumnSpan="3"
-                Grid.Row="0"
-                Grid.RowSpan="2"
-                CornerRadius="0 20 0 0"
-                Panel.ZIndex="100"
-                ClipToBounds="False"
-                Background="#FF3087D4"
-                Margin="-200 0 0 0"
-                Width="200"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Stretch">
-            <Border.Style>
-                <Style>
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding Path=StateKeeper.IsMenuOpened}" Value="True">
-                            <DataTrigger.EnterActions>
-                                <BeginStoryboard>
-                                    <Storyboard>
-                                        <StaticResource ResourceKey="open"/>
-                                    </Storyboard>
-                                </BeginStoryboard>
-                            </DataTrigger.EnterActions>
-                            <DataTrigger.ExitActions>
-                                <BeginStoryboard>
-                                    <Storyboard>
-                                        <StaticResource ResourceKey="close"/>
-                                    </Storyboard>
-                                </BeginStoryboard>
-                            </DataTrigger.ExitActions>
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </Border.Style>
-            <StackPanel Orientation="Vertical">
-                <StackPanel.Resources>
-                    <Style TargetType="{x:Type Button}">
-                        <Setter Property="Background" Value="Transparent"/>
-                        <Setter Property="BorderBrush" Value="Transparent"/>
-                        <Setter Property="Foreground" Value="WhiteSmoke"/>
-                        <Setter Property="BorderThickness" Value="0"/>
-                        <Setter Property="FontSize" Value="24" />
-                        <Setter Property="FontFamily" Value="Segoe MDL2 Assets"/>
-                        <Setter Property="HorizontalContentAlignment" Value="Center"/>
-                        <Setter Property="VerticalContentAlignment" Value="Center"/>
-                        <Setter Property="Template">
-                            <Setter.Value>
-                                <ControlTemplate TargetType="{x:Type Button}">
-                                    <Border x:Name="border"
-                                BorderBrush="{TemplateBinding BorderBrush}" 
-                                BorderThickness="{TemplateBinding BorderThickness}" 
-                                Background="{TemplateBinding Background}" 
-                                SnapsToDevicePixels="true">
-                                        <ContentPresenter x:Name="contentPresenter" 
-                                              Focusable="False"
-                                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
-                                              Margin="{TemplateBinding Padding}"
-                                              RecognizesAccessKey="True" 
-                                              SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" 
-                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
-                                    </Border>
-                                    <ControlTemplate.Triggers>
-                                        <Trigger Property="IsDefaulted" Value="true">
-                                            <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
-                                        </Trigger>
-                                        <Trigger Property="IsMouseOver" Value="true">
-                                            <Setter Property="Foreground" Value="#FF44A7FF"/>
-                                            <Setter Property="Background" Value="#FF2B76B8"/>
-                                            <Setter Property="BorderBrush" TargetName="border" Value="#FF3C7FB1"/>
-                                        </Trigger>
-                                        <Trigger Property="IsPressed" Value="true">
-                                            <Setter Property="Foreground" Value="#FF3087D4"/>
-                                            <Setter Property="BorderBrush" TargetName="border" Value="#FF2C628B"/>
-                                        </Trigger>
-                                        <Trigger Property="IsEnabled" Value="false">
-                                            <Setter Property="Background" TargetName="border" Value="Transparent"/>
-                                            <Setter Property="BorderBrush" TargetName="border" Value="Transparent"/>
-                                            <Setter Property="Foreground" Value="#FF4D4D4D"/>
-                                            <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="#FF4D4D4D"/>
-                                        </Trigger>
-                                    </ControlTemplate.Triggers>
-                                </ControlTemplate>
-                            </Setter.Value>
-                        </Setter>
-                    </Style>
-                </StackPanel.Resources>
-                <Button x:Name="closemenubtn" Content="&#xE0A6;" 
-                        VerticalContentAlignment="Center"
-                        HorizontalContentAlignment="Center"
-                        Margin="5"
-                        Width="32"
-                        Height="32"
-                        HorizontalAlignment="Right"
-                        Click="Closemenubtn_Click">
-                    <Button.Style>
-                        <Style TargetType="{x:Type Button}">
-                        <Setter Property="Background" Value="Transparent"/>
-                        <Setter Property="BorderBrush" Value="Transparent"/>
-                        <Setter Property="Foreground" Value="WhiteSmoke"/>
-                        <Setter Property="BorderThickness" Value="0"/>
-                        <Setter Property="FontSize" Value="24" />
-                        <Setter Property="FontFamily" Value="Segoe MDL2 Assets"/>
-                        <Setter Property="HorizontalContentAlignment" Value="Center"/>
-                        <Setter Property="VerticalContentAlignment" Value="Center"/>
-                        <Setter Property="Template">
-                            <Setter.Value>
-                                <ControlTemplate TargetType="{x:Type Button}">
-                                    <Border x:Name="border"
-                                            CornerRadius="16"
-                                BorderBrush="{TemplateBinding BorderBrush}" 
-                                BorderThickness="{TemplateBinding BorderThickness}" 
-                                Background="{TemplateBinding Background}" 
-                                SnapsToDevicePixels="true">
-                                        <ContentPresenter x:Name="contentPresenter" 
-                                              Focusable="False"
-                                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
-                                              Margin="{TemplateBinding Padding}"
-                                              RecognizesAccessKey="True" 
-                                              SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" 
-                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
-                                    </Border>
-                                    <ControlTemplate.Triggers>
-                                        <Trigger Property="IsDefaulted" Value="true">
-                                            <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
-                                        </Trigger>
-                                        <Trigger Property="IsMouseOver" Value="true">
-                                            <Setter Property="Foreground" Value="#FF44A7FF"/>
-                                            <Setter Property="Background" Value="#FF2B76B8"/>
-                                            <Setter Property="BorderBrush" TargetName="border" Value="#FF3C7FB1"/>
-                                        </Trigger>
-                                        <Trigger Property="IsPressed" Value="true">
-                                            <Setter Property="Foreground" Value="#FF3087D4"/>
-                                            <Setter Property="BorderBrush" TargetName="border" Value="#FF2C628B"/>
-                                        </Trigger>
-                                        <Trigger Property="IsEnabled" Value="false">
-                                            <Setter Property="Background" TargetName="border" Value="Transparent"/>
-                                            <Setter Property="BorderBrush" TargetName="border" Value="Transparent"/>
-                                            <Setter Property="Foreground" Value="#FF4D4D4D"/>
-                                            <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="#FF4D4D4D"/>
-                                        </Trigger>
-                                    </ControlTemplate.Triggers>
-                                </ControlTemplate>
-                            </Setter.Value>
-                        </Setter>
-                    </Style>
-                    </Button.Style>
-                </Button>
-                <ContentControl HorizontalAlignment="Stretch"
-                                Content="{Binding MenuList}"/>
-            </StackPanel>
-        </Border>
+
+        <local:EdgeMenu x:Name="menuEdge"
+                        Width="200"
+                        Grid.Column="0"
+                        HorizontalAlignment="Left"
+                        Grid.ColumnSpan="2"
+                        Grid.Row="0"
+                        Grid.RowSpan="3"/>
     </Grid>
 </Window>
