@@ -13,7 +13,8 @@
         Background="Black"
         Closing="Window_Closing"
         Height="450" Width="800"
-        SizeChanged="Window_SizeChanged">
+        SizeChanged="Window_SizeChanged"
+        Loaded="Window_Loaded">
     <Window.CommandBindings>
         <CommandBinding Command="ApplicationCommands.Open"
                         Executed="Open_Executed"/>

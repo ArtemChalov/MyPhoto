@@ -28,9 +28,7 @@ namespace MyPhoto
             InitializeComponent();
             this.DataContext = this;
             ImagePresenterInit();
-            MenuInit();
             ServicesInit();
-            ViewPortMenuInit();
         }
 
         #region Init methods
@@ -55,7 +53,7 @@ namespace MyPhoto
             };
         }
 
-        private void MenuInit()
+        private void EdgeMenuInit()
         {
             menuedge.CreateMenuItem("\uED25", ApplicationCommands.Open.Text, ApplicationCommands.Open);
             menuedge.CreateMenuItem("\uE105", ApplicationCommands.Save.Text, ApplicationCommands.Save);
@@ -116,7 +114,13 @@ namespace MyPhoto
 
         #endregion
 
-        #region Events
+        #region Window Events
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            EdgeMenuInit();
+            ViewPortMenuInit();
+        }
 
         private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
         {
@@ -136,7 +140,7 @@ namespace MyPhoto
 
         #endregion
 
-        #region ApplicationCommand
+        #region Application Commands
 
         private void Open_Executed(object sender, ExecutedRoutedEventArgs e)
         {
@@ -244,5 +248,6 @@ namespace MyPhoto
         }
 
         #endregion
+
     }
 }
