@@ -58,6 +58,10 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EdgeMenu, Version=1.0.0.0, Culture=neutral, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\x64\Release\EdgeMenu.dll</HintPath>
+    </Reference>
     <Reference Include="FolderContentPresenter, Version=1.0.0.0, Culture=neutral, processorArchitecture=AMD64">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>bin\x64\Release\FolderContentPresenter.dll</HintPath>
@@ -93,9 +97,6 @@
     <ApplicationDefinition Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
     </ApplicationDefinition>
-    <Compile Include="EdgeMenu.xaml.cs">
-      <DependentUpon>EdgeMenu.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Services\AppServices.cs" />
     <Compile Include="StateKeeper.cs" />
     <Compile Include="Wrappers\OpenDialogWrappers.cs" />
@@ -103,10 +104,6 @@
     <Compile Include="Utilities\ImgPreviewTransformer.cs" />
     <Compile Include="Utilities\ViewPortMenuItemFactory.cs" />
     <Compile Include="Wrappers\SaveDialogWrapper.cs" />
-    <Page Include="EdgeMenu.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

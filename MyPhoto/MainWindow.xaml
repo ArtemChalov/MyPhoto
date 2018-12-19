@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:MyPhoto"
         xmlns:folderpres="clr-namespace:FolderContentPresenter;assembly=FolderContentPresenter"
         xmlns:converters="clr-namespace:MyPhoto.Converters"
+        xmlns:menuedge="clr-namespace:EdgeMenu;assembly=EdgeMenu"
         mc:Ignorable="d"
         WindowState="Normal"
         Title="MyPhoto"
@@ -126,12 +127,14 @@
               Height="24">
         </Grid>
 
-        <local:EdgeMenu x:Name="menuEdge"
-                        Width="200"
-                        Grid.Column="0"
-                        HorizontalAlignment="Left"
-                        Grid.ColumnSpan="2"
-                        Grid.Row="0"
-                        Grid.RowSpan="3"/>
+        <menuedge:MenuEdge x:Name="menuedge" 
+                           Grid.Column="0"
+                           Grid.ColumnSpan="2"
+                           Grid.Row="0"
+                           Grid.RowSpan="3"
+                           HorizontalAlignment="Left"
+                           VerticalAlignment="Stretch"/>
+
+        
     </Grid>
 </Window>

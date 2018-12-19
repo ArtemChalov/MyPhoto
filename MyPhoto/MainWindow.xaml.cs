@@ -59,12 +59,12 @@ namespace MyPhoto
 
         private void MenuInit()
         {
-            menuEdge.CreateMenuItem("\uED25", ApplicationCommands.Open.Text, ApplicationCommands.Open);
-            menuEdge.CreateMenuItem("\uE105", ApplicationCommands.Save.Text, ApplicationCommands.Save);
-            menuEdge.CreateMenuItem("\uEA35", ApplicationCommands.SaveAs.Text, ApplicationCommands.SaveAs);
-            menuEdge.CreateMenuItem("\uE8C8", ApplicationCommands.Copy.Text, ApplicationCommands.Copy);
-            menuEdge.CreateHSeparator((Color)(new ColorConverter().ConvertFrom("#FF2C628B")));
-            menuEdge.CreateMenuItem("\uE107", ApplicationCommands.Delete.Text, ApplicationCommands.Delete);
+            menuedge.CreateMenuItem("\uED25", ApplicationCommands.Open.Text, ApplicationCommands.Open);
+            menuedge.CreateMenuItem("\uE105", ApplicationCommands.Save.Text, ApplicationCommands.Save);
+            menuedge.CreateMenuItem("\uEA35", ApplicationCommands.SaveAs.Text, ApplicationCommands.SaveAs);
+            menuedge.CreateMenuItem("\uE8C8", ApplicationCommands.Copy.Text, ApplicationCommands.Copy);
+            menuedge.CreateHSeparator((Color)(new ColorConverter().ConvertFrom("#FF2C628B")));
+            menuedge.CreateMenuItem("\uE107", ApplicationCommands.Delete.Text, ApplicationCommands.Delete);
         }
 
         private void ViewPortMenuInit()
@@ -107,6 +107,8 @@ namespace MyPhoto
         }
 
         public ContentControl FolderPresenter { get; set; }
+
+        public ContentControl MenuEdgePanel { get; set; }
 
         public ScrollViewer ImgViewer { get; set; }
 
