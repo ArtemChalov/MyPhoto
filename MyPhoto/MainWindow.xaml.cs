@@ -29,6 +29,7 @@ namespace MyPhoto
             this.DataContext = this;
             ImagePresenterInit();
             ServicesInit();
+            ViewPortMenuInit();
         }
 
         #region Init methods
@@ -53,14 +54,14 @@ namespace MyPhoto
             };
         }
 
-        private void EdgeMenuInit()
+        private void DrawerMenuInit()
         {
-            menuedge.CreateMenuItem("\uED25", ApplicationCommands.Open.Text, ApplicationCommands.Open);
-            menuedge.CreateMenuItem("\uE105", ApplicationCommands.Save.Text, ApplicationCommands.Save);
-            menuedge.CreateMenuItem("\uEA35", ApplicationCommands.SaveAs.Text, ApplicationCommands.SaveAs);
-            menuedge.CreateMenuItem("\uE8C8", ApplicationCommands.Copy.Text, ApplicationCommands.Copy);
-            menuedge.CreateHSeparator((Color)(new ColorConverter().ConvertFrom("#FF2C628B")));
-            menuedge.CreateMenuItem("\uE107", ApplicationCommands.Delete.Text, ApplicationCommands.Delete);
+            drawerMenu.CreateMenuItem("\uED25", ApplicationCommands.Open.Text, ApplicationCommands.Open);
+            drawerMenu.CreateMenuItem("\uE105", ApplicationCommands.Save.Text, ApplicationCommands.Save);
+            drawerMenu.CreateMenuItem("\uEA35", ApplicationCommands.SaveAs.Text, ApplicationCommands.SaveAs);
+            drawerMenu.CreateMenuItem("\uE8C8", ApplicationCommands.Copy.Text, ApplicationCommands.Copy);
+            drawerMenu.CreateHSeparator((Color)(new ColorConverter().ConvertFrom("#FF2C628B")));
+            drawerMenu.CreateMenuItem("\uE107", ApplicationCommands.Delete.Text, ApplicationCommands.Delete);
         }
 
         private void ViewPortMenuInit()
@@ -118,8 +119,7 @@ namespace MyPhoto
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            EdgeMenuInit();
-            ViewPortMenuInit();
+            DrawerMenuInit();
         }
 
         private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
@@ -140,7 +140,7 @@ namespace MyPhoto
 
         #endregion
 
-        #region Application Commands
+        #region Common Application Commands
 
         private void Open_Executed(object sender, ExecutedRoutedEventArgs e)
         {
@@ -168,38 +168,46 @@ namespace MyPhoto
         private void SaveAs_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             SaveDialogWrapper saver = new SaveDialogWrapper();
-            saver.SaveFileWithDialog(MainImage);
-            throw new NotImplementedException();
-            //UploadFolderContent();
-            //saver = null;
+
+            string newPath = saver.SaveFileWithDialog(MainImage);
+            if (!string.IsNullOrEmpty(newPath))
+            {
+                Array.Resize<string>(ref _FilePaths, FilePaths.Length + 1);
+                _FilePaths[_FilePaths.Length - 1] = newPath;
+                AppServices.UpdateFolderPresenter(_FilePaths);
+            }
+
+            saver = null;
         }
 
         private void Copy_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             if (File.Exists(FilePath))
             {
-                string extention = FilePath.Substring(FilePath.LastIndexOf('.'));
-                string newfile = FilePath.Substring(0, FilePath.LastIndexOf('.'));
-                if (!newfile.Contains("_копия"))
-                    newfile = FilePath.Substring(0, FilePath.LastIndexOf('.')) + "_копия0";
-                while (File.Exists(newfile + extention))
+                string extention = Path.GetExtension(FilePath);
+                string newfilePath = FilePath.Substring(0, FilePath.LastIndexOf('.'));
+
+                if (!newfilePath.Contains("_копия"))
+                    newfilePath = FilePath.Substring(0, FilePath.LastIndexOf('.')) + "_копия0";
+                while (File.Exists(newfilePath + extention))
                 {
-                    var root = newfile.Substring(0, newfile.LastIndexOf('я') + 1);
-                    var snum = newfile.Substring(newfile.LastIndexOf('я') + 1);
+                    var root = newfilePath.Substring(0, newfilePath.LastIndexOf('я') + 1);
+                    var snum = newfilePath.Substring(newfilePath.LastIndexOf('я') + 1);
                     Int32.TryParse(snum, out int inum);
                     inum++;
-                    newfile = root + inum.ToString();
+                    newfilePath = root + inum.ToString();
                 }
 
-                newfile += extention;
+                newfilePath += extention;
 
-                File.Copy(FilePath, newfile);
-                if (File.Exists(newfile))
+                File.Copy(FilePath, newfilePath);
+                if (File.Exists(newfilePath))
                 {
-                    _FilePath = newfile;
-                    throw new NotImplementedException();
+                    _FilePath = newfilePath;
 
-                   // UploadFolderContent();
+                    Array.Resize<string>(ref _FilePaths, FilePaths.Length + 1);
+                    _FilePaths[_FilePaths.Length - 1] = newfilePath;
+                    AppServices.UpdateFolderPresenter(_FilePaths);
                 }
             }
         }

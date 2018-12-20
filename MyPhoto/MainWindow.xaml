@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:MyPhoto"
         xmlns:folderpres="clr-namespace:FolderContentPresenter;assembly=FolderContentPresenter"
         xmlns:converters="clr-namespace:MyPhoto.Converters"
-        xmlns:menuedge="clr-namespace:EdgeMenu;assembly=EdgeMenu"
+        xmlns:appmenus="clr-namespace:Menus;assembly=Menus"
         mc:Ignorable="d"
         WindowState="Normal"
         Title="MyPhoto"
@@ -114,12 +114,14 @@
                         Grid.Column="1"
                         Grid.Row="0"
                         Grid.RowSpan="2"
+                        Panel.ZIndex="0"
                         Content="{Binding ImgViewer}"/>
 
         <ContentControl x:Name="viewportmenu" 
                         Content="{Binding ViewPortMenu}"
                         Grid.Column="1"
-                        Grid.Row="0"/>
+                        Grid.Row="0"
+                        Panel.ZIndex="1"/>
 
         <Grid x:Name="statusbar"
               Grid.Column="0"
@@ -128,13 +130,13 @@
               Height="24">
         </Grid>
 
-        <menuedge:MenuEdge x:Name="menuedge" 
-                           Grid.Column="0"
-                           Grid.ColumnSpan="2"
-                           Grid.Row="0"
-                           Grid.RowSpan="3"
-                           HorizontalAlignment="Left"
-                           VerticalAlignment="Stretch"/>
+        <appmenus:DrawerMenu x:Name="drawerMenu" 
+                             Grid.Column="0"
+                             Grid.ColumnSpan="2"
+                             Grid.Row="0"
+                             Grid.RowSpan="3"
+                             HorizontalAlignment="Left"
+                             VerticalAlignment="Stretch"/>
 
         
     </Grid>

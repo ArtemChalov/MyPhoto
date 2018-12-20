@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Menus</name>
+    </assembly>
+    <members>
+        <member name="T:Menus.DrawerMenu">
+            <summary>
+            Represents an drawer menu that has menu items.
+            </summary>
+            <summary>
+            DrawerMenu
+            </summary>
+        </member>
+        <member name="M:Menus.DrawerMenu.#ctor">
+            <summary>
+            Initializes a new instance of the DrawerMenu class.
+            </summary>
+        </member>
+        <member name="P:Menus.DrawerMenu.IsMenuOpened">
+            <summary>
+            Get or set a value indicating whether the menu is opened.
+            </summary>
+        </member>
+        <member name="M:Menus.DrawerMenu.CreateMenuItem(System.Object,System.String,System.Windows.Input.ICommand)">
+            <summary>
+            Creats a new menu item with a specified icon and header for the menu item.
+            </summary>
+            <param name="icon">Menu icon.</param>
+            <param name="header">Menu header.</param>
+            <param name="command">The called command.</param>
+        </member>
+        <member name="M:Menus.DrawerMenu.CreateHSeparator(System.Windows.Media.Color)">
+            <summary>
+            Creates a new horizontal menu separator.
+            </summary>
+            <param name="color">The color of the separator.</param>
+        </member>
+        <member name="E:Menus.DrawerMenu.PropertyChanged">
+            <summary>
+            Represents the method that will handle the PropertyChanged event
+            raised when a property is changed on a component.
+            </summary>
+        </member>
+        <member name="M:Menus.DrawerMenu.OnPropertyChanged(System.String)">
+            <summary>
+            Mehtod that rais the event.
+            </summary>
+            <param name="propertyName">Property name.</param>
+        </member>
+        <member name="M:Menus.DrawerMenu.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+    </members>
+</doc>

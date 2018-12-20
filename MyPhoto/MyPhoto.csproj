@@ -58,13 +58,12 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EdgeMenu, Version=1.0.0.0, Culture=neutral, processorArchitecture=AMD64">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\x64\Release\EdgeMenu.dll</HintPath>
-    </Reference>
     <Reference Include="FolderContentPresenter, Version=1.0.0.0, Culture=neutral, processorArchitecture=AMD64">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>bin\x64\Release\FolderContentPresenter.dll</HintPath>
+    </Reference>
+    <Reference Include="Menus">
+      <HintPath>bin\x64\Release\Menus.dll</HintPath>
     </Reference>
     <Reference Include="MVVM, Version=1.0.0.0, Culture=neutral, processorArchitecture=AMD64">
       <SpecificVersion>False</SpecificVersion>
